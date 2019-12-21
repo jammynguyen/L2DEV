@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_GrooveTemplates_Index;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+@section module_menu
+        {
+    @Html.ImageButton("new", "AddNew()", false)
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.VM_GrooveTemplate>()
+                .Name("GrooveTemplateGrid")
+                .HtmlAttributes(new { style = @String.Format(" height:{0}px;", ViewBag.FullGridHeight) })
+                .Scrollable()
+                .Pageable(p => p
+                    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                .Filterable()
+                .Sortable()
+                .Columns(columns =>
+                {
+columns.Bound(p => p.Id).Visible(false).Filterable(false);
+        columns.Bound(p => p.GrooveTemplateName).Width(110).Filterable(true);
+        columns.Bound(p => p.Shape).Width(50).Filterable(true);
+                  columns.Bound(p => p.GrooveTemplateCode).Width(50).Filterable(true);
+        //columns.ForeignKey(o => o.Status, (SelectList)ViewBag.GrooveStatus).Width(60);
+        columns.Bound(p => p.GrindingProgramName).Width(50).Filterable(true);
+        columns.Bound(p => p.SpreadFactor).Width(50).Filterable(true);
+        columns.Bound(p => p.R1).Width(50).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.R2).Width(50).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.R3).Width(50).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.D1).Width(50).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.D2).Width(50).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.W1).Width(40).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.W2).Width(40).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.Angle1).Width(50).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.Angle2).Width(50).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.Id).Width(60).Sortable(false).Groupable(false).Filterable(false).Title("").ClientTemplate(@Html.ImageButton("edit", "EditData(#= Id #,  \'#=GrooveTemplateName#\')", false).ToString() + @Html.ImageButton("delete", "Delete(#= Id #)", false).ToString());
+                })
+                .DataSource(ds => ds
+                                    .Ajax()
+                                    .ServerOperation(true)
+                                    .PageSize(27)
+                                    .Events(e => e.Error("TelerikErrorHandler"))
+                                    .Read(r => r.Action("GetGrooveTemplatesData", "GrooveTemplate"))
+                           )
+)
+
+@Scripts.Render("~/Scripts/module/GrooveTemplate")

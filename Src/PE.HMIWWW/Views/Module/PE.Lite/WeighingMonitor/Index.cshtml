@@ -1,0 +1,128 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Material.VM_RawMaterialOverview
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+
+<div class="row container-fluid p-3 pt-4">
+
+    <div class="col-8">
+
+        @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Material.VM_RawMaterialOverview>()
+            .Name("WeighingOverveiwBeforeScale")
+            .HtmlAttributes(new { style = @String.Format(" height:{0}px;", 130) })
+            .Sortable()
+            .Columns(c =>
+            {
+                c.Bound(x => x.RawMaterialId).Visible(false);
+                c.Bound(x => x.RawMaterialName);
+                c.Bound(x => x.WorkOrderName);
+                c.Bound(x => x.HeatName);
+                c.Bound(x => x.FKMaterialId)
+                 .Filterable(false)
+                 //.ClientTemplate(Html.ImageButton("edit", "OpenUrlInPopupWindow('/DelaysCatalogue/DelayCatalogueEditPopup', 600, null, { delayCatalogueId: #= Id # }, function(){ refreshKendoGrid('DelayCatalogueList') });").ToString())
+                 .ClientTemplate(Html.ImageButton("details", "GoToMaterial(#:FKMaterialId#)").ToString())
+                 .Width(30)
+                 .Title(String.Empty);
+            })
+            .DataSource(ds => ds
+                                .Ajax()
+                                .ServerOperation(true)
+                                .PageSize(4)
+                                .Events(e => e.Error("TelerikErrorHandler"))
+                                .Read(r => r.Action("GetRawMaterialsBeforeWeightList", "WeighingMonitor"))
+                       )
+        )
+        <div class="text-center mb-4 mt-4">
+            <i class="material-icons text-center" style="color: #006487;">arrow_downward</i>
+        </div>
+        <div class="weight">
+            <div class="row p-0 pr-3 h-100">
+                <div class="col-3 form-group">
+                    <div class="text-left pt-4 pl-5">
+                        <label>@Html.LabelFor(x => x.RawMaterialName)</label>
+                    </div>
+                    <div class="text-left pl-5">
+                        @Html.DisplayFor(x => x.RawMaterialName)
+                    </div>
+                </div>
+                <div class="col-3 form-group">
+                    <div class="text-left pt-4 pl-5">
+                        <label>@Html.LabelFor(x => x.WorkOrderName)</label>
+                    </div>
+                    <div class="text-left pl-5">
+                        @Html.DisplayFor(x => x.WorkOrderName)
+                    </div>
+                </div>
+                <div class="col-3 form-group">
+                    <div class="text-left pt-4 pl-5">
+                        <label>@Html.LabelFor(x => x.HeatName)</label>
+                    </div>
+                    <div class="text-left pl-5">
+                        @Html.DisplayFor(x => x.HeatName)
+                    </div>
+                </div>
+                <div class="col-3 form-group m-0 p-0" style="background-color: #f7f7f7; border-left: 1px solid #dbdbdb;">
+                    <div class="text-left pt-4 pl-5">
+                        <label>@Html.LabelFor(x => x.Weight)</label>
+                    </div>
+                    <div class="text-left pl-5">
+                        @Html.DisplayFor(x => x.Weight)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mb-4 mt-4">
+            <i class="material-icons text-center" style="color: #006487">arrow_downward</i>
+        </div>
+        @*<div class="row" />*@
+        @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Material.VM_RawMaterialOverview>()
+            .Name("WeighingOverveiwAfterScale")
+            .HtmlAttributes(new { style = @String.Format(" height:{0}px;", 130) })
+            .Sortable()
+            .Columns(c =>
+            {
+                 c.Bound(x => x.RawMaterialId).Visible(false);
+                 c.Bound(x => x.RawMaterialName);
+                 c.Bound(x => x.WorkOrderName);
+                 c.Bound(x => x.HeatName);
+                 c.Bound(x => x.Weight).Width(20);
+                 c.Bound(x => x.FKMaterialId)
+                 .Filterable(false)
+                 //.ClientTemplate(Html.ImageButton("edit", "OpenUrlInPopupWindow('/DelaysCatalogue/DelayCatalogueEditPopup', 600, null, { delayCatalogueId: #= Id # }, function(){ refreshKendoGrid('DelayCatalogueList') });").ToString())
+                 .ClientTemplate(Html.ImageButton("details", "GoToMaterial(#:FKMaterialId#)").ToString())
+                 .Width(30)
+                 .Title(String.Empty);
+            })
+                    .DataSource(ds => ds
+                    .Ajax()
+                    .ServerOperation(true)
+                    .PageSize(4)
+                    .Events(e => e.Error("TelerikErrorHandler"))
+                    .Read(r => r.Action("GetRawMaterialsAfterWeightList", "WeighingMonitor"))
+           )
+        )
+
+    </div>
+    <div class="col-4 ">
+        @Html.Partial("~/Views/Module/PE.Lite/WeighingMonitor/_ProductsLabel.cshtml")
+    </div>
+</div>
+
+
+
+
+@*@Styles.Render("~/Content/Module/WorkOrder")*@
+@Scripts.Render("~/Scripts/Module/WeighingMonitor")
+
+<script>
+    $('document').ready(onSelect( '@Model.RawMaterialName'));
+
+</script>
+
+<style>
+    .weight{
+        border: 1px solid #dbdbdb;
+        height: 120px;
+    }
+</style>

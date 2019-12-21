@@ -1,0 +1,29 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Heat.VM_HeatOverview
+
+<div class="row h-100">
+  <div class="col">
+    @(Html.Kendo().TabStrip()
+              .Name("HeatBody")
+              .Animation(false)
+              .Scrollable(false)
+              .Items(tabstrip =>
+              {
+                  tabstrip.Add().Text(VM_Resources.NAME_HeatDetails)
+                    .Selected(true).Content(@Html.Partial("~/Views/Module/PE.Lite/Heat/_HeatDetails.cshtml", Model).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                  tabstrip.Add().Text(VM_Resources.NAME_HeatChemAnalysis)
+                    .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/Heat/_HeatChemAnalysis.cshtml", Model).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                  tabstrip.Add().Text(VM_Resources.NAME_MaterialsList)
+                    .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/Heat/_HeatMaterialList.cshtml", Model.HeatId).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                  tabstrip.Add().Text(VM_Resources.NAME_WorkOrderList)
+                    .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/Heat/_HeatWorkOrdersList.cshtml", Model.HeatId).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+              })
+                      .Events(e =>
+                      {
+                          e.Select("saveTabStripState");
+                      })
+    )
+  </div>
+</div>
+
+@Styles.Render("~/Content/Module/Heat")
+@Scripts.Render("~/Scripts/Module/Heat")

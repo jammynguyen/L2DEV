@@ -1,0 +1,52 @@
+﻿@model List<PE.HMIWWW.ViewModel.System.VM_UserRights>
+
+@{
+	ViewBag.Title = "Service";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>@PE.HMIWWW.Core.Resources.VM_Resources.PAGE_LABEL_AddedUserRights</h4>
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.System.VM_UserRights>()
+    .Name("AddedUserRights")
+    .HtmlAttributes(new { style = "border:none !important;" })
+		.Columns(columns =>
+		{
+			columns.Bound(p => p.Name).Width(150);
+			columns.Bound(p => p.Method).Width(150);
+			columns.Bound(p => p.AccessName).Width(150);
+
+		}).Sortable()
+	    .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+		.DataSource(dataSource => dataSource
+						.Ajax()
+						.ServerOperation(true)
+						.PageSize((int)ViewBag.NoRecordsInGrid)
+						.Read(read => read.Action("UserRightsPopulate", "Service"))
+						.Events(events => events.Error("TelerikErrorHandler"))
+						))
+
+<h4>@PE.HMIWWW.Core.Resources.VM_Resources.PAGE_LABEL_ExistedUserRights</h4>
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.System.VM_UserRights>()
+    .Name("ExistedUserRights")
+    .HtmlAttributes(new { style = "border:none !important;" })
+    .Columns(columns =>
+{
+    columns.Bound(p => p.Name).Sortable(true).Width(150);
+    columns.Bound(p => p.Method).Sortable(false).Filterable(false).Width(150);
+    columns.Bound(p => p.AccessName).Sortable(false).Filterable(false).Width(150);
+
+})
+    .Sortable()
+    .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .ServerOperation(true)
+                        //.PageSize((int)ViewBag.NoRecordsInGrid)
+                        .Read(read => read.Action("GetExistedAccessUnits", "Service"))
+                        .Events(events => events.Error("TelerikErrorHandler"))
+                        ))
+

@@ -1,0 +1,159 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.ActualStandConfiguration.VM_RollChangeOperation
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@if (Model != null && !@ViewData.ModelState.IsValid)
+{
+    <script>
+        $(document).ready(function () {
+            $("#header").css('background', '#ce0037').css('color', '#fff');
+        })
+    </script>
+}
+
+
+@using (Ajax.BeginForm("DismountRollSet", "ActualStandConfiguration", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "form-horizontal", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.StandNo)
+    @Html.HiddenFor(model => model.Arrangement)
+    @Html.HiddenFor(model => model.StandStatus)
+    @Html.HiddenFor(model => model.CassetteId)
+    @Html.HiddenFor(model => model.PositionInCassette)
+    @Html.HiddenFor(model => model.RollsetToBeDismountedId)
+
+
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.StandNo)</label>
+        </div>
+        <div class="col">
+            @Html.DisplayFor(m => m.StandNo)
+
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.Arrangement)</label>
+        </div>
+        <div class="col">
+            @Html.DisplayFor(m => m.Arrangement)
+
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.StandStatus)</label>
+        </div>
+        <div class="col">
+            @Html.Raw(((SelectList)ViewBag.StandStat).Where(p => p.Value == Model.StandStatus.ToString()).First().Text)
+
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.CassetteName)</label>
+        </div>
+        <div class="col">
+            @Html.DisplayFor(m => m.CassetteName)
+
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.PositionInCassette)</label>
+        </div>
+        <div class="col">
+            @Html.DisplayFor(m => m.PositionInCassette)
+
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.RollsetToBeDismounted)</label>
+        </div>
+        <div class="col">
+            @Html.DisplayFor(m => m.RollsetToBeDismounted)
+
+        </div>
+    </div>
+
+
+    <hr />
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.BUTTON_SubmitForm
+            </button>
+        </div>
+    </div>
+
+
+
+
+
+    @*<div class="row">
+        <div class="col-5">
+            <div class="form-group">
+                @Html.LabelFor(m => m.StandNo, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(m => m.StandNo)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Arrangement, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(m => m.Arrangement)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.StandStatus, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.Raw(((SelectList)ViewBag.StandStat).Where(p => p.Value == Model.StandStatus.ToString()).First().Text)
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="form-group">
+                @Html.LabelFor(m => m.CassetteName, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(m => m.CassetteName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PositionInCassette, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(m => m.PositionInCassette)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.RollsetToBeDismounted, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(m => m.RollsetToBeDismounted)
+                </div>
+                <br />
+                <div class="col-md-10">
+                    <div class="col-md-offset-2 " style="text-align:right; padding-top:12px;">
+                        <input type="submit" class="btn btn-primary popup_button" value="@PE.HMIWWW.Core.Resources.VM_Resources.BUTTON_SubmitForm" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>*@
+
+
+
+}

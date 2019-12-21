@@ -1,0 +1,101 @@
+﻿<div style="position:absolute; right:0px; top:0px;">
+  @Html.ImageButton("Alarm", "index", "alarms", false)
+  @*@Html.ImageButton("new", "StartSignalR()", false)*@
+</div>
+
+<table id="alarm-table">
+  <tr>
+    <th style="width: 50px;">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_AlarmCategoryName</th>
+    <th style="width: 60px;">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_AlarmType</th>
+    <th style="width: 120px;">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_AlarmOwner</th>
+    <th style="width: 200px;">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_AlarmDate</th>
+    <th style="width: 700px;">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_Message</th>
+  </tr>
+</table>
+
+<script>
+    $(document).ready(function () {
+      InitAlarmTable();
+        HmiHub.client.System2HmiBroadcastLastAlarms = function (alarmData) {
+            BuildAlarmTable(alarmData);
+        };
+    });
+
+  function BuildAlarmTable(data) {
+        var table = $("#alarm-table");
+        cols = 5;
+
+        table.find("tr:gt(0)").remove();
+
+        try {
+
+            for (var i = 0; i < data.length; i++) {
+
+                table.append('<tr></tr>');
+                table.find('tr').eq(i + 1).attr('data-row', i + 1);
+
+                table.find('tr').eq(i + 1).append('<td></td>');
+                table.find('tr').eq(i + 1).append('<td></td>');
+                table.find('tr').eq(i + 1).append('<td></td>');
+                table.find('tr').eq(i + 1).append('<td></td>');
+                table.find('tr').eq(i + 1).append('<td></td>');
+
+                var row = $('tr[data-row="' + (i + 1) + '"] ');
+                row.find('td').eq(0).text(data[i].Category);
+                row.find('td').eq(1).text(data[i].Type);
+                row.find('td').eq(2).text(data[i].Source);
+                row.find('td').eq(3).text(data[i].Date);
+                row.find('td').eq(4).text(data[i].Message);
+
+                if (data[i].AlarmType) {
+                    if (data[i].AlarmType == 2) {
+                        row.css('background', '#ffcd00').css('color', '#425563');
+                    }
+                    else if (data[i].AlarmType == 3) {
+                        row.css('background', '#ce0037').css('color', '#ffffff');
+                    }
+                    else {
+                        if (i % 2 == 0)
+                            row.css("background-color", "#ffffff").css('color', '#63666a');
+                        else
+                            row.css("background-color", "#f5f5f5").css('color', '#63666a');
+                    }
+                } else {
+                    if (data[i].AlarmTypeId == 2) {
+                        row.css('background', '#ffcd00').css('color', '#425563');
+                    }
+                    else if (data[i].AlarmTypeId == 3) {
+                        row.css('background', '#ce0037').css('color', '#ffffff');
+                    }
+                    else {
+                        if (i % 2 == 0)
+                            row.css("background-color", "#ffffff").css('color', '#63666a');
+                        else
+                            row.css("background-color", "#f5f5f5").css('color', '#63666a');
+                    }
+                }
+            }
+        }
+        catch (ex) {
+            trace(ex);
+        }
+  }
+
+    function InitAlarmTable() {
+
+      $.ajax(
+        {
+          type: "POST",
+          page: 1,
+          rp: 6,
+          url: '@Url.Action("GetLastShortAlarmData", "Alarm")',
+          dataType: "json",
+          success: function (result) {
+            return BuildAlarmTable(result.Data)
+          },
+          error: function (x, e) {
+          }
+        });
+    }
+
+</script>

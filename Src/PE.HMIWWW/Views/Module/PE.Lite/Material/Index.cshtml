@@ -1,0 +1,30 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Material.VM_MaterialOverview
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+@section module_menu
+{
+    @Html.ImageButton("editworkorder", "EditWorkOrder()", false)
+}
+
+<div class="container-fluid p-3">
+    <div class="row">
+        <div class="col-3 grid-filter">
+            @Html.Partial("~/Views/Module/PE.Lite/Material/_MaterialSearchGrid.cshtml", Model)
+        </div>
+        @*<button onclick="showHideCategories()" class="off show-hide-categories btn btn-sm"><i class="arrow arrow-categories arrow-white right"></i></button>*@
+        <div class="col-9 element-details" id="MaterialDetails">
+            <div class="row justify-content-center plug">
+                <div class="col-6 align-self-center">
+                    <img src="~/Content/Shared/plug.png" />
+                    <p class="mt-5 plug-info">@VM_Resources.INFO_SelectPlugInfo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Styles.Render("~/Content/Module/Material")
+@Scripts.Render("~/Scripts/Module/Material")
+

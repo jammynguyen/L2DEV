@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProcessExpert - @ViewBag.Page_Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/telerikcss")
+    @*@Styles.Render("~/Content/service")*@
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/telerikjs")
+    @*@Scripts.Render("~/bundles/chartjs")*@
+    @*@Scripts.Render("~/bundles/cryptojs")*@
+    @*@Scripts.Render("~/bundles/gauge")*@
+    @Scripts.Render("~/bundles/service")
+
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+    @*<script src="~/Scripts/contents.js"></script>*@
+
+    <script src="~/signalr/hubs"></script>
+    @{
+        Html.RenderPartial("~/Views/Shared/parts/_JsTranslations.cshtml");
+    }
+    <script>
+        $(document).ready(function () {
+            refreshKendoCulture();
+
+            //FORM VALIDATION AND BUTTON DISABLE
+            $('#form').on('submit', function () {
+                if ($('#form').valid()) {
+                    console.log('Validation PASSED');
+                    $('.formButtonSubmit').attr("disabled", true);
+                }
+            });
+        });
+
+        function refreshKendoCulture()
+        {
+            kendo.culture('@((new System.Globalization.CultureInfo(Culture)).Name)');
+        }
+    </script>
+    @*<link href="@Url.Content("~/Content/bootstrapFixes.css")" rel="stylesheet" type="text/css" />*@
+    @*@{Html.RenderPartial("~/Views/Shared/_LayoutIncludes.cshtml"); }*@
+    @RenderSection("scripts", required: false)
+    @RenderSection("ModuleIncludes", required: false)
+
+</head>
+<body>
+
+
+    @{ Html.RenderPartial("~/Views/Shared/Notification/_Notification.cshtml"); }
+
+    <header class="main">
+        @{ Html.RenderPartial("~/Views/Shared/parts/_TopPane.cshtml"); }
+        <div class="clearix"></div>
+    </header>
+    <div id="MainScreen" class="container-fluid main">
+        <div class="row">
+            <div class="sidebar col-2 py-4">
+                @Html.Action("_Widgets", "WidgetCOnfiguration")
+            </div>
+            <div class="wraper col-10">
+                <div class="row">
+                    <div class="page-title col-12">
+                        <i class="page-icon" style="@ViewBag.Page_Icon"></i>
+                        @ViewBag.Page_Title
+                        <div id="module-header-menu">
+                            <div class="module-menu">
+                                @RenderSection("module_menu", required: false)
+                                @Html.DefaultButtons(false)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 page-body">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid">
+        <div class="row">
+            @Html.Partial("~/Views/Shared/Alarm/_LastAlarms.cshtml")
+        </div>
+    </footer>
+</body>
+</html>

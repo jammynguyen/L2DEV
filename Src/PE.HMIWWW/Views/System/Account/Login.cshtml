@@ -1,0 +1,73 @@
+﻿@using PE.HMIWWW.ViewModel.System
+@using SMF.DbEntity.Model
+@model LoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="center">
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div style="text-align:center;margin-top:45px;">
+            <p style="font-size:35px">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_Login</p>
+        </div>
+        <div style="text-align:center">
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Email, new { placeholder = PE.HMIWWW.Core.Resources.VM_Resources.NAME_Email, @class = "form-control inputFont" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(m => m.Password, new { placeholder = PE.HMIWWW.Core.Resources.VM_Resources.NAME_Password, @class = "form-control inputFont" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div style="text-align:center">
+            <input type="submit" value="Log in" class="btn-login" />
+
+
+            <div class="checkbox" style="font-size:16px;">
+                @Html.CheckBoxFor(m => m.RememberMe, htmlAttributes: new { @style = "position:static" })
+                @Html.LabelFor(m => m.RememberMe)
+            </div>
+        </div>
+        <div style="position:absolute;bottom:10px;left:15px;">
+            @{
+                var langList = SMF.HMI.Core.CultureHelper.GetLanguagesList();
+                foreach (Language lang in langList.OrderBy(o => o.LanguageName))
+                {
+                    <img id="@(lang.LanguageCode)" src="~/Content/flag/@(lang.IconName +".png")" onclick="changeLanguage(this.id)" style="cursor: pointer; padding-right:5px;" alt="@(lang.LanguageName)" />
+                }
+            }
+        </div>
+        <p style="position:absolute;bottom:0;right:15px; font-size:16px">
+            @Html.ActionLink(PE.HMIWWW.Core.Resources.VM_Resources.GLOB_RegisterAsNewUser, "Register")
+        </p>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    $(document).ready(function () {
+        $('#form').submit(function () {
+            if ($(this).find('.input-validation-error').length === 0) {
+                $(this).find(':submit').attr('disabled', 'disabled');
+            }
+        });;
+    })
+    function changeLanguage(code) {
+        var langCode = 'culture=' + code;
+        var targetUrl = '/Account/ChangeLanguage';
+        AjaxReqestHelperSilent(targetUrl, langCode, refreshAfterLanguageChange, null);
+    }
+
+    function refreshAfterLanguageChange() {
+        location.reload();
+    }
+</script>

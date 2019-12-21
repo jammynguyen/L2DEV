@@ -1,0 +1,33 @@
+﻿@model PE.HMIWWW.ViewModel.System.VM_ViewsStatistics
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.System.VM_ViewsStatistics>()
+	.Name("ViewStatisticsGrid")
+	.HtmlAttributes(new { style = "border:none !important;" })
+	.Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+    .Sortable().Filterable(filtering => filtering.Enabled(true))
+	.Groupable()
+	.Filterable()
+	.Sortable()
+	.Columns(columns =>
+	{
+		columns.Bound(p => p.Id).Width(35).Visible(false);
+		columns.Bound(p => p.Name).Width(35);
+		columns.Bound(p => p.Created).Width(120).Format(VM_Resources.ResourceManager.GetString("GLOB_LongDateTime_FORMAT")); ;
+		columns.Bound(p => p.Time).Width(50);
+		columns.Bound(p => p.Records).Width(100);
+		columns.Bound(p => p.TimePerRecord).Width(50);
+		columns.Bound(p => p.UsedInViews).Width(100);
+		columns.Bound(p => p.ViewsOwned).Width(100);
+	})
+	.DataSource(dataSource => dataSource
+		.Ajax()
+		.ServerOperation(true)
+		.PageSize(20)
+		.Events(events => events.Error("TelerikErrorHandler"))
+		.Read(read => read.Action("ViewsStatisticsData", "ViewsStatistics"))
+	))

@@ -1,0 +1,199 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        RegisterMethod(HmiRefreshKeys.Cassette, RefreshData);
+        RegisterMethod(HmiRefreshKeys.InterCassette, RefreshData);
+        RegisterMethod(HmiRefreshKeys.RollSet, RefreshData);
+        RegisterMethod(HmiRefreshKeys.Roll, RefreshData);
+    });
+    //THIS METHOD WILL BE CALLED BY SYSTEM (SERVER) IN CASE DATA CHANGE, NAME IS IMPORTANT !!!
+    function RefreshData() {
+        $("#CassetteGrid").data("kendoGrid").dataSource.read();
+        $("#CassetteGrid").data("kendoGrid").refresh();
+        $("#RsToCassetteGrid").data("kendoGrid").dataSource.read();
+        $("#RsToCassetteGrid").data("kendoGrid").refresh();
+        $("#RsScheduledGrid").data("kendoGrid").dataSource.read();
+        $("#RsScheduledGrid").data("kendoGrid").refresh();
+        $("#RsReadyGrid").data("kendoGrid").dataSource.read();
+        $("#RsReadyGrid").data("kendoGrid").refresh();
+    }
+</script>
+
+
+<div style="width: 50%; float: left;">
+    <div class="white-space" style="margin-left: 10px;">
+        <h5 style="padding-bottom:5px; padding-top:0px; clear: both;">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_AvailableCassettes</h5>
+    </div>
+    @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Cassette.VM_CassetteOverview>()
+    .Name("CassetteGrid")
+    .HtmlAttributes(new { style = @String.Format("border:none !important; height:280px;") })
+    .Sortable().Filterable(filtering => filtering.Enabled(true))
+    //.ClientDetailTemplateId("templateCassette")
+    .Scrollable()
+    .Filterable()
+    .Sortable()
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Id).Visible(false).Filterable(false);
+        columns.Bound(p => p.CassetteName).Title(@PE.HMIWWW.Core.Resources.VM_Resources.COLUMNNAME_AvailableCassettes).Width(150).Filterable(true).ClientTemplate("<a href='javascript:OpenCasstteInfoPopup(#= Id #)'>" + "#= CassetteName #</a>");
+        columns.ForeignKey(p => p.FkCassetteType, (SelectList)ViewBag.CassType).Width(100);
+        columns.ForeignKey(p => p.Status, (SelectList)ViewBag.CassStatus).Width(110);
+        columns.Bound(p => p.Status).Width(70).Sortable(false).Groupable(false).Filterable(false).Title("").ClientTemplate(@Html.ImageButton("add", "OpenAssembleCassetteForm(#= Id #)", false).ToString());
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .ServerOperation(true)
+    .Model(model =>
+    {
+        model.Id(p => p.Id);
+    })
+    //.PageSize(20)
+    .Events(events => events.Error("TelerikErrorHandler"))
+    .Read(read => read.Action("GetAvailableCassettesData", "RollsetToCassette"))
+    ))
+</div>
+
+<div style="width: 50%; float: left;">
+    <h5 style="padding-bottom:5px; padding-top:0px; clear: both;">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_AvailableRollsets</h5>
+    @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.RollsetManagement.VM_RollSetOverview>
+        ()
+        .Name("RsToCassetteGrid")
+        .HtmlAttributes(new { style = @String.Format("border:none !important; height:280px;") })
+        .Sortable().Filterable(filtering => filtering.Enabled(true))
+        //.ClientDetailTemplateId("templateRollSet")
+        .Scrollable()
+        .Filterable()
+        .Sortable()
+        .Columns(columns =>
+        {
+        columns.Bound(p => p.Id).Visible(false).Filterable(false);
+        columns.Bound(p => p.RollSetName).Title(@PE.HMIWWW.Core.Resources.VM_Resources.COLUMNNAME_RollsetAvailable).Width(200).Filterable(true).ClientTemplate("<a href='javascript:OpenRollsetInfoPopup(#= Id #)'>" + "#= RollSetName #</a>");
+        //columns.Bound(p => p.RollSetName).Width(200).Filterable(true);
+        //columns.ForeignKey(p => p.RollSetType, (SelectList)ViewBag.NumberOfRolls).Title(@PE.HMIWWW.Core.Resources.VM_Resources.NAME_IsThirdRoll).Width(180);
+        columns.ForeignKey(p => p.RollTypeIdUpper, (SelectList)ViewBag.RollTypes).Title(@PE.HMIWWW.Core.Resources.VM_Resources.COLUMNNAME_RollType).Width(180);
+        columns.ForeignKey(o => o.RollSetStatus, (SelectList)ViewBag.RSetStatus).Title(@PE.HMIWWW.Core.Resources.VM_Resources.COLUMNNAME_Status)/*.Width(120)*/;
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .Model(model =>
+        {
+        model.Id(p => p.Id);
+        })
+        .Sort(s =>
+                {
+        s.Add(p => p.RollSetName).Ascending();
+        })
+        //.PageSize(20)
+        .Events(events => events.Error("TelerikErrorHandler"))
+        .Read(read => read.Action("GetAvailableRollSetData", "RollsetToCassette"))
+        ))
+</div>
+
+<div style="clear: left;">
+    <div class="white-space" style="margin-left: 10px;">
+        <h5 style="padding-bottom:5px; padding-top:0px; clear: both;">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_PlannedRollSets</h5>
+    </div>
+    @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.RollsetManagement.VM_RollSetOverview>()
+    .Name("RsScheduledGrid")
+    .HtmlAttributes(new { style = @String.Format("border:none !important; height:200px;") })
+    .Sortable().Filterable(filtering => filtering.Enabled(true))
+    .Scrollable()
+    .Filterable()
+    .Sortable()
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Id).Visible(false).Filterable(false);
+        columns.Bound(p => p.CassetteId).Visible(false).Filterable(false);
+        columns.Bound(p => p.RollSetName).Title(@PE.HMIWWW.Core.Resources.VM_Resources.COLUMN_RollsetPlanned).Width(150).Filterable(true).ClientTemplate("<a href='javascript:OpenRollsetInfoPopup(#= Id #)'>" + "#= RollSetName #</a>");
+        columns.ForeignKey(o => o.RollSetStatus, (SelectList)ViewBag.RSetStatus).Width(150);
+        columns.ForeignKey(p => p.RollTypeIdUpper, (SelectList)ViewBag.RollTypes).Title(@PE.HMIWWW.Core.Resources.VM_Resources.COLUMNNAME_RollType).Width(150);
+        columns.Bound(p => p.CassetteName).Filterable(true).Width(150).ClientTemplate("<a href='javascript:OpenCasstteInfoPopup(#= CassetteId #)'>" + "#= CassetteName #</a>");
+        columns.ForeignKey(o => o.CassetteStatus, (SelectList)ViewBag.CassStatus).Title("Status").Width(100);
+        columns.Bound(p => p.PositionInCassette).Filterable(true).Width(150);
+        columns.Bound(p => p.RollSetStatus).Width(70).Sortable(false).Groupable(false).Filterable(false).Title("")
+                .ClientTemplate(
+                @Html.ImageButton("confirm", "ConfirmRsReadyForMounting(#= Id #)", false).ToString() + "  " +
+                @Html.ImageButton("cancel", "CancelStatus(#= Id #)", false).ToString());
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .ServerOperation(true)
+    .Model(model =>
+    {
+        model.Id(p => p.Id);
+    })
+    //.PageSize(15)
+    .Events(events => events.Error("TelerikErrorHandler"))
+    .Read(read => read.Action("GetScheduledRollSetData", "RollsetToCassette"))
+    ))
+</div>
+<div style="clear: left;">
+    <div class="white-space" style="margin-left: 10px;">
+        <h5 style="padding-bottom:5px; padding-top:0px; clear: both;">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_InstalledRollsets</h5>
+    </div>
+    @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.RollsetManagement.VM_RollSetOverview>()
+    .Name("RsReadyGrid")
+    .HtmlAttributes(new { style = @String.Format("border:none !important; height:200px;") })
+    .Sortable().Filterable(filtering => filtering.Enabled(true))
+    .Scrollable()
+    .Filterable()
+    .Sortable()
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Id).Visible(false).Filterable(false);
+        columns.Bound(p => p.CassetteId).Visible(false).Filterable(false);
+        columns.Bound(p => p.RollSetName).Title(@PE.HMIWWW.Core.Resources.VM_Resources.COLUMNNAME_RollsetInstalled).Width(150).Filterable(true).ClientTemplate("<a href='javascript:OpenRollsetInfoPopup(#= Id #)'>" + "#= RollSetName #</a>");
+        columns.ForeignKey(o => o.RollSetStatus, (SelectList)ViewBag.RSetStatus).Title(@PE.HMIWWW.Core.Resources.VM_Resources.COLUMNNAME_Status).Width(80);
+        columns.ForeignKey(p => p.RollTypeIdUpper, (SelectList)ViewBag.RollTypes).Title(@PE.HMIWWW.Core.Resources.VM_Resources.COLUMNNAME_RollType).Width(150);
+        columns.Bound(p => p.CassetteName).Filterable(true).Width(150).ClientTemplate("<a href='javascript:OpenCasstteInfoPopup(#= CassetteId #)'>" + "#= CassetteName #</a>");
+        columns.ForeignKey(o => o.CassetteStatus, (SelectList)ViewBag.CassStatus).Title(@PE.HMIWWW.Core.Resources.VM_Resources.COLUMNNAME_Status).Width(100);
+        columns.Bound(p => p.PositionInCassette).Filterable(true).Width(150);
+        columns.Bound(p => p.RollSetStatus).Width(70).Sortable(false).Groupable(false).Filterable(false).Title("").ClientTemplate(@Html.ImageButton("rolls_unload", "UnloadRollset(#= Id #)", false).ToString());
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .ServerOperation(true)
+    .Model(model =>
+    {
+        model.Id(p => p.Id);
+    })
+    .PageSize(15)
+    .Events(events => events.Error("TelerikErrorHandler"))
+    .Read(read => read.Action("GetReadyRollSetData", "RollsetToCassette"))
+    ))
+</div>
+
+@Scripts.Render("~/Scripts/module/RollSetToCassette")
+
+<script>
+
+</script>
+
+<script id="templateRollSet" type="text/kendo-tmpl">
+    @(Html.Kendo().TabStrip()
+                .Name("tabStrip_#=Id#")
+                .SelectedIndex(0)
+                .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
+                .Items(items =>
+                {
+                    items.Add().Text(@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Name_Details).LoadContentFrom(Url.Action("_DetailsRollSet", "RollsetToCassette", new { Id = "#=Id#" }));
+                })
+
+                .ToClientTemplate())
+</script>
+<script id="templateCassette" type="text/kendo-tmpl">
+    @(Html.Kendo().TabStrip()
+                .Name("tabStrip_#=Id#")
+                .SelectedIndex(0)
+                .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
+                .Items(items =>
+                {
+                    items.Add().Text(@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Name_Details).LoadContentFrom(Url.Action("_DetailsCassette", "RollsetToCassette", new { Id = "#=Id#" }));
+                })
+
+                .ToClientTemplate())
+</script>

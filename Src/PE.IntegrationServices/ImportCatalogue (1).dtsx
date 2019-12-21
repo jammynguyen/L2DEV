@@ -1,0 +1,521 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/27/2019 4:29:00 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PC012593"
+  DTS:CreatorName="PMT\Z006YAQD"
+  DTS:Description="SSIS Package Description"
+  DTS:DTSID="{F58C8BF5-42C0-4A6A-B6C0-AB1896A0AAFB}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.0900.40"
+  DTS:LocaleID="1045"
+  DTS:MaxErrorCount="0"
+  DTS:ObjectName="ImportCatalogue"
+  DTS:VersionGUID="{FF781475-BA59-4863-9F6F-977E7592466E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{B64AC503-86E2-429A-88F6-DED62D19843A}"
+      DTS:ObjectName="DestinationConnectionOLEDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=148.56.68.169;User ID=sa;Initial Catalog=PE_Lite;Provider=SQLNCLI11;Auto Translate=false;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SourceConnectionExcel]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{FEF6CB7B-1EA9-4F60-9F67-739474152018}"
+      DTS:ObjectName="SourceConnectionExcel">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Z006YAQD\Desktop\TelegramSetup\ImportCatalogueTemplate.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task 1"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{CB130B49-C9E7-4519-A34A-B9D010A58CBD}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task 1"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          defaultBufferSize="3145728"
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task 1\Data Conversion 0 - 0"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion 0 - 0"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task 1\Data Conversion 0 - 0.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Data Conversion 0 - 0.Inputs[Data Conversion Input].Columns[IsDefault]"
+                      cachedDataType="r8"
+                      cachedName="IsDefault"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[IsDefault]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Data Conversion 0 - 0.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Data Flow Task 1\Data Conversion 0 - 0.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[IsDefault]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      lineageId="Package\Data Flow Task 1\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[IsDefault]"
+                      name="IsDefault"
+                      truncationRowDisposition="IgnoreFailure">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[IsDefault]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task 1\Data Conversion 0 - 0.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Data Flow Task 1\Data Conversion 0 - 0.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Data Conversion 0 - 0.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task 1\Destination - DefectCatalogue"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Destination - DefectCatalogue"
+              usesDispositions="true"
+              validateExternalMetadata="False"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[xfr].[DefectCatalogue]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1250</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].Columns[DefectCatalogueName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DefectCatalogueName"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].ExternalColumns[DefectCatalogueName]"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[DefectCatalogueName]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].Columns[DefectCatalogueCategory]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DefectCatalogueCategory"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].ExternalColumns[DefectCatalogueCategory]"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[DefectCatalogueCategory]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].Columns[DefectCatalogueDescription]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DefectCatalogueDescription"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].ExternalColumns[DefectCatalogueDescription]"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[DefectCatalogueDescription]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].Columns[ParentDefectCatalogueCode]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ParentDefectCatalogueCode"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].ExternalColumns[ParentDefectCatalogueCode]"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[ParentDefectCatalogueCode]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].Columns[IsDefault]"
+                      cachedDataType="i2"
+                      cachedName="IsDefault"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].ExternalColumns[IsDefault]"
+                      lineageId="Package\Data Flow Task 1\Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[IsDefault]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].ExternalColumns[DefectCatalogueName]"
+                      dataType="wstr"
+                      length="255"
+                      name="DefectCatalogueName" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].ExternalColumns[DefectCatalogueCategory]"
+                      dataType="wstr"
+                      length="255"
+                      name="DefectCatalogueCategory" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].ExternalColumns[DefectCatalogueDescription]"
+                      dataType="wstr"
+                      length="255"
+                      name="DefectCatalogueDescription" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].ExternalColumns[ParentDefectCatalogueCode]"
+                      dataType="wstr"
+                      length="255"
+                      name="ParentDefectCatalogueCode" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input].ExternalColumns[IsDefault]"
+                      dataType="i2"
+                      name="IsDefault" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Destination - DefectCatalogue.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Destination - DefectCatalogue.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Destination - DefectCatalogue.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task 1\Source - DefectCatalogue$"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Source - DefectCatalogue$"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">DefectCatalogue$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SourceConnectionExcel]"
+                  connectionManagerRefId="Package.ConnectionManagers[SourceConnectionExcel]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[DefectCatalogueName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].ExternalColumns[DefectCatalogueName]"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[DefectCatalogueName]"
+                      name="DefectCatalogueName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[DefectCatalogueCategory]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].ExternalColumns[DefectCatalogueCategory]"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[DefectCatalogueCategory]"
+                      name="DefectCatalogueCategory"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[DefectCatalogueDescription]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].ExternalColumns[DefectCatalogueDescription]"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[DefectCatalogueDescription]"
+                      name="DefectCatalogueDescription"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[ParentDefectCatalogueCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].ExternalColumns[ParentDefectCatalogueCode]"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[ParentDefectCatalogueCode]"
+                      name="ParentDefectCatalogueCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[IsDefault]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].ExternalColumns[IsDefault]"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].Columns[IsDefault]"
+                      name="IsDefault"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].ExternalColumns[DefectCatalogueName]"
+                      dataType="wstr"
+                      length="255"
+                      name="DefectCatalogueName" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].ExternalColumns[DefectCatalogueCategory]"
+                      dataType="wstr"
+                      length="255"
+                      name="DefectCatalogueCategory" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].ExternalColumns[DefectCatalogueDescription]"
+                      dataType="wstr"
+                      length="255"
+                      name="DefectCatalogueDescription" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].ExternalColumns[ParentDefectCatalogueCode]"
+                      dataType="wstr"
+                      length="255"
+                      name="ParentDefectCatalogueCode" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output].ExternalColumns[IsDefault]"
+                      dataType="r8"
+                      name="IsDefault" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[DefectCatalogueName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[DefectCatalogueName]"
+                      name="DefectCatalogueName" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[DefectCatalogueCategory]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[DefectCatalogueCategory]"
+                      name="DefectCatalogueCategory" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[DefectCatalogueDescription]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[DefectCatalogueDescription]"
+                      name="DefectCatalogueDescription" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[ParentDefectCatalogueCode]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[ParentDefectCatalogueCode]"
+                      name="ParentDefectCatalogueCode" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[IsDefault]"
+                      dataType="r8"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[IsDefault]"
+                      name="IsDefault" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task 1.Paths[Data Conversion Output]"
+              endId="Package\Data Flow Task 1\Destination - DefectCatalogue.Inputs[Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Data Flow Task 1\Data Conversion 0 - 0.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Data Flow Task 1.Paths[Excel Source Output]"
+              endId="Package\Data Flow Task 1\Data Conversion 0 - 0.Inputs[Data Conversion Input]"
+              name="Excel Source Output"
+              startId="Package\Data Flow Task 1\Source - DefectCatalogue$.Outputs[Excel Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Preparation SQL Task 1"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{368BA692-224F-4685-90B0-EF190467873E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Preparation SQL Task 1"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B64AC503-86E2-429A-88F6-DED62D19843A}"
+          SQLTask:SqlStatementSource="CREATE TABLE [xfr].[DefectCatalogue] (&#xA;[DefectCatalogueName] nvarchar(255),&#xA;[DefectCatalogueCategory] nvarchar(255),&#xA;[DefectCatalogueDescription] nvarchar(255),&#xA;[ParentDefectCatalogueCode] nvarchar(255),&#xA;[IsDefault] smallint&#xA;)&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{C292A348-49E4-4337-9CC7-F4EF1F66877F\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{4DA1B86F-F8BF-48AE-89F0-03C488B5E021}"
+      DTS:From="Package\Preparation SQL Task 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{4DA1B86F-F8BF-48AE-89F0-03C488B5E021}"
+      DTS:To="Package\Data Flow Task 1" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

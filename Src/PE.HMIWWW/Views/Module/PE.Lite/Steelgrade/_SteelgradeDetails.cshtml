@@ -1,0 +1,419 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Steelgrade.VM_Steelgrade
+<style>
+    .line {
+        margin: 0 auto;
+        width: 95%;
+        height: 1px;
+        background-color: rgba(0, 100, 135, 0.7);
+    }
+</style>
+
+<div class="row h-100 p-0 pt-3">
+        <div class="col-4 p-0">
+            <div class="container-fluid">
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(x => x.SteelgradeCode)
+                    </div>
+                    <div class="col-3 text-left">
+                        @Html.DisplayFor(m => m.SteelgradeCode)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.Label(@VM_Resources.NAME_QualitySpecification)
+                    </div>
+                    <div class="col-3 text-left">
+                        @Html.DisplayFor(m => m.QualitySpecification)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.Label(@VM_Resources.NAME_CustomerUseCode)
+                    </div>
+                    <div class="col-4 text-left">
+                        @Html.DisplayFor(m => m.CustomerUseCode)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(m => m.GroupCode)
+                    </div>
+                    <div class="col-3 text-left">
+                        @Html.DisplayFor(m => m.GroupCode)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4 p-0">
+            <div class="container-fluid">
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(m => m.SteelgradeName)
+                    </div>
+                    <div class="col-4 text-left">
+                        @Html.DisplayFor(m => m.SteelgradeName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.Label(@VM_Resources.NAME_CommercialGroup)
+                    </div>
+                    <div class="col-3 text-left">
+                        @Html.DisplayFor(m => m.CommercialGroup)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(m => m.CustomerUseDescription)
+                    </div>
+                    <div class="col-4 text-left">
+                        @Html.DisplayFor(m => m.CustomerUseDescription)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(m => m.GroupDescription)
+                    </div>
+                    <div class="col-4 text-left">
+                        @Html.DisplayFor(m => m.GroupDescription)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4 p-0">
+            <div class="container-fluid">
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(m => m.Description)
+                    </div>
+                    <div class="col-4 text-left">
+                        @Html.DisplayFor(m => m.Description)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(m => m.Density)
+                    </div>
+                    <div class="col-4 text-left">
+                        @Html.DisplayFor(m => m.Density)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(m => m.OvenRecipeTemperature)
+                    </div>
+                    <div class="col-4 text-left">
+                        @Html.DisplayFor(m => m.OvenRecipeTemperature)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+
+                    </div>
+                    <div class="col-4 text-left">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="line"></div>
+    <div class="col-4 p-0">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.GLOBAL_Element)
+                </div>
+                <div class="col-4 text-center">
+                    <label>@VM_Resources.NAME_SteelGradeCC_Value_Range</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Fe + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.FeMin) - @Html.DisplayFor(m => m.FeMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_C + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.CMin) - @Html.DisplayFor(m => m.CMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Mn + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.MnMin) - @Html.DisplayFor(m => m.MnMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Cr + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.CrMin) - @Html.DisplayFor(m => m.CrMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Mo + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.MoMin) - @Html.DisplayFor(m => m.MoMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_V + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.VMin) - @Html.DisplayFor(m => m.VMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Ni + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.NiMin) - @Html.DisplayFor(m => m.NiMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Co + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.CoMin) -  @Html.DisplayFor(m => m.CoMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Si + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.SiMin) - @Html.DisplayFor(m => m.SiMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_P + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.PMin) - @Html.DisplayFor(m => m.PMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_H + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.HMin) - @Html.DisplayFor(m => m.HMax)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-0">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.GLOBAL_Element)
+                </div>
+                <div class="col-4 text-center">
+                    <label>@VM_Resources.NAME_SteelGradeCC_Value_Range</label>
+                    @*@Html.Label(@VM_Resources.NAME_Min) - @Html.Label(@VM_Resources.NAME_Max)*@
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_W + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.WMin) - @Html.DisplayFor(m => m.WMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Pb + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.PbMin) - @Html.DisplayFor(m => m.PbMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Zn + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.ZnMin) - @Html.DisplayFor(m => m.ZnMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_As + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.AsMin) - @Html.DisplayFor(m => m.AsMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Bi + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.BiMin) - @Html.DisplayFor(m => m.BiMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_S + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.SMin) - @Html.DisplayFor(m => m.SMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Cu + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.CuMin) - @Html.DisplayFor(m => m.CuMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Nb + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.NbMin) - @Html.DisplayFor(m => m.NbMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Al + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.AlMin) - @Html.DisplayFor(m => m.AlMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_N + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.NMin) - @Html.DisplayFor(m => m.NMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Ca + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.CaMin) - @Html.DisplayFor(m => m.CaMax)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-0">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.GLOBAL_Element)
+                </div>
+                <div class="col-4 text-center">
+                    <label>@VM_Resources.NAME_SteelGradeCC_Value_Range</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_B + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.BMin) - @Html.DisplayFor(m => m.BMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Ti + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.TiMin) - @Html.DisplayFor(m => m.TiMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Sn + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.SnMin) - @Html.DisplayFor(m => m.SnMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_O + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.OMin) - @Html.DisplayFor(m => m.OMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Te + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.TeMin) - @Html.DisplayFor(m => m.TeMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Mg + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.MgMin) - @Html.DisplayFor(m => m.MgMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Sb + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.SbMin) - @Html.DisplayFor(m => m.SbMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Ta + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.TaMin) - @Html.DisplayFor(m => m.TaMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Zr + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.ZrMin) - @Html.DisplayFor(m => m.ZrMax)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.Label(@VM_Resources.NAME_SteelGradeCC_Ce + " [" + @VM_Resources.UNIT_Percent + "]:")
+                </div>
+                <div class="col-4 text-center">
+                    @Html.DisplayFor(m => m.CeMin) - @Html.DisplayFor(m => m.CeMax)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

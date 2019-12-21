@@ -1,0 +1,83 @@
+﻿
+@(Html.Kendo().Notification()
+		.Name("notification")
+		.Position(p => p.Pinned(false))//.Bottom(10).Right(10))
+		.Stacking(NotificationStackingSettings.Up)
+		.AutoHideAfter(2000)
+		.Templates(t =>
+		{
+			t.Add().Type("success").ClientTemplateID("successTemplate");
+			t.Add().Type("error").ClientTemplateID("errorTemplate");
+		})
+)
+
+
+<script id="errorTemplate" type="text/x-kendo-template">
+	<div class="notificationContainer error">
+
+		<img src="../Content/System/Img/error-icon.png" />
+		<h3>#= title #</h3>
+		<p>#= message #</p>
+	</div>
+</script>
+
+<script id="successTemplate" type="text/x-kendo-template">
+	<div class="notificationContainer success">
+		<img src="../Content/System/Img/success-icon.png" />
+		<h3>#= title #</h3>
+		<p>#= message #</p>
+	</div>
+</script>
+
+<style>
+	.notificationContainer {
+		width: 310px;
+		min-height: 70px;
+        padding: 10px 12px;
+         background-color: #32bc45;
+         opacity: 0.8;
+	}
+
+		.notificationContainer h3 {
+			font-size: 22px;
+			padding-top: 15px;
+			padding-left: 12px;
+			padding-bottom: 5px;
+		}
+
+        .notificationContainer p {
+            padding-left: 12px;
+            font-size: 17px;
+		}
+
+		.notificationContainer img {
+			float: left;
+			margin-top: 10px;
+			margin-left: 12px;
+			margin-right: 10px;
+			margin-bottom: 2px;
+		}
+
+
+	.k-notification-error.k-group {
+		background: #ce0037;
+		color: #ffffff;
+		 filter: alpha(opacity=70);
+		filter: progid: DXImageTransform.Microsoft.Alpha(opacity=70);
+		-moz-opacity: 0.70;
+		opacity: 0.7;
+	}
+
+	.k-notification-success.k-group {
+		background: #7a9a01;
+		color: #fff;
+		 filter: alpha(opacity=70);
+		filter: progid: DXImageTransform.Microsoft.Alpha(opacity=70);
+		-moz-opacity: 0.70;
+		opacity: 0.7;
+	}
+
+	.k-notification {
+		border: 0;
+	}
+</style>

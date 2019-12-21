@@ -1,0 +1,30 @@
+﻿@model PE.HMIWWW.ViewModel.System.VM_LongId
+@{
+	Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@(
+	Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Maintenance.VM_EquipmentHistory>()
+			.Name("EquipmentHistory")
+			.HtmlAttributes(new { @style = "height: 100%;" })
+			.NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+			.Filterable()
+			.Scrollable()
+			.Pageable(p => p
+					.Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+			.Columns(c =>
+			{
+				c.Bound(x => x.EquipmentHistoryId).Visible(false);
+				c.Bound(x => x.Created).Format(VM_Resources.GLOB_ShortDateTime_FORMAT).Width(140);
+				c.ForeignKey(o => o.EquipmentStatus, (SelectList)ViewBag.EquipmentStatus).Width(120);
+				c.Bound(x => x.AccmuliatedWeight).Width(130);
+				c.Bound(x => x.AccBilletCnt).Width(80);
+				c.Bound(x => x.Remark).Width(600);
+			})
+			.DataSource(d => d
+					.Ajax()
+					.ServerOperation(true)
+					.PageSize(24)
+					.Read(r => r.Action("GetEquipmentHistory", "Equipment", new { id = Model.Id }))
+					)
+)

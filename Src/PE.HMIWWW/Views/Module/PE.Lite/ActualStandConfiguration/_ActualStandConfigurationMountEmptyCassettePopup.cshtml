@@ -1,0 +1,89 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.ActualStandConfiguration.VM_StandConfiguration
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@if (Model != null && !@ViewData.ModelState.IsValid)
+{
+    <script>
+        $(document).ready(function () {
+            $("#header").css('background', '#ce0037').css('color', '#fff');
+        })
+    </script>
+}
+
+
+@using (Ajax.BeginForm("MountCassette", "ActualStandConfiguration", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "form-horizontal", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.StandNo)
+
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.StandNo)</label>
+        </div>
+        <div class="col">
+            @Html.DisplayFor(m => m.StandNo)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.Arrangement)</label>
+        </div>
+        <div class="col">
+            @(Html.Kendo().DropDownList().Name("Arrangement").DataTextField("Text").DataValueField("Value").Value(Model.Arrangement.ToString()).HtmlAttributes(new { style = "width:220px" }).BindTo((SelectList)ViewBag.Arrang))@Html.ValidationMessageFor(m => m.Arrangement)
+
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.StandStatus)</label>
+        </div>
+        <div class="col">
+            @(Html.Kendo().DropDownList().Name("StandStatus").DataTextField("Text").DataValueField("Value").Value(Model.StandStatus.ToString()).HtmlAttributes(new { style = "width:220px" }).BindTo((SelectList)ViewBag.StandStat))@Html.ValidationMessageFor(m => m.StandStatus)
+
+        </div>
+    </div>
+
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.CassetteId)</label>
+        </div>
+        <div class="col">
+            @(Html.Kendo().DropDownList().Name("CassetteId")
+                                 .DataTextField("Text")
+                                 .DataValueField("Value")
+                                 .HtmlAttributes(new { style = "width: 220px" })
+                                 .DataSource(source =>
+                                 {
+                                     source
+                                .Read(read =>
+                                {
+                                    read
+                                                .Action("GetEmptyCassetteToStandList", "ActualStandConfiguration", new { StandId = @Model.Id });
+                                });
+                                 })
+            )
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.BUTTON_SubmitForm
+            </button>
+        </div>
+    </div>
+}

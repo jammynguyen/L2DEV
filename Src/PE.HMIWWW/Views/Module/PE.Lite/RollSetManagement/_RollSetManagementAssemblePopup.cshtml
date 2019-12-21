@@ -1,0 +1,106 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.RollsetManagement.VM_RollSetOverviewFull
+@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_RollsManagement_EditRollDialog;
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@using (Ajax.BeginForm("AssembleRollSet", "RollSetManagement", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id);
+    @Html.HiddenFor(x => x.RollSetType);
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.RollSetName)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.RollSetName).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.RollSetName)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.UpperRollId)</label>
+        </div>
+        <div class="col">
+            @(Html.Kendo().DropDownListFor(x => x.UpperRollId)
+                                 .Name("UpperRollId")
+                                 .DataTextField("Text")
+                                 .DataValueField("Value")
+                                 .HtmlAttributes(new { @class = "form-control form-control-sm" })
+                                 .DataSource(source =>
+                                 {
+                                    source.Read(read => { read.Action("GetRolls", "RollsetManagement").Data("findRoll"); })
+                                    .ServerFiltering(true);
+                                 })
+                                 .AutoBind(true).Events(e => e.Change("onChange")).CascadeFrom("RollSetId")
+                                 .OptionLabel("-")
+            )
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.BottomRollId)</label>
+        </div>
+        <div class="col">
+            @(Html.Kendo().DropDownListFor(x => x.BottomRollId)
+                                 .Name("BottomRollId")
+                                 .DataTextField("Text")
+                                 .DataValueField("Value")
+                                 .HtmlAttributes(new { @class = "form-control form-control-sm" })
+                                 .DataSource(source =>
+                                 {
+                                    source.Read(read => { read.Action("GetRolls", "RollsetManagement").Data("findRoll"); })
+                                    .ServerFiltering(true);
+                                 })
+                                 .AutoBind(true).Events(e => e.Change("onChange")).CascadeFrom("RollSetId")
+                                 .OptionLabel("-")
+            )
+        </div>
+    </div>
+
+
+    <hr />
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.GLOB_Form_Button_Save
+            </button>
+        </div>
+    </div>
+}
+
+<script>
+    //$.validator.unobtrusive.parse("#form");
+
+    $(function () {
+
+        $('#error').css("display", "none");
+        $("#form").kendoValidator().data("kendoValidator");
+
+    });
+
+    function displayMessage() {
+
+        var validator = $("#form").kendoValidator().data("kendoValidator");
+
+        if (validator.validate()) {
+            $('#error').css("display", "none");
+        } else {
+            $('#error').css("display", "block");
+            $('#popup-footer')
+                .css('display', 'block')
+                .css('background-color', 'rgb(206, 0, 55)');
+        }
+    };
+
+</script>

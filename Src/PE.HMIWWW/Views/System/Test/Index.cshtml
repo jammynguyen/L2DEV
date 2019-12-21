@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    //THIS METHOD WILL BE CALLED BY SYSTEM (SERVER) IN CASE DATA CHANGE, NAME IS IMPORTANT !!!
+    function ResultProcessor(data) {
+        alert(data.Text);
+    }
+</script>
+
+@section module_menu
+{
+    @Html.ImageButton("sendToA", "SendToModuleA()", false)
+    @Html.ImageButton("sendToB", "SendToModuleB()", false)
+    @Html.ImageButton("makeError", "SendToModuleAMakeError()", false)
+    @Html.ImageButton("makeWarnings", "SendToModuleAMakeWarnings()", false)
+    @Html.ImageButton("operationTestA", "OperationTestA()", false)
+    @Html.ImageButton("operationTestB", "OperationTestB()", false)
+}
+
+<script>
+    function SendToModuleA() {
+        var url = serverAddress + "/Test/" + "SendToModuleA";
+        AjaxReqestHelper(url, null, ResultProcessor);
+    }
+    function SendToModuleB() {
+        var url = serverAddress + "/Test/" + "SendToModuleB";
+        AjaxReqestHelper(url, null, ResultProcessor);
+    }
+    function SendToModuleAMakeError() {
+        var url = serverAddress + "/Test/" + "SendToModuleAMakeError";
+        AjaxReqestHelper(url, null, ResultProcessor);
+    }
+    function SendToModuleAMakeWarnings() {
+        var url = serverAddress + "/Test/" + "SendToModuleAMakeWarnings";
+        AjaxReqestHelper(url, null, ResultProcessor);
+    }
+    function OperationTestA() {
+        ModuleOperationRequest(TestModuleATestOperation);
+    }
+    function OperationTestB() {
+        ModuleOperationRequest(TestModuleBTestOperation);
+    }
+</script>

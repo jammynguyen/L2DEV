@@ -1,0 +1,30 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Cassette.VM_CassetteOverview
+<br />
+<div class="col-md-5">
+    <div class="form-group">
+        @Html.LabelFor(m => m.CassetteName, new { @class = "col-md-4 control-label" })
+        @Html.DisplayFor(m => m.CassetteName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Status, new { @class = "col-md-4 control-label" })
+        @Html.Raw(((SelectList)ViewBag.CassStatus).Where(p => p.Value == Model.Status.ToString()).First().Text)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.TypeName, new { @class = "col-md-4 control-label" })
+        @Html.DisplayFor(m => m.TypeName, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-5">
+    <div class="form-group">
+        @Html.LabelFor(m => m.NumberOfPositions, new { @class = "col-md-7 control-label" })
+        @Html.DisplayFor(m => m.NumberOfPositions, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Arrangement, new { @class = "col-md-7 control-label" })
+        @Html.Raw(((SelectList)ViewBag.Arrang).Where(p => p.Value == Model.Arrangement.ToString()).First().Text)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.StandNo, new { @class = "col-md-7 control-label" })
+        @Html.DisplayFor(m => m.StandNo, new { @class = "form-control" })
+    </div>
+</div>

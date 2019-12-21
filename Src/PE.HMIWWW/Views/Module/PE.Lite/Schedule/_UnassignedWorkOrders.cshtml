@@ -1,0 +1,38 @@
+﻿@(
+            Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.WorkOrder.VM_WorkOrderOverview>()
+                    .Name("UnassignedWorkOrders")
+                    .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+                    .Pageable(p => p
+                        .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                    .Sortable()
+                    .Filterable()
+                    .Scrollable()
+                    .HtmlAttributes(new { style = "height: 720px;" })
+                    
+                    .Columns(columns =>
+                    {
+                        columns.Bound(c => c.WorkOrderId).Visible(false);
+                        columns.Bound(c => c.WorkOrderName).Width(90);
+                        columns.Bound(c => c.Steelgrade).Width(55);
+                        columns.Bound(c => c.WorkOrderStatus).Width(60);
+                        columns.Bound(c => c.TargetOrderWeight).Width(50);
+                        columns.Bound(p => p.WorkOrderId).Sortable(false).Groupable(false).Filterable(false).Title("").Width(35)
+                              .ClientTemplate(@Html.ImageButton("add", "addWorkOrderToSchedule(#=WorkOrderId#)", false).ToString() + @Html.ImageButton("details", "GoToWorkOrderDetails(#=WorkOrderId#)", false).ToString());
+                        //+ @Html.ImageButton("details", "GoToWorkOrderDetails(#=FKWorkOrderId#)", false).ToString());
+                    })
+                    .DataSource(d => d
+                        .Ajax()
+                        .ServerOperation(true)
+                        .PageSize(25)
+                        .Filter(filters =>
+                        {
+                            //filters.Add(f => f.IsScheduled == false);
+                        })
+                        .Sort(sort =>
+                        {
+                            sort.Add(s => s.CreatedTs).Descending();
+                        })
+                        .Read(r => r.Action("GetNoScheduledWorkOrderList", "WorkOrder"))
+                    )
+//.Events(e => e.Change("onElementSelect"))
+)

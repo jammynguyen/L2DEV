@@ -1,0 +1,33 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Products.VM_ProductsOverview
+
+<div class="row h-100">
+    <div class="col">
+        @(Html.Kendo().TabStrip()
+            .Name("HeatBody")
+            .Animation(false)
+            .Events(e => e.Select("onSelect"))
+            .Scrollable(false)
+            .Items(tabstrip =>
+            {
+                tabstrip.Add().Text(VM_Resources.NAME_ProductDetails)
+                    .Selected(true).Content(@Html.Partial("~/Views/Module/PE.Lite/Products/_ProductsDetails.cshtml", Model).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                tabstrip.Add().Text(VM_Resources.NAME_Label)
+                    .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/Products/_ProductsLabel.cshtml", Model).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                tabstrip.Add().Text(VM_Resources.NAME_ProductCatalogue)
+                     .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/Product/_ProductDetails.cshtml", Model.PC).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                tabstrip.Add().Text(VM_Resources.NAME_BilletCatalogue)
+                     .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/Material/_BilletCatalogueDetails.cshtml", Model.WorkOrderOverview).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                tabstrip.Add().Text(VM_Resources.NAME_WorkOrderDetails)
+                     .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/WorkOrder/_WorkOrderDetails.cshtml", Model.WorkOrderOverview).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                tabstrip.Add().Text(VM_Resources.NAME_HeatDetails)
+                   .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/Heat/_HeatDetails.cshtml",  Model.HeatOverview).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                tabstrip.Add().Text(VM_Resources.NAME_HeatChemAnalysis)
+                  .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/Heat/_HeatChemAnalysis.cshtml",  Model.HeatOverview).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                tabstrip.Add().Text(VM_Resources.NAME_MaterialsList)
+                  .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/Heat/_HeatMaterialList.cshtml", Model.HeatOverview.HeatId).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                tabstrip.Add().Text(VM_Resources.NAME_Quality)
+                  .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/ProductQualityMgm/_ProductDefectsList.cshtml", Model).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+            })
+        )
+    </div>
+</div>

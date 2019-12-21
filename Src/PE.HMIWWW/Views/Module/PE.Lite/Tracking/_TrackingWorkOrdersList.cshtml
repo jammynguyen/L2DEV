@@ -1,0 +1,28 @@
+﻿@(
+    Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.WorkOrder.VM_WorkOrderOverview>()
+        .Name("WorkOrdersList")
+        .HtmlAttributes(new { @style = "height: 100%;" })
+        .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+        .Sortable()
+        .Filterable()
+        .Pageable(p => p
+            .ButtonCount(3))
+        .Columns(c =>
+        {
+            c.Bound(x => x.WorkOrderId).Visible(false);
+            c.Bound(x => x.WorkOrderName);
+            c.Bound(x => x.ProductionStarted).Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+            c.Bound(x => x.TargetOrderWeight);
+            c.Bound(x => x.FKHeatId).Visible(false);
+            c.Bound(x => x.WorkOrderStatus);
+            c.Bound(p => p.WorkOrderId).Sortable(false).Groupable(false).Filterable(false).Title("").Width(30)
+                    .ClientTemplate(@Html.ImageButton("details", "GoToWorkOrder(#:WorkOrderId#)").ToString());
+
+        })
+        .DataSource(d => d
+            .Ajax()
+            .ServerOperation(true)
+            .PageSize(24)
+            .Read(r => r.Action("GetWorkOrderListByMaterialKey", "Tracking", new { DimRawMaterialKey = Model }))
+            )
+)

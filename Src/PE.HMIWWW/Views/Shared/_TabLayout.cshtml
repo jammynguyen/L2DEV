@@ -1,0 +1,22 @@
+﻿<div class="button-pane">
+    @RenderSection("TabIncludes", required: false)
+</div>
+<div class="clearfix"></div>
+<hr class="tab-hr-line"/>
+@RenderBody()
+
+<style>
+    .button-pane{ 
+        float:right;        
+    }
+    .tab-hr-line{
+        margin-top: 0.5rem;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        if ($('.button-pane').children().length === 0)
+            $('.tab-hr-line').hide();
+    })
+</script>

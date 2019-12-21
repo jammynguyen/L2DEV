@@ -1,0 +1,162 @@
+﻿
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.ActualStandConfiguration.VM_StandConfiguration>()
+        .Name("ActualStandConfiguration")
+        .HtmlAttributes(new { style = @String.Format("border:none !important; height:{0}px;", (ViewBag.FullGridHeight / 2) - 5) })
+        .Pageable().Filterable(filtering => filtering.Enabled(true))
+        .ClientDetailTemplateId("cassetteContent")
+        .Filterable()
+        .Scrollable()
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id).Visible(false).Filterable(false);
+            columns.Bound(p => p.CassetteId).Visible(false).Filterable(false);
+            columns.Bound(p => p.CassetteId).Visible(false).Filterable(false);
+            //    columns.Bound(p => p.NumberOfRolls).Visible(false).Filterable(false);
+            columns.Bound(p => p.CassetteName).Filterable(true).ClientTemplate("# if (CassetteId != null) {# <a href='javascript:OpenCasstteInfoPopup(#= CassetteId #)'>" + "#= CassetteName #</a>#}#");
+            columns.Bound(p => p.StandBlockName).Width(120);
+            columns.Bound(p => p.Position).Filterable(true).Width(100);
+            //columns.ForeignKey(o => o.StandActivity, (SelectList)ViewBag.StandActivity).ClientTemplate(
+            //   "<div class=' " +
+            //    "# if (StandActivity) { #" +
+            //        "online'>ONLINE" +
+            //    "# }else{ # offline'>OFFLINE # }" +
+            //    " #" +
+            //"</div>"
+            //    );
+            columns.ForeignKey(o => o.CassetteType, (SelectList)ViewBag.CassetteType).Width(150);
+            //columns.Bound(p => p.Mounted).Filterable(true).Format(Resources.Framework.DisplayConfig.ResourceManager.GetString("GLOB_LongDateTime_FORMAT"));
+            columns.ForeignKey(o => o.StandStatus, (SelectList)ViewBag.StandStat);
+            columns.ForeignKey(o => o.Arrangement, (SelectList)ViewBag.Arrang);
+            columns.Bound(p => p.StandNo).Filterable(true).Visible(false).HtmlAttributes(new { style = "text-align: right;" }).Width(100);
+
+
+            columns.Bound(p => p.RollsetCnt).Visible(false).Width(100);
+            columns.Bound(p => p.Id).Width(70).Sortable(false).Groupable(false).Filterable(false).Title("").ClientTemplate(
+                      "# if (CassetteId != null) {#" + @Html.ImageButton("edit", "EditData(#= Id #)", false).ToString() +  @Html.ImageButton("rolls_dismount_cassette", "DismountCassette(#= Id #)", false).ToString() +
+                      "#} else {#" +  @Html.ImageButton("rolls_mount_with_cassette", "MountCassette(#= Id #)", false).ToString() +  @Html.ImageButton("rolls_mount_cassette", "MountEmptyCassette(#= Id #)", false).ToString()  + "#}#"
+                      );
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .Model(model =>
+        {
+            model.Id(p => p.Id);
+        })
+        .PageSize(13)
+        .Sort(sort =>
+        {
+            sort.Add(p => p.Position).Ascending();
+            sort.Add(p => p.StandNo).Ascending();
+        })
+
+        .Events(events => events.Error("TelerikErrorHandler"))
+        .Read(read => read.Action("GetStandConfigurationCatalogueData", "ActualStandConfiguration"))
+
+        ))
+<div class="white-space" style="margin-left: 10px;"><h5 style="padding-bottom:5px; padding-top:0px; clear: both;">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_ActiveGrooves</h5></div>
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.ActualStandConfiguration.VM_PassChangeDataActual>()
+                .Name("PassChangeActualData")
+                .HtmlAttributes(new { style = @String.Format("border:none !important; height:{0}px;", (ViewBag.FullGridHeight / 2) - 40) })
+                .Pageable().Sortable().Filterable(filtering => filtering.Enabled(true))
+                .Filterable()
+                .Scrollable()
+                .Sortable()
+                .Columns(columns =>
+                {
+                  columns.Bound(p => p.Id).Visible(false).Filterable(false).Sortable(true);
+                  columns.Bound(p => p.RollSetType).Visible(false).Filterable(false).Sortable(true);
+                  columns.Bound(p => p.StandNo).Visible(true).Width(100).HtmlAttributes(new { style = "text-align: right;" });
+                  columns.Bound(p => p.Position).Visible(false).Filterable(false).Width(60);
+                  columns.Bound(p => p.PositionInCassette).Filterable(true).Width(60);
+                  columns.Bound(p => p.RollSetName).Filterable(true).Sortable(true).Width(180).ClientTemplate("<a href='javascript:OpenRollsetInfoPopup(#= RollSetId #, #= RollSetType #)'>" + "#= RollSetName #</a>");
+                  columns.ForeignKey(o => o.RollSetType, (SelectList)ViewBag.RollsetTypes).Width(120);
+                  columns.Bound(p => p.CassetteName).Filterable(true).Sortable(true).Width(180).ClientTemplate("<a href='javascript:OpenCasstteInfoPopup(#= CassetteId #)'>" + "#= CassetteName #</a>");
+                  columns.Bound(p => p.Mounted).Filterable(true).Sortable(true).Format(VM_Resources.ResourceManager.GetString("GLOB_LongDateTime_FORMAT")).Width(160);
+                  columns.ForeignKey(o => o.Arrangement, (SelectList)ViewBag.Arrang).Width(140);
+                  //  columns.Bound(p => p.AccBilletCnt).Filterable(true).Sortable(true).HtmlAttributes(new { style = "#= StylingAfterCompare(AccBilletCntRatio)#" + "text-align: right;" }).Width(120);
+                  //  columns.Bound(p => p.AccBilletCntLimit).Filterable(true).Sortable(true).HtmlAttributes(new { style = "text-align: right;" }).Width(120);
+                  columns.Bound(p => p.AccWeight).Filterable(true).Sortable(true).HtmlAttributes(new { style = "#= StylingAfterCompare(AccWeightRatio)#" + "text-align: right;" }).Width(120);
+                  columns.Bound(p => p.AccWeightRatio).Filterable(true).Sortable(true).HtmlAttributes(new { style = "text-align: right;" }).Width(120);
+                  columns.Bound(p => p.RollSetId).Visible(false);
+
+                  columns.Bound(p => p.AccBilletCntRatio).Visible(false).Filterable(false);
+                  //columns.Bound(p => p.EstimatedPassChangeTime).Visible(true).Filterable(true).Format(VM_Resources.ResourceManager.GetString("GLOB_LongDateTime_FORMAT")).Width(160);
+                  columns.Bound(p => p.Id).Sortable(false).Groupable(false).Filterable(false).Title("").ClientTemplate("# if (RollSetType == 1 || RollSetType == 2) {#" + @Html.ImageButton("pass_change", "PassChangeGroove(#= RollSetId #, #= RollSetType #)", false).ToString() + "#} else {#" + " " + "#}#").Width(60);
+                })
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .Model(model =>
+                {
+                  model.Id(p => p.Id);
+                })
+                .PageSize(12)
+                .Events(events => events.Error("TelerikErrorHandler"))
+                .Read(read => read.Action("GetPassChangeActualData", "ActualStandConfiguration"))
+                ))
+
+<script id="cassetteContent" type="text/kendo-tmpl">
+
+    @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.ActualStandConfiguration.VM_RollSetOverviewRollChange>()
+                                        .Name("grid_#=Id#")
+                                        // .Scrollable()
+                                        .Columns(columns =>
+                                        {
+                                          columns.Bound(p => p.Id).Visible(false).Filterable(false);
+                                          columns.Bound(p => p.RollSetHistoryId).Visible(false);
+                                          columns.Bound(p => p.RollSetName).Filterable(true).Width(130).ClientTemplate("<a href='javascript:OpenRollsetInfoPopup(\\#= Id \\#)'>" + "\\#= RollSetName \\#</a>"); ;
+                                          columns.ForeignKey(o => o.RollSetStatus, (SelectList)ViewBag.RSetStatus).Width(130);
+                                          columns.ForeignKey(o => o.RollSetType, (SelectList)ViewBag.RollsetTypes).Width(120);
+                                          columns.Bound(p => p.PositionInCassette).Visible(true).Width(60);
+                                          columns.Bound(p => p.RollTypeUpper).Width(120);
+                                          columns.Bound(p => p.RollNameUpper).Width(100);
+                                          columns.Bound(p => p.UpperDiameter).Width(120).HtmlAttributes(new { style = "text-align: right;" });
+                                          columns.Bound(p => p.RollNameBottom).Width(100);
+                                          columns.Bound(p => p.BottomDiameter).Width(120).HtmlAttributes(new { style = "text-align: right;" });
+                                          //columns.Bound(p => p.RollNameThird).Width(100);
+                                          //columns.Bound(p => p.ThirdDiameter).Width(120).HtmlAttributes(new { style = "text-align: right;" });
+                                          //columns.Bound(p => p.EstRollChangeTime).Width(180).Format(VM_Resources.ResourceManager.GetString("GLOB_LongDateTime_FORMAT"));
+                                          columns.Bound(p => p.InstalledInStandStatus).Visible(false);
+                                          columns.Bound(p => p.RollSetStatus)/*.Width(60)*/.Sortable(false).Groupable(false).Filterable(false).Title("")
+                          .ClientTemplate(
+                          "\\# if (RollSetType == 1 || RollSetType == 2) {\\#" + @Html.ImageButton("pass_change", "PassChangeGroove(\\#= Id \\#, \\#= RollSetType \\#)", false).ToString() + "\\#}\\#" + "  " +
+                          "\\# if (RollSetStatus == 6) {\\#" + @Html.ImageButton("rolls_dismount_rollset", "DismountRollSet(\\#= Id \\# , \\#= PositionInCassette \\#)", false).ToString() + "\\#}\\#" + "  " +
+                          "\\# if (RollSetStatus == 6) {\\#" + @Html.ImageButton("rolls_swap_rollset", "SwapRollSet(\\#= CassetteId \\# , \\#= PositionInCassette \\#)", false).ToString() + "\\#}\\#" + "  " +
+                          "\\# if (RollSetStatus == 0) {\\#" + @Html.ImageButton("rolls_mount_rollset", "MountRollSet(#= CassetteId # , \\#= PositionInCassette \\#)", false).ToString() + "\\#}\\#");
+                                        })
+                                        //.Events(p => p.DataBound("onDataBoundCassette"))
+                                        .ClientDetailTemplateId("rollsetContent")
+                                        .DataSource(dataSource => dataSource
+                                                .Ajax()
+                                                .ServerOperation(true)
+                                                .Read(read => read.Action("GetCassetteRollSetsData", "ActualStandConfiguration", new { cassetteId = "#=CassetteId#", standStatus = "#=StandStatus#" }))
+                                                .Events(events => events.Error("TelerikErrorHandler"))
+                                        )
+                                        .ToClientTemplate()
+    )
+</script>
+
+<script id="rollsetContent" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.ActualStandConfiguration.VM_PassChangeGroovesRoll>()
+                                        .Name("rollsetGrid_#=RollSetHistoryId#")
+                                        .Columns(columns =>
+                                        {
+                                            columns.Bound(p => p.GrooveNumber).Width(110);
+                                            columns.Bound(p => p.GrooveTemplateName);
+                                            columns.ForeignKey(o => o.GrooveStatus, (SelectList)ViewBag.GrooveStatus).Width(250);
+                                            columns.Bound(p => p.AccWeight).Width(160).HtmlAttributes(new { style = "text-align: right;" });
+                                            columns.Bound(p => p.AccWeightRatio).Width(160).HtmlAttributes(new { style = "\\#= StylingAfterCompare(AccWeightRatio)\\#" + "text-align: right;" });
+                                            //columns.Bound(p => p.EstimatedPassChangeDate).Width(200).Format(VM_Resources.ResourceManager.GetString("GLOB_LongDateTime_FORMAT"));
+                                        })
+                                        .DataSource(dataSource => dataSource
+                                                .Ajax()
+                                                .Read(read => read.Action("GetRollSetGroovesData", "ActualStandConfiguration", new { rollsetHistoryId = "#=RollSetHistoryId#", standStatus = "#=InstalledInStandStatus#" }))
+                                                .Events(events => events.Error("TelerikErrorHandler"))
+                                        )
+                                        .ToClientTemplate()
+    )
+</script>
+
+
+@Scripts.Render("~/Scripts/module/ActualStandConfiguration")

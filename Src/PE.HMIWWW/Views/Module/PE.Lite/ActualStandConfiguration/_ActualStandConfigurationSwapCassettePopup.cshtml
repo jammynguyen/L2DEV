@@ -1,0 +1,195 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.ActualStandConfiguration.VM_SwappingCassettes
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@if (Model != null && !@ViewData.ModelState.IsValid)
+{
+    <script>
+        $(document).ready(function () {
+            $("#header").css('background', '#ce0037').css('color', '#fff');
+        })
+    </script>
+}
+
+
+@using (Ajax.BeginForm("SwapCassette", "ActualStandConfiguration", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "form-horizontal", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(m => m.StandNo)
+    @Html.HiddenFor(m => m.Arrangement)
+    @Html.HiddenFor(m => m.StandStatus)
+    @Html.HiddenFor(m => m.CassetteName)
+    @Html.HiddenFor(m => m.CassetteId)
+    @Html.HiddenFor(m => m.CassetteType)
+
+
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="form-group">
+                @Html.LabelFor(m => m.StandNo, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(m => m.StandNo)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Arrangement, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.Raw(((SelectList)ViewBag.Arrang).Where(p => p.Value == Model.Arrangement.ToString()).First().Text)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.StandStatus, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.Raw(((SelectList)ViewBag.StandStat).Where(p => p.Value == Model.StandStatus.ToString()).First().Text)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CassetteName, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(m => m.CassetteName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CassetteType, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.Raw(((SelectList)ViewBag.CassetteType).Where(p => p.Value == Model.CassetteType.ToString()).First().Text)
+                </div>
+                @*<br />
+                    <div class="col-md-10">
+                        <div class="col-md-offset-2 " style="text-align:right; padding-top:12px;">
+                            <input type="submit" class="btn btn-default formButton formButtonSubmit" value="@PE.HMIWWW.Core.Resources.VM_Resources.BUTTON_SubmitForm" />
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    <table cellspacing="2" cellpadding="2" border="0">
+        <tr>
+            <td width="100px">
+                <b>Position</b>
+            </td>
+            <td width="590px">
+                <b>Rollset</b>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+
+        @for (int i = 0; i < Model.RollSetss.Count; i++)
+        {
+            <tr>
+                <td width="100px">@(i + 1).</td>
+                @if (Model.RollSetss[i].Id != null)
+                {
+                    <td width="590px">@Html.Raw(String.Format("{0} / {1}", Model.RollSetss[i].RollSetName, Model.RollSetss[i].RollType))</td>
+
+                }
+                else
+                {
+                    <td width="590px">NoRollsetInstalled</td>
+                }
+            </tr>
+        }
+
+    </table>
+    <table>
+        <tr>
+            <td>
+                <div class='table-details' style="width: 700px;">
+
+                    <label>@Html.LabelFor(m => m.ArrangementNew)</label>
+                    <br />   @(Html.Kendo().DropDownList().Name("ArrangementNew").DataTextField("Text").DataValueField("Value").Value(Model.ArrangementNew.ToString()).HtmlAttributes(new { style = "width: 200px" }).BindTo((SelectList)ViewBag.ArrangNoUndefined))@Html.ValidationMessageFor(m => m.ArrangementNew)
+                    <br /><label>@Html.LabelFor(m => m.StandStatusNew)</label>
+                    <br />   @(Html.Kendo().DropDownList().Name("StandStatusNew").DataTextField("Text").DataValueField("Value").Value(Model.StandStatusNew.ToString()).HtmlAttributes(new { style = "width: 200px" }).BindTo((SelectList)ViewBag.StandStatNoUndefined))@Html.ValidationMessageFor(m => m.StandStatusNew)
+                    @*<br /><label>@Html.LabelFor(m => m.NewCassetteId)</label>*@
+                    @*  @(Html.Kendo().DropDownList().Name("NewCassetteId").DataTextField("Text").DataValueField("Value").Value(Model.NewCassetteId.ToString()).HtmlAttributes(new { style = "width: 200px" }).BindTo((SelectList)ViewBag.AvailableCassettes).Events(e => { e.Select("onCassetteSelected"); }))@Html.ValidationMessageFor(m => m.NewCassetteId)*@
+                    <br />
+                    @Html.LabelFor(m => m.CassetteId, new { @class = "col-md-11 control-label" })
+
+                    @(Html.Kendo().DropDownList().Name("NewCassetteId")
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .HtmlAttributes(new { style = "width: 220px" })
+                        .DataSource(source =>
+                        {
+                            source
+                 .Read(read =>
+                 {
+                     read
+                             .Action("GetCassetteToStandList", "ActualStandConfiguration", new { StandId = @Model.Id });
+                 });
+                        })@*.Events(e => { e.Select("onCassetteSelected"); }))*@
+                    )
+
+                    br />
+                    <div class="col-md-10">
+                        <div class="col-md-offset-2 " style="text-align:right; padding-top:12px;">
+                            <input type="submit" class="btn btn-primary popup_button" value="@PE.HMIWWW.Core.Resources.VM_Resources.BUTTON_SubmitForm" />
+                        </div>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            <td>
+                <div id="NewCassettePartialView" style="width: 700px;">
+
+                </div>
+            </td>
+        </tr>
+    </table>
+}
+
+
+
+
+<script>
+
+        function onCassetteSelected(e) {
+        console.log("on selected cassette");
+        var selectedCasette = this.dataItem(e.item.index()).Value;
+        RequestCassetteDetailsPartial(selectedCasette);
+        }
+
+        function RequestCassetteDetailsPartial(selectedCassette) {
+        $.ajax({
+            type: 'POST',
+            url: serverAddress + "/ActualStandConfiguration/RenderNewCassetteDetails",
+            data: 'CassetteId=' + selectedCassette + '&StandId=' + @Html.Raw(Model.StandNo),
+            success: function (result)
+            {
+            		ChangePopupSize(740);
+                $('#NewCassettePartialView').html(result);
+                $("#cassetteDetails").show("slow");
+                },
+            complete: function (r) {
+                //when connection with server over
+            },
+            error: function (error) {
+                $("#cassetteDetails").hide("slow");
+                CoreHandleError(error.status, error.statusText, "Cassette details read operation error.", true, "#cassetteDetails", PANEL_OPERATION_HIDE)
+            }
+        });
+        }
+
+        function OnSuccessFunction()
+        {
+            $("input[type=submit]").css({ display: "none" });
+        };
+
+        function ChangePopupSize(mainHeight)
+        {
+        	$(".popup_content").height(mainHeight);
+        }
+</script>

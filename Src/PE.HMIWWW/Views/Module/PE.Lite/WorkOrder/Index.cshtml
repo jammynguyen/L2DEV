@@ -1,0 +1,29 @@
+﻿@model long?
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+@section module_menu
+{
+    @Html.ImageButton("new", "AddNew()", false)
+    @Html.ImageButton("editworkorder", "EditWorkOrder()", false)
+}
+
+<div class="container-fluid p-3">
+    <div class="row">
+        <div class="col-3 grid-filter">
+            <div> @Html.Partial("~/Views/Module/PE.Lite/WorkOrder/_WorkOrderSearchGrid.cshtml", Model) </div>    
+        </div>
+        @*<button onclick="showHideCategories()" class="off show-hide-categories btn btn-sm"><i class="arrow arrow-categories arrow-white right"></i></button>*@
+        <div class="col-9 element-details" id="WorkOrderDetails">
+            <div class="row justify-content-center plug">
+                <div class="col-6 align-self-center">
+                    <img src="/Content/Shared/plug.png" />
+                    <p class="mt-5 plug-info">@VM_Resources.INFO_SelectPlugInfo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Styles.Render("~/Content/Module/WorkOrder")
+@Scripts.Render("~/Scripts/Module/WorkOrder")

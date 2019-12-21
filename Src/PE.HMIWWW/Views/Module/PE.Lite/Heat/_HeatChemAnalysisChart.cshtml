@@ -1,0 +1,78 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Heat.VM_HeatOverview
+
+<div>
+    <script>
+        $("#HeatChemAnalysisChart").data("kendoChart").options.series[0].data[0].visible = false;
+        $("#HeatChemAnalysisChart").data("kendoChart").redraw();
+        let i;
+        for (i = 0; i < $("#HeatChemAnalysisChart").data("kendoChart").options.series[0].data.length; i++) {
+            if ($("#HeatChemAnalysisChart").data("kendoChart").options.series[0].data[i].value === 0 ||
+                $("#HeatChemAnalysisChart").data("kendoChart").options.series[0].data[i].value === null) {
+                $("#HeatChemAnalysisChart").data("kendoChart").options.series[0].data[i].visible = false;
+                $("#HeatChemAnalysisChart").data("kendoChart").options.series[0].data[i].visibleInLegend = false;
+                $("#HeatChemAnalysisChart").data("kendoChart").options.series[0].overlay.gradient = false;
+            }
+        }
+    </script>
+    @(Html.Kendo().Chart()
+        .Name("HeatChemAnalysisChart")
+                .Title(title => title
+                    .Text(VM_Resources.NAME_HeatChemAnalysisChart)
+                    .Position(ChartTitlePosition.Top)
+                    .Padding(0, 0, 40, 0))
+        .Legend(legend => legend
+            .Visible(true)
+            .Labels(x => x.Font("100 px"))
+            .Position(ChartLegendPosition.Bottom))
+        .ChartArea(chart => chart
+            .Background("transparent"))
+        .Series(series =>
+        {
+            series.Pie(new dynamic[] {
+                new {category=@VM_Resources.NAME_SteelGradeCC_Fe,value=Model.HC.Fe, color="#0C2340"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_C,value=Model.HC.C, color="#006487"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Mn,value=Model.HC.Mn, color="#00587C"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Cr,value=Model.HC.Cr, color="#E87722"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Mo,value=Model.HC.Mo, color="#F2A900"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_V,value=Model.HC.V, color="#6BA4B8"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Ni,value=Model.HC.Ni, color="#138fc2"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Co,value=Model.HC.Co, color="#138fc2"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Si,value=Model.HC.Si, color="#E87722"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_P,value=Model.HC.P, color="#eda509"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_H,value=Model.HC.H, color="#6BA4B8"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_W,value=Model.HC.W, color="#006487"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Pb,value=Model.HC.Pb, color="#00587C"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Zn,value=Model.HC.Zn, color="#E87722"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_As,value=Model.HC.As, color="#F2A900"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Bi,value=Model.HC.Bi, color="#6BA4B8"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_S,value=Model.HC.S, color="#006487"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Cu,value=Model.HC.Cu, color="#00587C"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Nb,value=Model.HC.Nb, color="#E87722"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Al,value=Model.HC.Al, color="#F2A900"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_N,value=Model.HC.N, color="#6BA4B8"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Ca,value=Model.HC.Ca, color="#006487"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_B,value=Model.HC.B, color="#00587C"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Ti,value=Model.HC.Ti, color="#E87722"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Sn,value=Model.HC.Sn, color="#eda509"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_O,value=Model.HC.O, color="#6BA4B8"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Te,value=Model.HC.Te, color="#006487"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Mg,value=Model.HC.Mg, color="#00587C"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Sb,value=Model.HC.Sb, color="#E87722"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Ta,value=Model.HC.Ta, color="#6BA4B8"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Zr,value=Model.HC.Zr, color="#006487"},
+                new {category=@VM_Resources.NAME_SteelGradeCC_Ce,value=Model.HC.Ce, color="#138fc2"},
+            })
+            .Labels(labels => labels
+                .Template("#= category #: #= value#")
+                .Visible(true)
+                .Background("transparent")
+                .Position(ChartPieLabelsPosition.OutsideEnd)
+            )
+            .StartAngle(150);
+        })
+        .Tooltip(tooltip => tooltip
+            .Visible(true)
+            .Template("#= category #: #= value#")
+            .Format("{0}"))
+    )
+</div>

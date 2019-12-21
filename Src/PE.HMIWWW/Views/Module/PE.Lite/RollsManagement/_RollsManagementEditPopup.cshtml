@@ -1,0 +1,140 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.RollsManagement.VM_RollsWithTypes
+@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_RollsManagement_EditRollDialog;
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@using (Ajax.BeginForm("UpdateRoll", "RollsManagement", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id);
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.RollName)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.RollName).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.RollName)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.Status)</label>
+        </div>
+        <div class="col">
+            @(Html.Kendo().DropDownListFor(x => x.Status)
+                                 .Name("Status")
+                                 .DataTextField("Text")
+                                 .DataValueField("Value")
+                                 .HtmlAttributes(new { @class = "form-control form-control-sm" })
+                                 .BindTo(new SelectList(@ViewBag.RollStatus.Items, "Key", "Value"))
+                                 .OptionLabel("-")
+            )
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.RollTypeId)</label>
+        </div>
+        <div class="col">
+
+            @(Html.Kendo().DropDownListFor(x => x.RollTypeId)
+                                             .Name("RollTypeId")
+                                             .DataTextField("Text")
+                                             .DataValueField("Value")
+                                             .HtmlAttributes(new { @class = "form-control form-control-sm" })
+                                             .BindTo(new SelectList(@ViewBag.RollTypes.Items, "RollTypeId", "RollTypeName"))
+                                             .OptionLabel("-")
+            )
+        </div>
+        @*@Html.Kendo().TextBoxFor(x => x.DefectCatalogueCategory).HtmlAttributes( new { @class = "form-control form-control-sm" })*@
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.Supplier)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.Supplier).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.Supplier)
+        </div>
+        @*@Html.Kendo().TextBoxFor(x => x.DefectCatalogueCategory).HtmlAttributes( new { @class = "form-control form-control-sm" })*@
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.ActualDiameter)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.ActualDiameter).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.ActualDiameter)
+        </div>
+        @*@Html.Kendo().TextBoxFor(x => x.DefectCatalogueCategory).HtmlAttributes( new { @class = "form-control form-control-sm" })*@
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.InitialDiameter)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.InitialDiameter).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.InitialDiameter)
+        </div>
+        @*@Html.Kendo().TextBoxFor(x => x.DefectCatalogueCategory).HtmlAttributes( new { @class = "form-control form-control-sm" })*@
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.MinimumDiameter)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.MinimumDiameter).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.MinimumDiameter)
+        </div>
+        @*@Html.Kendo().TextBoxFor(x => x.DefectCatalogueCategory).HtmlAttributes( new { @class = "form-control form-control-sm" })*@
+    </div>
+
+    <hr />
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.GLOB_Form_Button_Update
+            </button>
+        </div>
+    </div>
+}
+
+<script>
+    //$.validator.unobtrusive.parse("#form");
+
+    $(function () {
+
+        $('#error').css("display", "none");
+        $("#form").kendoValidator().data("kendoValidator");
+
+    });
+
+    function displayMessage() {
+
+        var validator = $("#form").kendoValidator().data("kendoValidator");
+
+        if (validator.validate()) {
+            $('#error').css("display", "none");
+        } else {
+            $('#error').css("display", "block");
+            $('#popup-footer')
+                .css('display', 'block')
+                .css('background-color', 'rgb(206, 0, 55)');
+        }
+    };
+
+</script>

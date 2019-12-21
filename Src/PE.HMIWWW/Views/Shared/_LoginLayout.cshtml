@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html style="background-color:#fff;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProcessExpert - @ViewBag.Page_Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/service")
+
+
+    @{Html.RenderPartial("~/Views/Shared/_LayoutIncludes.cshtml"); }
+    @RenderSection("scripts", required: false)
+    @RenderSection("ModuleIncludes", required: false)
+
+    <style>
+        .center {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 420px;
+            background: rgb(214,223,231);
+            padding: 15px;
+        }
+
+        .inputFont {
+            font-size: 21px;
+            border-radius: 3px;
+            padding: 12px;
+            padding-top: 6px;
+            padding-bottom: 6px;
+            margin-left: 10%;
+            width: 80%;
+            max-width: 100%;
+            height: 42px;
+        }
+
+        .btn-login {
+            font-size: 30px;
+            width: 250px;
+            background-color: #f2a900;
+            color: white;
+            border: hidden;
+        }
+
+        body {
+            padding: 0px;
+            margin: 0px;
+            border: 0px;
+            overflow-y: hidden;
+        }
+
+        .back {
+            background: url("../../Content/System/Img/loginBackground.jpg");
+            height: 1000px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .field-validation-error {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            width: 400px;
+        }
+    </style>
+
+</head> 
+<body>
+  <header class="main">
+    @Html.Partial("~/Views/Shared/parts/_Logotypes.cshtml")
+  </header>
+  <div class="back">
+    @RenderBody()
+  </div>  
+</body>
+</html>

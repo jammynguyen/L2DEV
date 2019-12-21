@@ -1,0 +1,155 @@
+﻿
+@model PE.HMIWWW.ViewModel.Module.Lite.RollType.VM_RollType
+@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_RollType_AddRollTypeDialog;
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@using (Ajax.BeginForm("InsertRollType", "RollType", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id);
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.RollTypeName)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.RollTypeName).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.RollTypeName)
+        </div>
+    </div>
+
+
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.RollTypeDescription)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.RollTypeDescription).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.RollTypeDescription)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.MatchingRollsetType)</label>
+        </div>
+        <div class="col">
+            @(Html.Kendo().DropDownListFor(x => x.MatchingRollsetType)
+                     .Name("MatchingRollsetType")
+                     .DataTextField("Text")
+                     .DataValueField("Value")
+                     .HtmlAttributes(new { @class = "form-control form-control-sm" })
+                     .BindTo(new SelectList(@ViewBag.RollsetTypes.Items, "Key", "Value"))
+                     .OptionLabel("-")
+            )
+        </div>
+    </div>
+
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.DiameterMin)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.DiameterMin).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.DiameterMin)
+        </div>
+        @*@Html.Kendo().TextBoxFor(x => x.DefectCatalogueCategory).HtmlAttributes( new { @class = "form-control form-control-sm" })*@
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.DiameterMax)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.DiameterMax).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.DiameterMax)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.RoughnessMin)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.RoughnessMin).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.RoughnessMin)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.RoughnessMax)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.RoughnessMax).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.RoughnessMax)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.SteelgradeRoll)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.SteelgradeRoll).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.SteelgradeRoll)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.DrawingName)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.DrawingName).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.DrawingName)
+        </div>
+    </div>
+
+
+
+    <hr />
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.GLOB_Form_Button_Add
+            </button>
+        </div>
+    </div>
+}
+
+<script>
+    //$.validator.unobtrusive.parse("#form");
+
+    $(function () {
+
+        $('#error').css("display", "none");
+        $("#form").kendoValidator().data("kendoValidator");
+
+    });
+
+    function displayMessage() {
+
+        var validator = $("#form").kendoValidator().data("kendoValidator");
+
+        if (validator.validate()) {
+            $('#error').css("display", "none");
+        } else {
+            $('#error').css("display", "block");
+            $('#popup-footer')
+                .css('display', 'block')
+                .css('background-color', 'rgb(206, 0, 55)');
+        }
+    };
+
+</script>

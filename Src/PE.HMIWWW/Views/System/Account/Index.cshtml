@@ -1,0 +1,92 @@
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/kendo" id="rolesTemplate">
+    #for(var i = 0; i< data.length; i++){#
+    <span>[#:data[i].Name#],</span>
+    #}#
+</script>
+
+<script type="text/javascript">
+    var rolesTemplate = kendo.template($("#rolesTemplate").html(), { useWithBlock: false });
+</script>
+
+<script type="text/javascript">
+    //THIS METHOD WILL BE CALLED BY SYSTEM (SERVER) IN CASE DATA CHANGE. NAME IS IMPORTANT !!!
+    function RefreshData() {
+        $("#UsersGrid").data("kendoGrid").dataSource.read();
+        $("#UsersGrid").data("kendoGrid").refresh();
+    }
+
+</script>
+
+
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.System.VM_Account>()
+        .Name("UsersGrid")
+        .HtmlAttributes(new { style = @String.Format("border:none !important; height:{0}px;", ViewBag.FullGridHeight) })
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id).Visible(false).Filterable(false);
+            columns.Bound(p => p.FirstName).Filterable(true).Width(150);
+            columns.Bound(p => p.LastName).Filterable(true).Width(155);
+            columns.Bound(p => p.UserName).Width(275);
+            columns.Bound(p => p.LeftToRight).Width(110).Filterable(false).Sortable(false).Groupable(false).ClientTemplate("# if (LeftToRight) {#" + @PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Name_Yes + "#} else {#" + @PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Name_No + "#}#");
+            columns.Bound(p => p.JobPosition).Width(200);
+            columns.Bound(p => p.Roles)/*.Width(340)*/.ClientTemplate("#=rolesTemplate(Roles)#").Filterable(false).Sortable(false).Groupable(false);
+            columns.Bound(p => p.Id).Width(90).Sortable(false).Groupable(false).Filterable(false).Title("").ClientTemplate(@Html.ImageButton("edit", "EditData('#= Id #')", false).ToString() + @Html.ImageButton("delete", "Delete('#= Id #')", false).ToString() + @Html.ImageButton("role", "EditRole('#= Id #')", false).ToString());
+        })
+
+        .Sortable()
+        .Scrollable()
+        .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+        .Filterable()
+        .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .Model(model =>
+                {
+                    model.Id(p => p.Id);
+                })
+                .PageSize(25)
+                .Read(read => read.Action("GetAccountData", "Account"))
+                .Events(events => events.Error("TelerikErrorHandler"))
+         )
+)
+
+<script>
+    function EditData(itemId)
+    {
+        OpenInPopupWindow({
+            controller: 'Account',
+            method: 'EditAccountDialog',
+            width: 700,
+            data: { id: itemId },
+            afterClose: RefreshData
+        });
+    }
+     function EditRole(itemId)
+     {
+         OpenInPopupWindow({
+             controller: 'Account',
+             method: 'EditAccountRolesDialog',
+             width: 600,
+             data: { id: itemId },
+             afterClose: RefreshData
+         });
+    }
+    function Delete(itemId)
+    {
+        PromptMessage("@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmDelete", "@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmDeleteInfo", function () { return Delete2Confirm(itemId, 'Delete') });
+    }
+    function Delete2Confirm(itemId,  action)
+    {
+        var url = serverAddress + "/Account/" + action;
+        var data = { id: itemId };
+
+        AjaxReqestHelper(url, data, RefreshData);
+    }
+
+</script>

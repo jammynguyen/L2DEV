@@ -1,0 +1,58 @@
+﻿@using PE.HMIWWW.ViewModel.System
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .a.k-button:hover, .k-button-icontext:hover {
+    background: none !important;
+    color: #006487 !important;
+}
+</style>
+
+@(Html.Kendo().Grid<VM_Parameter>()
+    .Name("ParametersGrid")
+    .HtmlAttributes(new { style = @String.Format("border:none !important; height:{0}px;", ViewBag.FullGridHeight) })
+    .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+    .Sortable().Filterable(filtering => filtering.Enabled(true))
+    .Editable(editable => { editable.Mode(GridEditMode.InLine); })
+    .Groupable()
+    .Filterable()
+    .Sortable()
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Id).Visible(false);
+        columns.Bound(p => p.Name).Width(250);
+        columns.Bound(p => p.GroupName).Width(100).Filterable(false).Sortable(false).Groupable(false);
+        columns.Bound(p => p.Type).Width(100).Filterable(false).Sortable(false).Groupable(false);
+        columns.Bound(p => p.Unit).Width(75).Filterable(false).Sortable(false).Groupable(false);
+        columns.Bound(p => p.Value).Width(250).Filterable(false).Sortable(false).Groupable(false);
+        columns.Bound(p => p.Description)/*.Width(600)*/;
+        columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" ").HtmlAttributes(new { @class = "temp-icon-edit" }); }).Width(100);
+    })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .Model(model =>
+        {
+            model.Id(p => p.Id);
+            model.Field(p => p.Name).Editable(false);
+            model.Field(p => p.GroupName).Editable(false);
+            model.Field(p => p.Type).Editable(false);
+            model.Field(p => p.Unit).Editable(false);
+            model.Field(p => p.Description).Editable(false);
+            model.Field(p => p.Value).Editable(true);
+            model.Field(p => p.GroupId).Editable(false);
+
+        })
+        .PageSize((int)ViewBag.NoRecordsInGrid)
+        .Read(read => read.Action("ParameterData", "Parameter"))
+        .Update(update => update.Action("Update", "Parameter"))
+        .Events(events => events.Error("TelerikErrorHandler"))
+
+    ))
+
+

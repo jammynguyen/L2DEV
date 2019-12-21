@@ -1,0 +1,221 @@
+﻿.furnace {
+  width: 100%;
+  height: 550px;
+  display: flex;
+  margin-top:30px;
+}
+
+  .furnace > .furnace-label {
+    width: 6%;
+    height: 100%;
+    float: left;
+    padding-top: 16.3%;
+  }
+
+    .furnace > .furnace-label > .label {
+      height: 60px;
+      border-top: 1px solid #CCCCCC;
+      text-align: left;
+      display: flex;
+      align-items: center;
+    }
+
+      .furnace > .furnace-label > .label:last-of-type {
+        border-bottom: 1px solid #CCCCCC;
+      }
+
+  .furnace > .furnace-body {
+    height: 100%;
+    width: 94%;
+    display: flex;
+  }
+
+    .furnace > .furnace-body > .furnace-entry,
+    .furnace > .furnace-body > .furnace-exit {
+      height: 100%;
+      width: 3%;
+      /*border: 1px solid #CCCCCC;
+        border-bottom:none;*/
+      display: inline-block;
+    }
+
+    .furnace > .furnace-body > .furnace-middle {
+      height: 100%;
+      flex: 1;
+      align-self: flex-end;
+    }
+
+    .furnace > .furnace-body > div > .furnace-header {
+      text-align: center;
+      font-size: xx-small;
+      height: 25px;
+    }
+
+    .furnace > .furnace-body > div:not(.furnace-middle) > .furnace-header {
+      border: 1px solid #757575;
+      border-bottom: none;
+      padding-top: 6px;
+      background-color: #f2f2f2;
+    }
+
+    .furnace > .furnace-body > div.furnace-middle > .furnace-header {
+      font-size: unset;
+    }
+
+.zone-body {
+  height: 100%;
+  padding: 2px;
+}
+
+.furnace > .furnace-body > div.furnace-middle > .zone-body {
+  border-left: none;
+  border-right: none;
+  border: 1px solid #CCCCCC;
+
+  display: flex;
+  max-width: 1655px;
+  /*overflow-x: auto;
+  overflow-y: hidden;*/
+}
+
+.furnace > .furnace-body > div:not(.furnace-middle) > .zone-body {
+  border: 1px solid #757575;
+  border-top: none;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+/*RAW MATERIAL STYLE*/
+
+.raw-material {
+  width: 22px;
+  height: 100%;
+  margin-left: 3px;
+  display: inline-block;
+  /*border: 1px solid black;*/
+}
+
+  .raw-material:hover {
+    transform: scale(1.1);
+  }
+
+.clickable {
+  cursor: pointer;
+}
+
+.raw-material > div {
+  transform: rotate(180deg);
+  color: #ffffff;
+  font-size: smaller;
+  width: 100%;
+  writing-mode: vertical-rl;
+}
+
+  .raw-material > div:first-of-type {
+    height: 73.2%;
+    padding-bottom: 5px;
+    text-align: right;
+  }
+
+  .raw-material > div:nth-of-type(2),
+  .raw-material > div:nth-of-type(3) {
+    height: 60px;
+    text-align: center;
+    margin-bottom: 2px;
+  }
+
+  .raw-material > div.seq-number {
+    background-color: #727272;
+    height: 4%;
+  }
+
+    .raw-material > div.seq-number > p {
+      transform: rotate(90deg);
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+
+
+
+.work-order {
+  margin-top: 354px;
+}
+
+.work-order:hover {
+    margin-top: 350px;
+}
+
+
+.heat {
+  margin-top: 294px;
+}
+
+.heat:hover {
+    margin-top: 290px;
+}
+
+.detail-block {
+  min-height: 30px;
+  z-index: 5;
+  position: absolute;
+  border: solid 1px black;
+  font-size: smaller;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: unset;
+  border-radius: 3px 3px 3px 3px;
+  padding:4px 4px 0 4px;
+  cursor:pointer;
+}
+
+    .detail-block:hover {
+        /*transform: scale(1.1);*/
+        padding-top: 8px;
+        padding-bottom: 8px;
+        z-index: 10;
+    }
+
+/*INFO PANEL*/
+.info-pane {
+  display: none;
+  width: 530px;
+  height: auto;
+  position: fixed;
+  top: 550px;
+  left: 500px;
+  background-color: rgba(255,255,255,0.9);
+  z-index: 10;
+  box-shadow: 0 3px 10px #CCCCCC;
+}
+
+  .info-pane > div > div.popup-header {
+    background-color: rgba(0,88,124,0.9);
+    border-radius: 0 0 0 0;
+  }
+
+    .info-pane > div > div.popup-header > .popup-header-title {
+      color: #ffffff;
+    }
+
+  .info-pane label {
+    color: #00587c;
+  }
+
+div.k-tabstrip {
+    border: none;
+}
+
+    div.k-tabstrip:focus {
+        box-shadow: none;
+    }
+
+.k-tabstrip-items
+.k-state-active
+.k-link {
+    font-weight: 500;
+    color: #425563;
+}

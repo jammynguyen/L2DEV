@@ -1,0 +1,168 @@
+﻿body {
+    font-size: 14px;
+}
+
+#Menu {
+    font-size: 15px;
+}
+
+#MainScreen {
+    position: relative;
+    overflow: hidden;
+}
+
+header{
+    z-index: 9999;
+}
+
+.block-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 100;
+}
+
+.detail-overlay-container {
+    border-top: 30px solid #006487;
+    position: absolute;
+    right: 0;
+    top: -25px;
+    width: 74%;
+    height: 100%;
+    z-index: 1000;
+    background-color: #fff;
+}
+
+.close-detail-btn {
+    position: absolute;
+    color: #fff;
+    top: -27px;
+    right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color .5s;
+}
+
+.back-detail-btn {
+    position: absolute;
+    color: #fff;
+    top: -27px;
+    right: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color .5s;
+}
+
+    .back-detail-btn:hover {
+        color: #f2a900;
+        transition: color .5s;
+        cursor: pointer;
+    }
+
+.close-detail-btn:hover {
+    color: #f2a900;
+    transition: color .5s;
+    cursor: pointer;
+}
+
+.breadcrumbs {
+    position: absolute;
+    top: -27px;
+    color: #fff;
+    transition: color .5s;
+}
+
+.breadcrumb-element:hover {
+    cursor: pointer;
+    color: #f2a900;
+    transition: color .5s;
+}
+
+.breadcrumb-element::after {
+    content: '/';
+    color: #fff;
+    margin: 0 8px;
+}
+
+.breadcrumb-element:last-child::after {
+    content: '';
+}
+
+.breadcrumb-element:last-of-type {
+    /*color: #b6b6b6;*/
+    color: #fff;
+    cursor: default;
+}
+
+#SpecificScreen{
+  height:780px;
+}
+
+
+div.k-tabstrip {
+    border: none;
+}
+
+    div.k-tabstrip:focus {
+        box-shadow: none;
+    }
+
+.k-tabstrip-items
+.k-state-active
+.k-link {
+    font-weight: 500;
+    color: #425563;
+}
+
+.check-box{
+    margin-top: 3px;
+}
+
+.partialHeight {
+    height: 680px;
+}
+
+
+/*Validation message*/
+
+span.k-widget.k-tooltip-validation {
+    display: block;
+    text-align: left;
+    border: 0;
+    padding: 0 !important;
+    /*margin: 0 !important;*/
+    background: none;
+    box-shadow: none;
+    color: red;
+    line-height: 15px;
+    /*width: 120px;*/
+}
+
+.k-tooltip-validation .k-i-warning {
+    margin: 0 !important;
+    display: none;
+}
+
+.k-tooltip-validation {
+    font-size: 12px;
+}
+
+/*filter table window*/
+.k-dropdown-wrap.k-state-focused {
+    background-color: #fff !important;
+    background-image: none,linear-gradient(to bottom,rgba(0,0,0,.01) 0,rgba(0,0,0,.08) 100%) !important;
+    color: #666 !important;
+}
+
+/*for constant row height*/
+.nowrap {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

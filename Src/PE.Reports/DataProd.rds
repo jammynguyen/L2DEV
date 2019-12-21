@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="DataProd">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=localhost;Initial Catalog=PE_Lite_ShiGangSBM</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>a8cf4460-af33-454a-a572-cc98509a6f81</DataSourceID>
+</RptDataSource>

@@ -1,0 +1,110 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Material.VM_RawMaterialOverview
+
+<div class="row">
+    <div class="col-4 p-0 pt-3">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialName)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.IsDummy)
+                </div>
+                <div class="col">
+                    @Html.CheckBoxFor(m => m.IsDummy.Value, new { @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.LastProcessingStepNo)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.LastProcessingStepNo)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.ParentRawMaterial)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.ParentRawMaterial)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-0 pt-3">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.CreatedTs)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.CreatedTs)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.IsVirtual)
+                </div>
+                <div class="col">
+                    @Html.CheckBoxFor(m => m.IsVirtual.Value, new { @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.CuttingSeqNo)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.CuttingSeqNo)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.ExternalRawMaterialId)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.ExternalRawMaterialId)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-0 pt-3">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.LastUpdateTs)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.LastUpdateTs)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.Status)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.Status)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.ChildsNo)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.ChildsNo)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function onClick(e) {
+        kendoConsole.log("event :: click (" + $(e.event.target).closest(".k-button").attr("id") + ")");
+    }
+</script>

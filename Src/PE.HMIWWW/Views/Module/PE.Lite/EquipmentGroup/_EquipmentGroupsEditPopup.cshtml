@@ -1,0 +1,91 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Maintenance.VM_EquipmentGroup
+@{
+	Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@using (Ajax.BeginForm("UpdateEquipmentGroupAsync", "EquipmentGroup", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+	@Html.AntiForgeryToken()
+	@Html.HiddenFor(x => x.EquipmentGroupId);
+
+	<div class="row form-group">
+		<div class="col text-right align-self-center">
+			<label>@Html.LabelFor(x => x.EquipmentGroupCode)</label>
+		</div>
+		<div class="col">
+			@Html.Kendo().TextBoxFor(x => x.EquipmentGroupCode).HtmlAttributes(new { @class = "form-control form-control-sm" })
+			@Html.ValidationMessageFor(x => x.EquipmentGroupCode)
+		</div>
+	</div>
+
+	<div class="row form-group">
+		<div class="col text-right">
+			<label>@Html.LabelFor(x => x.EquipmentGroupName)</label>
+		</div>
+		<div class="col">
+			@Html.Kendo().TextBoxFor(x => x.EquipmentGroupName).HtmlAttributes(new { @class = "form-control form-control-sm" })
+			@Html.ValidationMessageFor(x => x.EquipmentGroupName)
+		</div>
+	</div>
+
+	<div class="row form-group">
+		<div class="col text-right">
+			<label>@Html.LabelFor(x => x.EquipmentGroupDescription)</label>
+		</div>
+		<div class="col">
+			@Html.Kendo().TextBoxFor(x => x.EquipmentGroupDescription).HtmlAttributes(new { @class = "form-control form-control-sm" })
+			@Html.ValidationMessageFor(x => x.EquipmentGroupDescription)
+		</div>
+	</div>
+
+	<div class="row form-group">
+		<div class="col text-right">
+			<label>@Html.LabelFor(x => x.Created)</label>
+		</div>
+		<div class="col">
+			@Html.Kendo().TextBoxFor(x => x.Created).Enable(false).HtmlAttributes(new { @class = "form-control form-control-sm" })
+			@Html.ValidationMessageFor(x => x.Created)
+		</div>
+	</div>
+
+	<hr />
+
+	<div class="row form-group">
+		<div class="col invalid">
+			<p id="error">
+				<span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+			</p>
+		</div>
+		<div class="col text-right">
+			<button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+				@VM_Resources.GLOB_Form_Button_Update
+			</button>
+		</div>
+	</div>
+}
+
+<script>
+	//$.validator.unobtrusive.parse("#form");
+
+	$(function () {
+
+		$('#error').css("display", "none");
+		$("#form").kendoValidator().data("kendoValidator");
+
+	});
+
+	function displayMessage() {
+
+		var validator = $("#form").kendoValidator().data("kendoValidator");
+
+		if (validator.validate()) {
+			$('#error').css("display", "none");
+		} else {
+			$('#error').css("display", "block");
+			$('#popup-footer')
+				.css('display', 'block')
+				.css('background-color', 'rgb(206, 0, 55)');
+		}
+	};
+
+</script>

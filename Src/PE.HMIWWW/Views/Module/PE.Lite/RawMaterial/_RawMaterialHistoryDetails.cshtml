@@ -1,0 +1,120 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Material.VM_RawMaterialHistory
+
+<div class="row">
+    <div class="col-4 p-0 pt-3">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.CreatedTs)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.CreatedTs)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialStep)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialStep)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialPassNo)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialPassNo)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialCutType)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialCutType)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialIsReversed)
+                </div>
+                <div class="col">
+                    @Html.CheckBoxFor(m => m.RawMaterialIsReversed, new { @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-0 pt-3">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialLength)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialLength)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialDeclaredLength)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialDeclaredLength)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialLastLength)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialLastLength)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialElongation)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialElongation)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-0 pt-3">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialWeight)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialWeight)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialDeclaredWeight)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialDeclaredWeight)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialLastWeight)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialLastWeight)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialThickness)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialThickness)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

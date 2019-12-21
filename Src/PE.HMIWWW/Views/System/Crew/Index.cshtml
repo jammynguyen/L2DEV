@@ -1,0 +1,75 @@
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    //THIS METHOD WILL BE CALLED BY SYSTEM (SERVER) IN CASE DATA CHANGE, NAME IS IMPORTANT !!!
+    function RefreshData() {
+    	$("#CrewsGrid").data("kendoGrid").dataSource.read();
+    	$("#CrewsGrid").data("kendoGrid").refresh();
+    }
+</script>
+
+@section module_menu
+{
+	@Html.ImageButton("new", "AddNew()", false)
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.System.VM_Crew>()
+  .Name("CrewsGrid")
+  .HtmlAttributes(new { style = @String.Format("border:none !important; height:{0}px;", ViewBag.FullGridHeight) })
+  .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))              
+  .Sortable().Filterable(filtering => filtering.Enabled(true))
+  .Groupable()
+  .Filterable()
+  .Sortable()
+  .Scrollable()
+  .Columns(columns =>
+  {
+    columns.Bound(p => p.CrewId).Visible(false).Filterable(false).Width(10);
+    columns.Bound(p => p.CrewName).Width(100);
+    columns.Bound(p => p.LeaderName).Width(180);
+    columns.Bound(p => p.Description).Width(450);
+    columns.Bound(p => p.CrewId).Width(40).Sortable(false).Groupable(false).Filterable(false).Title("").ClientTemplate(@Html.ImageButton("edit", "EditData(#= CrewId #)", false).ToString() + @Html.ImageButton("delete", "Delete(#= CrewId #)", false).ToString());
+  })
+  .DataSource(dataSource => dataSource
+    .Ajax()
+    .ServerOperation(true)
+    .PageSize(20)
+    .Events(events => events.Error("TelerikErrorHandler"))
+    .Read(read => read.Action("GetCrewData", "Crew"))
+  ))
+
+<script>
+	function AddNew() {
+        OpenInPopupWindow({
+            controller: 'Crew',
+            method: 'AddCrewDialog',
+            afterClose: RefreshData,
+            icon:'new'
+        });
+	}
+	function EditData(itemId) {
+        OpenInPopupWindow({
+            controller: 'Crew',
+            method: 'EditCrewDialog',
+            data: { id: itemId },
+            afterClose: RefreshData
+        });
+	}
+
+	function Delete(itemId) {
+		var functionName = Delete2Confirm;
+		var action = 'Delete';
+		PromptMessage("@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmDelete", "@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmDeleteInfo", function () { return functionName(itemId, action) });
+	}
+
+    function Delete2Confirm(itemId, action) {
+
+        var url = serverAddress + "/Crew/" + action;
+        var data = { Id: itemId };
+    
+        AjaxReqestHelper(url, data, RefreshData);
+	}
+</script>

@@ -1,0 +1,20 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Steelgrade.VM_Steelgrade
+
+<div class="row h-100">
+    <div class="col">
+        @(Html.Kendo().TabStrip()
+            .Name("SteelgradeBody")
+            .Animation(false)
+            .Scrollable(false)
+            .Items(tabstrip =>
+            {
+            tabstrip.Add().Text(VM_Resources.NAME_SteelgradeDetails)
+                .Selected(true).Content(@Html.Partial("~/Views/Module/PE.Lite/Steelgrade/_SteelgradeDetails.cshtml", Model).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+            })
+            .Events(e =>
+            {
+                e.Select("saveTabStripState");
+            })
+        )
+    </div>
+</div>

@@ -1,0 +1,53 @@
+﻿@(
+    Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Schedule.VM_Schedule>()
+            .Name("Schedule")
+            .Events(e=>e.DataBound("ColorRowInTable"))
+            .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+            .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+            .Scrollable()
+            .HtmlAttributes(new { style = @String.Format("height:{0}px;", 720) })
+
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.ScheduleId).Visible(false);
+                columns.Bound(c => c.OrderSeq).Width(150).Visible(false);
+                columns.Bound(c => c.WorkOrderName).Width(170).Visible(true);
+                columns.Bound(c => c.HeatName).Width(150);
+                columns.Bound(c => c.MaterialsNo).Width(95).Visible(true);
+                columns.Bound(c => c.PlannedWeight).Width(90);
+                columns.Bound(c => c.IsTest).Width(50).Visible(false);
+                columns.Bound(c => c.ProductCatalogueName).Width(130);
+                columns.Bound(c => c.BilletCatalogueName).Width(120);
+                columns.Bound(c => c.Steelgrade).Width(90).Visible(true);
+                columns.Bound(c => c.BilletsToBeRolled).Visible(false);
+                columns.Bound(c => c.MaterialsNo).Width(80).Visible(false);
+                columns.Bound(c => c.StartTime).Format(VM_Resources.GLOB_LongDateTime_FORMAT).Visible(false);
+                columns.Bound(c => c.EndTime).Format(VM_Resources.GLOB_LongDateTime_FORMAT).Visible(false);
+                columns.Bound(c => c.PlannedStartTime).Width(140).Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+                columns.Bound(c => c.PlannedTime).Width(90).Format(VM_Resources.GLOB_Time_FORMAT);
+                columns.Bound(c => c.PlannedEndTime).Format(VM_Resources.GLOB_LongDateTime_FORMAT).Visible(false);
+                columns.Bound(c => c.CreatedTs).Format(VM_Resources.GLOB_LongDateTime_FORMAT).Visible(false);
+                columns.Bound(p => p.ScheduleId).Width(140).Sortable(false).Groupable(false).Filterable(false).Title("")
+                    .ClientTemplate(@Html.ImageButton("new", "createTestSchedule(#=ScheduleId#)", false).ToString()
+                    + @Html.ImageButton("up", "moveItemInSchedule(#=ScheduleId#,"+ (short) PE.DbEntity.Enums.ScheduleMoveOperator.Up+" )", false).ToString()
+                    + @Html.ImageButton("down", "moveItemInSchedule(#=ScheduleId#,"+ (short) PE.DbEntity.Enums.ScheduleMoveOperator.Down+")", false).ToString()
+                    + @Html.ImageButton("delete", "removeItemFromSchedule(#=ScheduleId#,#=FKWorkOrderId#, #=OrderSeq#)", false).ToString()
+                    + @Html.ImageButton("details", "GoToWorkOrderDetails(#=FKWorkOrderId#)", false).ToString());
+    })
+            .DataSource(d => d
+                .Ajax()
+                .ServerOperation(true)
+                .PageSize(25)
+
+                .Filter(filters =>
+                {
+                    //filters.Add(f => f.ScheduleId).IsNotNull();
+                })
+                .Sort(sort =>
+                {
+                    sort.Add(s => s.OrderSeq);
+                })
+                .Read(r => r.Action("GetSchedule", "Schedule"))
+            )
+)

@@ -1,0 +1,30 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = VM_Resources.PAGE_TITLE_L3CommStatus_Index;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+
+<div class="row">
+    <div class="col">
+        @(Html.Kendo().TabStrip()
+                                                  .Name("L3CommStatus")
+                                                  .Animation(false)
+                                                  .HtmlAttributes(new { style = "width: 100%;" })
+                                                  .Scrollable(false)
+                                                  .Items(tabstrip =>
+                                                  {
+                                                      tabstrip.Add().Text(VM_Resources.NAME_L3TransferTable_General)
+                                                         .Selected(true).Content(@Html.Partial("~/Views/System/L3CommStatus/_L3TransferTableGeneral.cshtml").ToHtmlString());
+                                                      tabstrip.Add().Text(VM_Resources.NAME_L3TransferTable_WorkOrder)
+                                                        .Selected(false).Content(@Html.Partial("~/Views/System/L3CommStatus/_L3TransferTableWorkOrder.cshtml").ToHtmlString());
+                                                  })
+        )
+    </div>
+</div>
+
+@*@Styles.Render("~/Content/System/L3TransferTableWorkOrder")*@
+
+@Scripts.Render("~/Scripts/System/L3TransferTableWorkOrder")

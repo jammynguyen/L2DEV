@@ -1,0 +1,64 @@
+﻿.element-details {
+    position: relative;
+    width: 100%;
+}
+
+.loading-overlay::before {
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+    background-image: url(/Content/System/Img/loading_2x.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(255,255,255,.6);
+}
+
+
+#SearchGrid table tr {
+    cursor: pointer;
+}
+
+div.k-tabstrip {
+    border: none;
+}
+
+    div.k-tabstrip:focus {
+        box-shadow: none;
+    }
+
+.partialHeight {
+    height: 680px;
+}
+
+.k-state-active {
+    overflow: hidden !important;
+}
+
+.k-grid-norecords {
+    margin-top: 100px;
+}
+.fixed-margin>div > div > div.form-group {
+  margin-bottom: 8px;
+}
+
+.k-tabstrip-items
+.k-state-active
+.k-link {
+    font-weight: 500;
+    color: #425563;
+}
+
+.refreshBtnContainer {
+    float: right;
+}
+/*fix {} items of {} not visible in telerik 2019.3.1024*/
+.k-pager-wrap.k-pager-md .k-pager-info,
+.k-pager-wrap.k-pager-sm .k-pager-info {
+    display: flex;
+}
+

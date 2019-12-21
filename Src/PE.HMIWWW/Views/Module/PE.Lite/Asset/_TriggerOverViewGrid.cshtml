@@ -1,0 +1,69 @@
+﻿
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Asset.VM_TriggerOverView>
+                ()
+                .Name("TriggerOverViewGrid")
+                .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+                .HtmlAttributes(new { style = @String.Format("height:{0}px;", ViewBag.FullGridHeight-75) })
+                .Pageable(p => p
+                    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .Selectable()
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.TriggerCode).Width(200);
+                    columns.Bound(c => c.TriggerName).Width(200);
+                    columns.Bound(c => c.IsActive).Width(200);
+
+
+                })
+                .DataSource(d => d
+                .Ajax()
+                .ServerOperation(true)
+                .PageSize(30)
+                .Filter(filters =>
+                {
+        })
+                .Sort(sort =>
+                {
+                    sort.Add(s => s.TriggerCode).Ascending();
+                })
+                .Read(r => r.Action("GetTriggerOverViewList", "Asset"))
+                )
+                .ClientDetailTemplateId("TriggerOverViewDetail")
+
+
+)
+
+<script id="TriggerOverViewDetail" type="text/kendo-tmpl">
+
+    @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Asset.VM_TriggerOverView>()
+                                .Name("DetailGrid_#=TriggerCode#")
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(o => o.AssetCode).Width(20).Visible(true);
+                                    columns.Bound(o => o.AssetName).Width(20).Visible(true);
+                                    columns.Bound(o => o.FeatureCode).Width(20).Visible(true);
+                                    columns.Bound(o => o.FeatureName).Width(20).Visible(true);
+
+                                })
+                                .DataSource(dataSource => dataSource
+                                    .Ajax()
+                                    .PageSize(5)
+                                    .Read(read => read.Action("GetTriggerDetailByTriggerCode", "Asset", new { TriggerCode = "#=TriggerCode#" }))
+                                )
+                               .Pageable(p => p
+                                    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                                .Sortable()
+                                .ToClientTemplate()
+      )                          
+
+
+</script>
+
+<script>
+    function dataBound() {
+        this.expandRow(this.tbody.find("tr.k-master-row").first());
+    }
+</script>

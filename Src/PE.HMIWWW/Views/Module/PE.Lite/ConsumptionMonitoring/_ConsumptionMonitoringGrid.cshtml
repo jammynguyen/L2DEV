@@ -1,0 +1,38 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.ConsumptionMonitoring.VM_Feature
+@(
+                        Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.ConsumptionMonitoring.VM_Feature>()
+                                .Name("FeaturesSearchGrid")
+                                .Events(e => e.DataBound("selectRow"))
+                                .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+                                .Pageable(p => p
+                                    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                                .Sortable()
+                                .Filterable()
+                                .Selectable()
+                                .HtmlAttributes(new { style = @String.Format("height:{0}px;", ViewBag.FullGridHeight) })
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(c => c.FeatureId).Visible(false);
+                                    columns.Bound(c => c.FeatureName);
+                                })
+                                .DataSource(d => d
+                                    .Ajax()
+                                    .ServerOperation(true)
+                                    .PageSize(28)
+                                    .Filter(filters =>
+                                    {
+                                        if (Model != null)
+                                        {
+                                            //filters.Add(f => f.MaterialName).IsEqualTo(Model.MaterialName);
+                                        }
+                                    })
+                                    .Sort(sort =>
+                                    {
+
+                                    })
+                                    .Read(r => r.Action("GetFeaturesList", "ConsumptionMonitoring", new { featureId = Model }))
+                                )
+                                .Events(e => e.Change("onElementSelect"))
+)
+
+

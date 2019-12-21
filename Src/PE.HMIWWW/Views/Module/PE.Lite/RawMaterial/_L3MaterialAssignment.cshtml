@@ -1,0 +1,128 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Material.VM_L3MaterialData
+
+
+<div class="row overflow-hidden fh-ts justify-content-center" id="L3MaterialAssignment">
+
+    @if (Model != null)
+    {
+        <div class="col-12">
+            <div class="row">
+                <div class="col-4 p-0">
+                    <div class="form-group row">
+                        <div class="col text-right">
+                            @Html.LabelFor(m => m.MaterialName)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.MaterialName)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col text-right">
+                            @Html.LabelFor(m => m.CreatedTs)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.CreatedTs)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 p-0">
+                    <div class="form-group row">
+                        <div class="col text-right">
+                            @Html.LabelFor(m => m.WorkOrder.WorkOrderName)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.WorkOrder.WorkOrderName)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col text-right">
+                            @Html.LabelFor(m => m.LastUpdateTs)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.LastUpdateTs)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 p-0">
+                    <div class="form-group row">
+                        <div class="col text-right">
+                            @Html.LabelFor(m => m.IsDummy)
+                        </div>
+                        <div class="col">
+                            @Html.CheckBoxFor(m => m.IsDummy.Value, new { @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col text-right">
+                            @Html.LabelFor(m => m.WorkOrder.WorkOrderStatus)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.WorkOrder.WorkOrderStatus)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+
+        <div class="col-6 text-center mb-5">
+            <h3 class="display-4">@VM_Resources.INFO_NoRecordsFound</h3>
+            <p class="attach-info">@VM_Resources.INFO_SelectMaterialFromBelowInfo</p>
+        </div>
+        <div class="col-12">
+            @(
+                Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Material.VM_MaterialOverview>()
+                              .Name("L3MaterialsSearchList")
+                              .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+                              .Pageable(p => p
+                                    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                              .Sortable()
+                              .Filterable()
+                              .Selectable()
+                              .Scrollable()
+                              .HtmlAttributes(new { style = String.Format($"width:100%; height:510px;"), @class = String.Format($"mt-2") })
+                            .Columns(columns =>
+                            {
+                                columns.Bound(c => c.MaterialId).Width(80).Visible(false);
+                                columns.Bound(c => c.MaterialName).Width(170).Visible(true);
+                                columns.Bound(c => c.CreatedTs).Width(130).Visible(true).Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+                                columns.Bound(c => c.LastUpdateTs).Width(130).Visible(true).Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+                                //columns.Bound(c => c.HeatName).Width(100).Visible(true);
+                                columns.Bound(c => c.WorkOrderName).Width(130).Visible(true);
+                                //columns.Bound(c => c.MaterialStatus).Width(80).Visible(true);
+                            })
+                            .DataSource(d => d
+                                .Ajax()
+                                .ServerOperation(true)
+                                .PageSize(20)
+                                .Filter(filters =>
+                                {
+                            //if (Model != null)
+                            //{
+                            //    filters.Add(f => f.RawMaterialName).IsEqualTo(Model.RawMaterialName);
+                            //}
+                        })
+                                .Sort(sort =>
+                                {
+                            //sort.Add(s => s.MaterialName).Ascending();
+                            //sort.Add(s => s.CreatedTs).Descending();
+                        })
+                                .Read(r => r.Action("GetNotAssignmedL3Materials", "RawMaterial"))
+                            )
+                            .Events(e =>
+                            {
+                                e.Change("onMaterialToAssignSelect");
+                        //e.DataBound("colorEmptyL3MaterialRow");
+
+                    })
+            )
+        </div>
+
+    }
+</div>
+
+
+
+

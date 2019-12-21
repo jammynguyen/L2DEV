@@ -1,0 +1,19 @@
+﻿<#@ include file="PE.EnumGenerator.Core.ttinclude" #>
+
+<#
+	// THIS CODE IS PART OF (S)POCO ENUMS PE_GENERATOR
+	// just feel free to press ctrl + s
+    // v1.0
+    
+ 
+   
+    OutputProjectName = "PE.DbEntity";
+	OutputProjectFolder_Enum = "Enums";
+	ConnectionStringName = "PEContext"; 
+    DbContextName = "PEContext";
+
+
+    GenerateEnums();
+    
+
+#>

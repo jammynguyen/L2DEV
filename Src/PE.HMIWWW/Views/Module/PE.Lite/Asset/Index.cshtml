@@ -1,0 +1,35 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Asset.VM_Asset
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+<div class="container-fluid p-3">
+    <div class="row">
+        <div class="col">
+            @(Html.Kendo().TabStrip()
+                     .Name("AssetTab")
+                     .Animation(false)
+                     .HtmlAttributes(new { style = "width: 100%;" })
+                     .Scrollable(false)
+                     .Items(tabstrip =>
+                     {
+                         tabstrip.Add().Text(VM_Resources.NAME_Asset)
+                           .Selected(true).Content(@Html.Partial("~/Views/Module/PE.Lite/Asset/_AssetGrid.cshtml").ToHtmlString());
+                         tabstrip.Add().Text(VM_Resources.NAME_TriggerView)
+                           .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/Asset/_TriggerOverViewGrid.cshtml").ToHtmlString());
+                     })
+            )
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/module/materialCatalogue")
+
+<style>
+    .k-grid{
+        height:100%;
+    }
+    .k-tabstrip .k-content {
+    height: 680px;
+}
+</style>

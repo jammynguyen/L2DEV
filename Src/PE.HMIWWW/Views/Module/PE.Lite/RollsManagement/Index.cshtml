@@ -1,0 +1,95 @@
+﻿@*@{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    @section module_menu
+    {
+        @Html.ImageButton("new", "AddNew()", false)
+    }
+
+    @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.VM_RollsWithTypes>()
+      .Name("RollsManagementGrid")
+      .HtmlAttributes(new { style = @String.Format("border:none !important; height:{0}px;", ViewBag.FullGridHeight) })
+      .Pageable().Sortable().Filterable(filtering => filtering.Enabled(true))
+      .ClientDetailTemplateId("template")
+      .Groupable()
+      .Filterable()
+      .Scrollable()
+      .Columns(columns =>
+      {
+        columns.Bound(p => p.Id).Visible(false).Width(10);
+        columns.Bound(p => p.RollName).Width(200).Filterable(true);
+        columns.ForeignKey(o => o.RollTypeId, (SelectList)ViewBag.RollTypes).Width(270);
+        columns.ForeignKey(o => o.Status, (SelectList)ViewBag.RollStatus).Width(120);
+        columns.Bound(p => p.RollSetName).Width(120).Filterable(true).ClientTemplate("#if (RollsetId != null) {#" + "<a href='javascript:OpenRollsetInfoPopup(#= RollsetId #)'>" + "#= RollSetName #</a>" + "#}#");
+        columns.Bound(p => p.ActualDiameter).Width(180).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.MinimumDiameter).Width(180).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.InitialDiameter).Width(180).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+        columns.Bound(p => p.Id).Sortable(false).Groupable(false).Filterable(false).Title("").ClientTemplate(
+            @Html.ImageButton("edit", "EditData(#= Id #)", false).ToString() +
+            "#if ((Status != 2) && (Status != 4) && (Status != 5) && (Status != 6)) {#" + @Html.ImageButton("scrap", "ScrapRoll(#= Id #)", false).ToString() + "#}#" +
+            "#if ((Status == 0) || (Status == 1)) {#" + @Html.ImageButton("delete", "Delete(#= Id #)", false).ToString() + "#}#");
+      })
+      .DataSource(dataSource => dataSource
+      .Ajax()
+      .ServerOperation(true)
+      .Model(model =>
+      {
+        model.Id(p => p.Id);
+        model.Field(p => p.RollName).Editable(false);
+        model.Field(p => p.Status).Editable(false);
+        model.Field(p => p.RollTypeId).Editable(false);
+        model.Field(p => p.RollTypeDescription).Editable(false);
+        model.Field(p => p.Supplier).Editable(false);
+      })
+      .PageSize(29)
+     // .PageSize((int)ViewBag.NoRecordsInGrid - 1)
+      .Events(events => events.Error("TelerikErrorHandler"))
+      .Read(read => read.Action("GetRollData", "RollsManagement"))
+      ))*@
+
+
+@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_RollsManagement_Index;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+@section module_menu
+    {
+    @Html.ImageButton("new", "AddNew()", false)
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.RollsManagement.VM_RollsWithTypes>()
+                .Name("RollsManagementGrid")
+                .HtmlAttributes(new { style = @String.Format(" height:{0}px;", ViewBag.FullGridHeight) })
+                .Scrollable()
+                .Pageable(p => p
+                    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                .Filterable()
+                .Sortable()
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.Id).Visible(false).Width(10);
+                    columns.Bound(p => p.RollName).Width(200).Filterable(true);
+                    columns.ForeignKey(o => o.RollTypeId, (SelectList)ViewBag.RollTypes).Width(270);
+                    columns.ForeignKey(o => o.Status, (SelectList)ViewBag.RollStatus).Width(120);
+                    //columns.Bound(p => p.RollSetName).Width(120).Filterable(true).ClientTemplate("#if (RollsetId != null) {#" + "<a href='javascript:OpenRollsetInfoPopup(#= RollsetId #)'>" + "#= RollSetName #</a>" + "#}#");
+                    columns.Bound(p => p.RollSetName).Sortable(false);
+                    columns.Bound(p => p.ActualDiameter).Width(180).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+                    columns.Bound(p => p.MinimumDiameter).Width(180).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+                    columns.Bound(p => p.InitialDiameter).Width(180).Filterable(true).HtmlAttributes(new { style = "text-align: right;" });
+                    columns.Bound(p => p.Id).Sortable(false).Groupable(false).Filterable(false).Title("").ClientTemplate(
+       @Html.ImageButton("edit", "EditData(#= Id #)", false).ToString() +
+       "#if ((Status != 2) && (Status != 4) && (Status != 5) && (Status != 6)) {#" + @Html.ImageButton("scrap", "ScrapRoll(#= Id #)", false).ToString() + "#}#" +
+       "#if ((Status == 0) || (Status == 1)) {#" + @Html.ImageButton("delete", "Delete(#= Id #)", false).ToString() + "#}#");
+                })
+                .DataSource(ds => ds
+                                    .Ajax()
+                                    .ServerOperation(true)
+                                    .PageSize(27)
+                                    .Events(e => e.Error("TelerikErrorHandler"))
+                                    .Read(r => r.Action("GetRollData", "RollsManagement"))
+                           )
+)
+
+@Scripts.Render("~/Scripts/module/RollsManagement")

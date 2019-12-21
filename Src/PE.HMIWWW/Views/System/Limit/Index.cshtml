@@ -1,0 +1,69 @@
+﻿@using PE.HMIWWW.ViewModel.System;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section module_menu
+{
+    @*@Html.ImageButton("new", "AddNew()", false)*@
+}
+
+
+<style>
+    .a.k-button:hover, .k-button-icontext:hover {
+        background: none !important;
+        color: #006487 !important;
+    }
+</style>
+
+<script>
+    RegisterMethod(HmiRefreshKeys.Limits, RefreshData);
+
+    //THIS METHOD WILL BE CALLED BY SYSTEM (SERVER) IN CASE DATA CHANGE, NAME IS IMPORTANT !!!
+    function RefreshData() {
+        $("#LimitGrid").data("kendoGrid").dataSource.read();
+        $("#LimitGrid").data("kendoGrid").refresh();
+    }
+</script>
+
+
+@(Html.Kendo().Grid<VM_Limit>()
+    .Name("LimitGrid")
+    .HtmlAttributes(new { style = @String.Format("border:none !important; height:{0}px;", ViewBag.FullGridHeight) })
+    .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+    .Sortable().Filterable(filtering => filtering.Enabled(true))
+    .Editable(editable => { editable.Mode(GridEditMode.InLine); })
+    .Groupable()
+    .Filterable()
+    .Sortable()
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Id).Visible(false);
+        columns.Bound(p => p.Name).Width(250);
+        columns.Bound(p => p.GroupName).Width(100).Filterable(false).Sortable(false).Groupable(false);
+        columns.Bound(p => p.Type).Width(100).Filterable(false).Sortable(false).Groupable(false);
+        columns.Bound(p => p.Unit).Width(100).Filterable(false).Sortable(false).Groupable(false);
+        columns.Bound(p => p.LowerValue).Width(200).HtmlAttributes(new { style = "text-align: right;" }).Filterable(false).Sortable(false).Groupable(false);
+        columns.Bound(p => p.UpperValue).Width(200).HtmlAttributes(new { style = "text-align: right;" }).Filterable(false).Sortable(false).Groupable(false);
+        columns.Bound(p => p.Description)/*.Width(600)*/;
+        columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" ").HtmlAttributes(new { @class = "temp-icon-edit" }); }).Width(120);
+    })
+
+    .DataSource(dataSource => dataSource
+            .Ajax()
+            .ServerOperation(true)
+            .Model(model =>
+            {
+                model.Id(p => p.Id);
+                model.Field(p => p.Name).Editable(false);
+                model.Field(p => p.GroupName).Editable(false);
+                model.Field(p => p.Type).Editable(false);
+                model.Field(p => p.Unit).Editable(false);
+                model.Field(p => p.Description).Editable(false);
+            })
+            .PageSize((int)ViewBag.NoRecordsInGrid)
+            .Read(read => read.Action("LimitData", "Limit"))
+            .Update(update => update.Action("Update", "Limit"))
+            .Events(events => events.Error("TelerikErrorHandler"))
+            ))

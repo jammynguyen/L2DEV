@@ -1,0 +1,75 @@
+﻿<div class="demo-section">
+	@{
+		string controllerName = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString();
+		string actionName = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+
+		@(Html.Kendo().DropDownList()
+									.Name("db2dbCommunicationExternalTable")
+									.Filter(FilterType.StartsWith)
+									.HtmlAttributes(new { style = "width:200px;" })
+									.DataSource(source => source.Custom().Schema(z => z.Data("Data").Total("Total").Errors("Errors")).Transport( a => a
+
+										.Read(read =>
+										{
+											read.Action("GetExternalTableNames", "DB2DBCommunication");
+										})
+										)
+									)
+									.DataTextField("Text")
+									.DataValueField("Value")
+									.SelectedIndex(0)
+		)
+		}
+
+	<script>
+		function RefreshDataDropDownList() {
+			$("#CampaignScheduleMode").data("kendoComboBox").dataSource.read();
+			$("#CampaignScheduleMode").data("kendoComboBox").value(0);
+		}
+
+		function SaveSelected(e) {
+			var functionName = SaveSelected2Confirm;
+			ShowConfirmationWindow('@(PE.HMIWWW.Core.Resources.VM_Resources.NAME_Confirmation)', function () { return functionName(e) });
+		}
+
+		function SaveSelected2Confirm(e) {
+			var selectedText = $("#db2dbCommunicationExternalTable").data("kendoDropDownList").text();
+			var tempcampaignId = window.location.search;
+			var dataToSent = { campaignMode: selectedText, campaignId: tempcampaignId }
+			$.ajax({
+				traditional: true,
+				type: 'POST',
+				url: serverAddress + "/module/Db2DbCommunicationExternalTables/SetTable",
+				data: dataToSent,
+				dataType: "json",
+				success: function (result) {
+					RefreshDataDropDownList();
+				},
+				complete: function (r) {
+					RefreshDataDropDownList();
+				},
+				error: function (error) {
+					CoreHandleError(error.status, error.statusText, "SetTable", true, null, null);
+				}
+			});
+		}
+	</script>
+</div>
+
+
+<style scoped>
+	.demo-section {
+		float: left;
+		padding-left: 0px;
+		padding-right: 0px;
+		/*width: 250px;
+				margin: 35px auto 50px;
+				padding: 30px;*/
+	}
+
+	.k-dropdown .k-dropdown-wrap{
+    height: 24px;
+}
+
+
+</style>

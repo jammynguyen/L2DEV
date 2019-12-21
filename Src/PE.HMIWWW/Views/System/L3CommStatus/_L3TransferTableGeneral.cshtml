@@ -1,0 +1,29 @@
+﻿
+@(
+                    Html.Kendo().Grid<PE.HMIWWW.ViewModel.System.VM_L3TransferTableGeneral>()
+                    .Name("L3TransferTableGenaral")
+                    .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+                    .Scrollable()
+                    .Sortable()
+                    .Filterable()
+                    .Pageable(p => p
+                        .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                    .HtmlAttributes(new { style = @String.Format("height:{0}px;", ((int)ViewBag.FullGridHeight)-50) })
+                    .Columns(c =>
+                    {
+                        c.Bound(x => x.TableName).Width(20).Visible(true);
+                        c.Bound(x => x.New).Width(20).Visible(true);
+                        c.Bound(x => x.BeingProcessed).Width(20).Visible(true);
+                        c.Bound(x => x.OK).Width(20).Visible(true);
+                        c.Bound(x => x.ValidationError).Width(20).Visible(true);
+                        c.Bound(x => x.ProcessingError).Width(20).Visible(true);
+
+                    })
+                    .DataSource(d => d
+                        .Ajax()
+                        .ServerOperation(true)
+                        .PageSize(((int)ViewBag.NoRecordsInGrid))
+                        .Read(r => r.Action("GetL3TransferTableGeneralList", "L3CommStatus"))
+                        )
+
+  )

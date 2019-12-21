@@ -1,0 +1,85 @@
+﻿@model string
+@{
+	Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+<script type="text/javascript">
+    //THIS METHOD WILL BE CALLED BY SYSTEM (SERVER) IN CASE DATA CHANGE, NAME IS IMPORTANT !!!
+	function RefreshData() {
+		if ($("#gridSystem").data("kendoGrid") != null)
+		{
+			$("#gridSystem").data("kendoGrid").dataSource.read();
+			$("#gridSystem").data("kendoGrid").refresh();
+		}
+    	$("#RolesGrid").data("kendoGrid").dataSource.read();
+    	$("#RolesGrid").data("kendoGrid").refresh();
+    }
+</script>
+	
+<script>
+	function getRoleRightsForController(e) {
+		var rId = '@(Model)';
+		return { roleId: rId, rightsType: 1 }
+	}
+	function getRoleId(e) {
+		var rId = '@(Model)';
+		return { editedRoleId: rId }
+	}
+	function afterEveryChange(e) {
+        console.log(e);
+		if (e.action === "itemchange") {
+			var isChecked = $("#gridAssigned" + e.items[0].AccessUnitId).is(":checked");
+			if (isChecked == false) {
+				$("#gridAssigned" + e.items[0].AccessUnitId).attr('checked', 'checked')
+			}
+
+			var url = serverAddress + "/Role/" +  "UpdateAccessUnitPermission";
+			var data = { roleRightId: e.items[0].Id, accessUnitId: e.items[0].AccessUnitId, roleId: e.items[0].RoleId, isAssigned: true, permission: e.items[0].PermissionType };
+
+			AjaxReqestHelper(url, data, RefreshData);
+		}
+	}
+
+	function onCheckboxClick(rrId, auId, rId) {
+
+        var isChecked = $("#gridAssigned" + auId).is(":checked");
+
+        var url = serverAddress + "/Role/" + "UpdateAccessUnitPermission";
+        var data = { roleRightId: rrId, accessUnitId: auId, roleId: rId, isAssigned: isChecked, permission: 0 };
+
+        AjaxReqestHelper(url, data, RefreshData);
+    }
+</script>
+
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.System.VM_Right>()
+            .Name("gridSystem")
+        .Editable(editable => editable.Mode(GridEditMode.InCell))
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Id).Visible(false).Width(50);
+            columns.Bound(o => o.Assigned).Visible(true).Width(20).ClientTemplate("<input id='gridAssigned#=AccessUnitId#' type='checkbox' name='gridAssigned#=AccessUnitId#' value='#=Assigned#' onclick='onCheckboxClick(\"#=Id#\",\"#=AccessUnitId#\",\"#=RoleId#\")' " + "# if (Assigned == true) {#" + @Html.Raw("checked") + "#} # />").HtmlAttributes(new { style = "text-align: center; height: 1.65em;" });
+            columns.ForeignKey(p => p.AccessUnitId, (SelectList)ViewBag.AccessUnitsController).Width(100);
+            columns.ForeignKey(p => p.PermissionType, (SelectList)ViewBag.PermissionTypesController).Width(150);
+        })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .ServerOperation(true)
+            .Model(model =>
+            {
+                model.Id(p => p.Id);
+                model.Field(p => p.Assigned).Editable(true);
+                model.Field(p => p.PermissionType).Editable(true);
+                model.Field(p => p.Description).Editable(false);
+                model.Field(p => p.AccessUnitId);
+            })
+            .Events(events => events.Error("TelerikErrorHandler").Change("afterEveryChange"))
+            .PageSize(17)
+            .Read(read => read.Action("GetRightsTypeData", "Role").Data("getRoleRightsForController"))
+            )
+            .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+            .Sortable()
+            .HtmlAttributes(new { style = "height:500px;" })
+)
+

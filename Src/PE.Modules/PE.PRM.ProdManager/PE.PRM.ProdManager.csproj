@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B82714C3-9A51-43E4-A1C6-50488F6DBC4F}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>PE.PRM.ProdManager</RootNamespace>
+    <AssemblyName>ProdManager</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Communication\ExternalAdapter.cs" />
+    <Compile Include="Communication\ExternalAdapterHandler.cs" />
+    <Compile Include="Communication\SendOffice.cs" />
+    <Compile Include="Module\DefsExt.cs" />
+    <Compile Include="Module\Worker.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.1.16.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LinqKit.1.1.16\lib\net45\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Client.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Extensions.Conventions.3.3.0\lib\net45\Ninject.Extensions.Conventions.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Factory, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Extensions.Factory.3.3.2\lib\net45\Ninject.Extensions.Factory.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.Core, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SMF.Core.2.4.165\lib\net461\SMF.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.DbEntity, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SMF.DbEntity.2.4.165\lib\net461\SMF.DbEntity.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.Module, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SMF.Module.2.4.165\lib\net461\SMF.Module.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.RepositoryPattern, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SMF.RepositoryPattern.2.4.165\lib\net461\SMF.RepositoryPattern.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.RepositoryPatternExt, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SMF.RepositoryPatternExt.2.4.165\lib\net461\SMF.RepositoryPatternExt.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Watchdog, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Watchdog.2.4.165\lib\net461\Watchdog.exe</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Helpers\PE.Helpers.csproj">
+      <Project>{27b89129-50d5-405d-bbfd-6fd206629819}</Project>
+      <Name>PE.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PE.Common\PE.Common.csproj">
+      <Project>{d1f29abf-e455-47dc-9594-62c9dbbf2aa8}</Project>
+      <Name>PE.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PE.Config\PE.Config.csproj">
+      <Project>{9ac6f16f-bf0e-4f30-bda1-667d276943f0}</Project>
+      <Name>PE.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PE.DbEntity\PE.DbEntity.csproj">
+      <Project>{0ca28630-444c-4678-a2dd-05111132c899}</Project>
+      <Name>PE.DbEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PE.DTO\PE.DTO.csproj">
+      <Project>{5a8b29e8-e78f-4a25-a509-cf6f5aba462e}</Project>
+      <Name>PE.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PE.Interfaces\PE.Interfaces.csproj">
+      <Project>{dfe01277-6cd1-4cbe-9fcf-3cad1f7b73d8}</Project>
+      <Name>PE.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PE.Managers\PE.PRM.Managers\PE.PRM.Managers.csproj">
+      <Project>{5fc2ec52-5917-4231-b8cc-c6d76dd68ee7}</Project>
+      <Name>PE.PRM.Managers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Expert.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+</Project>

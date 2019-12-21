@@ -1,0 +1,251 @@
+﻿/*DATA CHANGE PANEL*/
+.btn-date {
+  border-radius: 0px;
+  display: inline-block;
+  text-align: center;
+  border: solid 1px #d4c9c9;
+  height: 38px;
+}
+
+  .btn-date:hover {
+    border: solid 1px black;
+  }
+
+.head, .hour-head, .event-name {
+    font-weight: 400;
+    background-color: #00587c;
+    color: #fff;
+}
+
+
+.label-date {
+  display: inline-block;
+  width: 200px;
+  border: solid 1px #d4c9c9;
+  height: 38px;
+  padding-top: 4px;
+  text-align: center
+}
+
+.event {
+  position: absolute;
+  top: 4px;
+  min-width: 10px;
+  height: 40px;
+  margin-bottom: 1px;
+  /*transition: transform .05s;*/
+  /*border:1px solid black;*/
+}
+  .event:hover,.event.hovered {
+    border: 1px solid black;
+    z-index: 5;
+    /*transform: scale(1.1);*/
+  }
+
+.td-div {
+  position: relative;
+  margin: 1px;
+  padding: 1px;
+  width: 90%;
+  height: 90%;
+}
+
+.k-multiselect .k-button {
+  background-color: white !important;
+  width: 100%;
+  border: solid 1px #d4c9c9;
+  justify-content: flex-start;
+}
+
+/*TABLE*/
+
+.event-table tbody, .event-table thead {
+  display: block;
+}
+
+
+.event-table {
+  width: 100%;
+}
+
+.event-name {
+  text-align: center;
+  vertical-align: middle !important;
+   background-color: #fff;
+}
+
+.event-tag {
+  width: 100%;
+  border-left: 19px solid;
+}
+
+.tab-event-name {
+  margin-left: 15px;
+}
+
+
+#event-calendar {
+  width: 100%;
+  table-layout: fixed;
+}
+#event-calendar > thead{
+  overflow-x:hidden;
+}
+  #event-calendar td {
+    margin: 0;
+    padding: 0;
+    height: 45px;
+  }
+
+  #event-calendar > tbody > tr:hover > td,
+  #event-calendar > tbody > tr:hover > th.event-name {
+    background-color: #fff;
+  }
+
+.event-table tbody {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 650px;
+  width: 100%;
+}
+
+
+.border-table > tbody > tr > th,
+.border-table > thead > tr > th:nth-of-type(-n+2) {
+  min-width: 57px;
+}
+  .border-table > tbody > tr > td{
+    min-width:56px;
+  }
+.border-table > tbody > tr > td,
+.border-table > tbody > tr > th
+.border-table > thead > tr > th:nth-child(n+3) {
+    border: 1px solid #adadad;
+}
+
+    .border-table > tbody > tr > td:nth-child(8),
+    .border-table > tbody > tr > td:nth-child(16),
+    .border-table > tbody > tr > td:nth-child(24) {
+        border-right: 2px solid black;
+    }
+
+.border-table > thead > tr > th /*:first-child*/ {
+  border: 1px solid #d4c9c9;
+}
+
+.border-table > tbody > tr > th.head {
+  border-bottom: none;
+  border-top: none;
+  border-right: 1px solid #d4c9c9;
+}
+
+.day-change-line {
+   border-bottom: 2px solid #adadad !important;
+}
+
+
+.parent-pane {
+  display: flex;
+  height: 95%;
+}
+
+.filter-pane {
+  width: 20%;
+  height: 100%;
+  border: 1px solid #d4c9c9;
+  text-align:center;
+}
+
+.table-pane {
+  flex: 1;
+  margin-left: 5px;
+}
+
+.border-table > thead {
+  overflow-y: scroll;
+}
+
+  .border-table > thead > tr > th {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    height: 50px;
+  }
+
+
+.info-pane {
+  display: none;
+  width: 400px;
+  height: auto;
+  position: fixed;
+  top: 500px;
+  left: 500px;
+  background-color: white;
+  z-index: 10;
+  box-shadow: 0 3px 10px #222;
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+  /*border:1px solid black;
+ */
+}
+.shift-0 {
+    background-color: #fdf3db;
+}
+.shift-1 {
+    background-color: #fafbe7;
+}
+.shift-2 {
+    background-color: #e3f7fc;
+}
+
+/*.k-multiselect:after {
+	content: "\25BC";
+	position: absolute;
+	top: 30%;
+	right: 25px;
+	font-size: 12px;
+}*/
+
+.head-date{
+    text-align: center;
+}
+
+
+/*telerik*/
+
+.k-state-hover {
+    background-color: #006487 !important;
+}
+
+.k-state-focused, .k-state-selected {
+    background-color: #006487 !important;
+    color: #fff;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.k-popup .k-list {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.k-button {
+    padding: 10px !important;
+    color: #676767 !important;
+}
+
+.k-button:hover {
+    background-color: #006487 !important;
+}
+
+.k-multiselect-clearable .k-multiselect-wrap {
+    padding-right: 0;
+}
+
+.k-multiselect-wrap{
+    padding: 0;
+}
+
+.k-input{
+    width: 100% !important;
+    color: #000;
+}

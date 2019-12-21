@@ -1,0 +1,20 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Product.VM_ProductCatalogue
+
+<div class="row h-100">
+    <div class="col">
+        @(Html.Kendo().TabStrip()
+            .Name("ProductBody")
+            .Animation(false)
+            .Scrollable(false)
+            .Items(tabstrip =>
+            {
+            tabstrip.Add().Text(VM_Resources.NAME_ProductDetails)
+                .Selected(true).Content(@Html.Partial("~/Views/Module/PE.Lite/Product/_ProductDetails.cshtml", Model).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+            })
+            .Events(e =>
+            {
+                e.Select("saveTabStripState");
+            })
+        )
+    </div>
+</div>

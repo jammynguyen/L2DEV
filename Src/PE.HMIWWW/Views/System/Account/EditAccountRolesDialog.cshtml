@@ -1,0 +1,51 @@
+﻿@model PE.HMIWWW.ViewModel.System.VM_StringId
+@{
+	Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.System.VM_UserInRoles>()
+        .Name("RolesGrid")
+        .HtmlAttributes(new { style = @String.Format("border:none !important; height:{0}px;", 400) })
+        .Columns(columns =>
+        {
+            columns.Bound(m => m.IsAssignedToUser).Width(30).ClientTemplate("<input id='rolesGrid#=RoleId#' type='checkbox' name='checkedRecords#=RoleId#'  value='#=IsAssignedToUser#' onclick='onCheckboxClick(\"#=UserId#\", \"#=RoleId#\")' " + "# if (IsAssignedToUser == true) {#" + @Html.Raw("checked") + "#} # />").HtmlAttributes(new { style = "text-align: center; height: 1.65em;" });
+            columns.Bound(m => m.Role).Width(100);
+        })
+        .Scrollable()
+        .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .Model(model =>
+        {
+            model.Id(p => p.UserId);
+        })
+        .PageSize((int)ViewBag.NoRecordsInGrid)
+        .Read(read => read.Action("GetAccountRoles", "Account", new { Id = Model.Id }))
+        )
+)
+
+<script>
+    function onCheckboxClick(userId, roleId) {
+        RequestStarted();
+		var isChecked = $("#rolesGrid" + roleId).is(":checked");
+
+		var dataToSent = { roleId: roleId, userId: userId, isAssigned: isChecked, permission: 0 };
+		$.ajax({
+			traditional: true,
+			type: 'POST',
+			url:  "/Account/" +  "UpdateAccountRoles",
+			data: dataToSent,
+			dataType: "json",
+			success: function (data) {
+			    PositiveResultNotification(data);
+			},
+			complete: RequestFinished,
+			error: PeErrorHandler
+		});
+	}
+</script>
+
+
+

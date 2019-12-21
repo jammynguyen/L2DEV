@@ -1,0 +1,64 @@
+﻿#SearchGrid tr, #L3MaterialsSearchList tr {
+  cursor: pointer;
+}
+
+.attach-info::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 75px solid transparent;
+  border-bottom: 75px solid transparent;
+  border-right: 55px solid #006487;
+  position: absolute;
+  /* top: calc(112% - 75px); */
+  left: 45%;
+  transform: rotate(-90deg);
+}
+
+.fh-ts {
+  min-height: 616px;
+}
+
+.loading-overlay::before {
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 5;
+  background-image: url(/Content/System/Img/loading_2x.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(255,255,255,.6);
+}
+
+.button_scrap {
+  margin-bottom: 30px;
+  padding-left: 90%;
+}
+
+div.k-tabstrip {
+    border: none;
+}
+
+    div.k-tabstrip:focus {
+        box-shadow: none;
+    }
+
+.k-tabstrip-items
+.k-state-active
+.k-link {
+    font-weight: 500;
+    color: #425563;
+}
+
+.refreshBtnContainer {
+    float: right;
+}
+/*fix {} items of {} not visible in telerik 2019.3.1024*/
+.k-pager-wrap.k-pager-md .k-pager-info,
+.k-pager-wrap.k-pager-sm .k-pager-info {
+    display: flex;
+}

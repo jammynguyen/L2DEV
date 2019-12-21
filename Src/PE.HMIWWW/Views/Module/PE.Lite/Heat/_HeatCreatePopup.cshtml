@@ -1,0 +1,223 @@
+﻿
+@model PE.HMIWWW.ViewModel.Module.Lite.Heat.VM_Heat
+@{
+    /**/
+
+    ViewBag.Title = "_HeatCreatePopup";
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+<style>
+        .dropdown-header {
+            border-width: 0 0 1px 0;
+            text-transform: uppercase;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .dropdown-header:hover {
+            background-color: #879baa;
+            color: white;
+        }
+
+        .dropdown-header > span {
+            display: inline-block;
+            text-align: center;
+        }
+
+        .disabled-input:hover {
+            border: 1px solid #dbdbdb;
+        }
+
+        .material-catalogue{
+            border-bottom: 1px solid #e6e6e6;
+            padding-bottom: 5px;
+            padding-right: 5px;
+            /*width: 400px;*/
+        }
+
+        #FKMaterialCatalogueId_listbox .k-state-hover{
+            background-image: none;
+            background-color: #f2f2f2;
+        }
+
+        .details-row{
+            display: flex;
+            flex-direction: row;
+            margin: 0;
+        }
+
+        .material-catalogue-data{
+            font-weight: 500;
+        }
+
+        .material-catalogue-name{
+            font-size: 15px;
+            font-weight: 500;
+            color: #006487;
+        }
+
+        .material-catalogue-details{
+            font-size: 13px;
+            line-height: 18px;
+            color: #666;
+        }
+
+        .k-i-close{
+            color: #666;
+        }
+
+        .k-autocomplete{
+            z-index: 1;
+        }
+        
+
+
+</style>
+
+@using (Ajax.BeginForm("CreateHeat", "Heat", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div style="height:auto;overflow-x:hidden">
+        <div class="row form-group">
+
+            <div class="col-2 text-right">
+                <label>
+                    @Html.LabelFor(x => x.HeatName)
+                </label>
+            </div>
+            <div class="col-2">
+                @Html.Kendo().TextBoxFor(x => x.HeatName).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                @Html.ValidationMessageFor(x => x.HeatName)
+            </div>
+
+            <div class="col-2 text-right">
+                <label>@Html.LabelFor(x => x.IsDummy)</label>
+            </div>
+            <div class="col-2 mt-1">
+                @Html.Kendo().CheckBoxFor(x => x.IsDummy).HtmlAttributes(new { @class = "form-control" }).Label(String.Empty)
+            </div>
+
+            <div class="col-2 text-right">
+                <label>@Html.LabelFor(x => x.FKHeatSupplierId)</label>
+            </div>
+            <div class="col-2">
+                @(Html.Kendo().DropDownListFor(x => x.FKHeatSupplierId)
+                    .Name("FKHeatSupplierId")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                    .BindTo(new SelectList(@ViewBag.SupplierList, "HeatSupplierId", "SupplierName"))
+                    .OptionLabel("-")
+                )
+            </div>
+
+        </div>
+        <div class="row form-group">
+            <div class="col-2 text-right">
+                <label>@Html.LabelFor(x => x.FKMaterialCatalogueId)</label>
+            </div>
+            <div class="col-2">
+                @(Html.Kendo().AutoCompleteFor(x => x.FKMaterialCatalogueId)
+                    .HtmlAttributes(new { @style = "width: 400px;" })
+                    .Name("FKMaterialCatalogueId")
+                    .Filter("contains")
+                    .DataTextField("MaterialName")
+                    .Placeholder(@VM_Resources.GLOB_StartTyping)
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("ServerFiltering_GetMaterialCatalogues", "BilletCatalogue")
+                                .Data("onAdditionalData");
+                        })
+                        .ServerFiltering(true);
+                    })
+                    .Template("<div class='material-catalogue'>" +
+                                "<p class='details-row material-catalogue-name'><span class='col-10 nowrap'>#: data.MaterialName #</span></p>" +
+                                "<p class='details-row material-catalogue-details'><span class='col-4'>" + @VM_Resources.NAME_Steelgrade + ":</span> <span class='col-6 material-catalogue-data'> #: data.SteelgradeName # </span> </p>" +
+                                "</div>")
+                )
+                @Html.ValidationMessageFor(x => x.FKMaterialCatalogueId)
+            </div>
+
+            <div class="col-2 text-right">
+                <label>
+                    @Html.LabelFor(x => x.HeatWeightRef)
+                </label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.HeatWeightRef).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.HeatWeightRef)
+            </div>
+            <div class="col-2 text-right"></div>
+            <div class="col-2"></div>
+        </div>
+
+    </div>
+    <hr>
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.GLOB_Form_Button_Add
+            </button>
+        </div>
+    </div>
+
+    <script>
+
+        $(function () {
+
+            $('#error').css("display", "none");
+            $("#form").kendoValidator().data("kendoValidator");
+
+            $('.k-autocomplete').css("width", "150px");
+
+            $('.k-autocomplete input').keydown(function () {
+                $('.k-autocomplete').animate({
+                width: 400
+              }, 200, function() {
+                // Animation complete.
+              });
+            })
+
+            $('.k-autocomplete input').focusout(function () {
+                $('.k-autocomplete').animate({
+                width: 150
+              }, 400, function() {
+                // Animation complete.
+              });
+            })
+
+
+        });
+
+        $(function () {
+
+            $('#error').css("display", "none");
+            $("#form").kendoValidator().data("kendoValidator");
+
+        });
+
+        function displayMessage() {
+
+            var validator = $("#form").kendoValidator().data("kendoValidator");
+
+            if (validator.validate()) {
+                $('#error').css("display", "none");
+            } else {
+                $('#error').css("display", "block");
+                $('#popup-footer')
+                    .css('display', 'block')
+                    .css('background-color', 'rgb(206, 0, 55)');
+            }
+        };
+
+    </script>
+}

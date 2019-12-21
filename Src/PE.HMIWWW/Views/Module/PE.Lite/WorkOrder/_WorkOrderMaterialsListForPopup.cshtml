@@ -1,0 +1,28 @@
+﻿@model long?
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Material.VM_L1L3MaterialAssignment>()
+                    .Name("MaterialGrading")
+                    .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+
+                    .Sortable()
+                    .Filterable()
+                    .Pageable(p => p
+                        .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                    .HtmlAttributes(new { style = "height: 640px;" })
+                    .Columns(c =>
+                    {
+                        c.Bound(x => x.MaterialId).Visible(false);
+                        c.Bound(x => x.MaterialName);
+                        c.Bound(x => x.CreatedTs).Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+                        c.Bound(x => x.IsDummy);
+                        c.Bound(x => x.StatusName);
+                        c.Bound(x => x.FKWorkOrderId).Visible(false);
+                        c.Bound(p => p.MaterialId).Sortable(false).Groupable(false).Filterable(false).Title("").Width(30)
+                            .ClientTemplate(@Html.ImageButton("details", "GoToMaterial(#:MaterialId#)").ToString());
+
+                    })
+                    .DataSource(d => d
+                        .Ajax()
+                        .ServerOperation(true)
+                        .PageSize(23)
+                        .Read(r => r.Action("GetMaterialsListByWorkOrderId", "WorkOrder", new {workOrderId = Model }))
+                        ))

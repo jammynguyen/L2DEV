@@ -1,0 +1,45 @@
+﻿@model PE.HMIWWW.ViewModel.System.VM_WidgetConfigurations
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@if (Model != null && !@ViewData.ModelState.IsValid)
+{
+    <script>
+        $(document).ready(function () {
+            $("#popup-footer").css('background', '#ce0037').css('color', '#fff');
+        })
+    </script>
+}
+
+@using (Ajax.BeginForm("InsertWidgetConfiguration", "WidgetConfiguration", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "form-horizontal", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.WidgetName, new { @class = "control-label" })
+        @Html.EditorFor(m => m.WidgetName, new { htmlAttributes = new { @class = "form-control popup-input" } })
+        @Html.ValidationMessageFor(m => m.WidgetName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.WidgetFileName, new { @class = "control-label" })
+        @Html.EditorFor(m => m.WidgetFileName, new { htmlAttributes = new { @class = "form-control popup-input" } })
+        @Html.ValidationMessageFor(m => m.WidgetFileName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SeqNum, new { @class = "control-label" })
+        @Html.EditorFor(m => m.SeqNum, new { htmlAttributes = new { @class = "form-control popup-input" } })
+        @Html.ValidationMessageFor(m => m.SeqNum, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Active, new { @class = "control-label" })
+        @Html.EditorFor(m => m.Active, new { htmlAttributes = new { @class = "form-control popup-input" } })
+        @Html.ValidationMessageFor(m => m.Active, "", new { @class = "text-danger" })
+    </div>
+    <input type="submit" class="btn btn-default formButton formButtonSubmit" value="@PE.HMIWWW.Core.Resources.VM_Resources.BUTTON_SubmitForm" />
+    <div class="clearfix"></div>
+}
+
+

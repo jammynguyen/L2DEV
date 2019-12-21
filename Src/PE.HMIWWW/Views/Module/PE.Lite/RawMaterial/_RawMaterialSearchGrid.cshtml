@@ -1,0 +1,51 @@
+﻿@(
+    Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Material.VM_RawMaterialList>()
+        .Name("SearchGrid")
+        .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+        .Pageable(p => p
+                .Refresh(true)
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination))
+                .PageSizes(true))
+        .Sortable()
+        //.Scrollable()
+        .Filterable()
+        .Selectable()
+        .HtmlAttributes(new { @style = @String.Format("height:{0}px;", ViewBag.FullGridHeight) })
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.Id).Visible(false);
+            columns.Bound(c => c.MaterialName).HtmlAttributes(new { @class = "nowrap" });;
+            columns.ForeignKey(o => o.Status, (SelectList)ViewBag.RawMaterialStatuses);
+            columns.Bound(c => c.CreatedTs).Format(VM_Resources.GLOB_LongDateTime_FORMAT).Hidden(true).HtmlAttributes(new { @class = "nowrap" });
+            columns.Bound(c => c.LastUpdateTs).Format(VM_Resources.GLOB_LongDateTime_FORMAT).Hidden(true).HtmlAttributes(new { @class = "nowrap" });
+        })
+        .ToolBar(toolbar =>
+            {
+                toolbar.Template(@<text>
+                    <div class="refreshBtnContainer" onclick="showHideCategories()">              
+                                        <p class="k-pager-refresh k-link off show-hide-categories m-0">
+                                                            <span class="filters-text more">@VM_Resources.NAME_MoreFilters</span> <span class="filters-text less">@VM_Resources.NAME_LessFilters</span>
+                                            <span class="arrow arrow-categories arrow-white k-icon k-i-arrow-right"></span>
+                                        </p>
+                    </div>
+                </text>);
+        }
+        )
+        .DataSource(d => d
+            .Ajax()
+            .ServerOperation(true)
+            .PageSize(26)
+            .Sort(sort =>
+            {
+                sort.Add(s => s.Sorting).Ascending();
+            })
+            .Read(r => r.Action("GetRawMaterialSearchList", "RawMaterial"))
+            .Events(e => e.Change("dataSourceChange"))
+        )
+        .Events(e =>
+        {
+            e.Change("onElementSelect");
+            e.DataBound("colorEmptyL3MaterialRow");
+
+        })
+)

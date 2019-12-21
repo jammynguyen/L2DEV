@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6140A499-F443-44E0-924D-8923617F7D1F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PE.Lite</RootNamespace>
+    <AssemblyName>PE.Lite</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.1.16.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.1.16\lib\net45\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="PE.DSP.Dispatcher">
+      <HintPath>..\PE.Modules\PE.DSP.Dispatcher\bin\Debug\PE.DSP.Dispatcher.exe</HintPath>
+    </Reference>
+    <Reference Include="SMF.AlarmCreator, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.AlarmCreator.2.4.165\lib\net461\SMF.AlarmCreator.exe</HintPath>
+    </Reference>
+    <Reference Include="SMF.DbEntity, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.DbEntity.2.4.165\lib\net461\SMF.DbEntity.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.RepositoryPattern, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.RepositoryPattern.2.4.165\lib\net461\SMF.RepositoryPattern.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.RepositoryPatternExt, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.RepositoryPatternExt.2.4.165\lib\net461\SMF.RepositoryPatternExt.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.WinControls, Version=2018.2.621.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LIB\Telerik.WinControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.GridView, Version=2018.2.621.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LIB\Telerik.WinControls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI, Version=2018.2.621.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LIB\Telerik.WinControls.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI.Design, Version=2018.2.621.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LIB\Telerik.WinControls.UI.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikCommon, Version=2018.2.621.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LIB\TelerikCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="Watchdog, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Watchdog.2.4.165\lib\net461\Watchdog.exe</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PE.Config\PE.Config.csproj">
+      <Project>{9ac6f16f-bf0e-4f30-bda1-667d276943f0}</Project>
+      <Name>PE.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.ADP.Adapter\PE.ADP.Adapter.csproj">
+      <Project>{ff7a5d74-b313-417c-84e5-4a7ea2f1f21d}</Project>
+      <Name>PE.ADP.Adapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.DBA.DataBaseAdapter\PE.DBA.DataBaseAdapter.csproj">
+      <Project>{16683aca-eabe-4ff7-8511-663f166ed211}</Project>
+      <Name>PE.DBA.DataBaseAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.DLS.Delays\PE.DLS.Delays.csproj">
+      <Project>{3a8d810c-804d-4e9f-bab4-835edf31cbf5}</Project>
+      <Name>PE.DLS.Delays</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.HMI\PE.HMI.csproj">
+      <Project>{6c970a5d-f430-436c-b496-a3ee40edc290}</Project>
+      <Name>PE.HMI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.MVH.MeasValuesHistory\PE.MVH.MeasValuesHistory.csproj">
+      <Project>{53204ea7-9c21-49cb-bc8d-a1192f843619}</Project>
+      <Name>PE.MVH.MeasValuesHistory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.PPL.ProdPlaning\PE.PPL.ProdPlaning.csproj">
+      <Project>{8f54892a-588a-4430-a338-54a636c4a798}</Project>
+      <Name>PE.PPL.ProdPlaning</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.PRM.ProdManager\PE.PRM.ProdManager.csproj">
+      <Project>{b82714c3-9a51-43e4-a1c6-50488f6dbc4f}</Project>
+      <Name>PE.PRM.ProdManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.QTY.Quality\PE.QTY.Quality.csproj">
+      <Project>{34d7c6c2-68cc-485e-aaa2-2a06b589bddf}</Project>
+      <Name>PE.QTY.Quality</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.RLS.RollShop\PE.RLS.RollShop.csproj">
+      <Project>{f01a0ce6-9d3e-403e-a6f0-715321f9f4cd}</Project>
+      <Name>PE.RLS.RollShop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.SIM.Simulation\PE.SIM.Simulation.csproj">
+      <Project>{90f0fa7b-5643-4791-acfd-72dcd3c65a93}</Project>
+      <Name>PE.SIM.Simulation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.STP.Setup\PE.STP.Setup.csproj">
+      <Project>{e5fce292-ac34-4ae2-bd09-4e2f1a3fe84c}</Project>
+      <Name>PE.STP.Setup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.TRK.Tracking\PE.TRK.Tracking.csproj">
+      <Project>{90590ce2-ac74-483a-9b20-9a222f95d7d3}</Project>
+      <Name>PE.TRK.Tracking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.WBF.WalkingBeamFurnance\PE.WBF.WalkingBeamFurnance.csproj">
+      <Project>{ff5eb29b-0fed-4bdc-8a8e-6195b5e669f6}</Project>
+      <Name>PE.WBF.WalkingBeamFurnance</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Modules\PE.ZPC.ZebraPrinterConnector\PE.ZPC.ZebraPrinterConnector.csproj">
+      <Project>{7377de37-9a8a-41f7-9d80-7c34a4e9f7e6}</Project>
+      <Name>PE.ZPC.ZebraPrinterConnector</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Expert.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+</Project>

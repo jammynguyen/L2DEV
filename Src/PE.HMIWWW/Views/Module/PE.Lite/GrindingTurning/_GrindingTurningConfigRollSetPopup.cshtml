@@ -1,0 +1,384 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.RollsetDisplay.VM_RollsetDisplay
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+<style>
+    .h_dotted_ln {
+        border-bottom: 1px dashed black;
+        width: 100%;
+    }
+
+    .h_dotted_right_ln {
+        border-right: 1px dashed black;
+    }
+
+    .h_blank_ln {
+        width: 100%;
+        height: 20px;
+    }
+
+    .v_blank_ln {
+        width: 20px;
+    }
+
+    /*.table-roll-details tr td {
+                border: 1px solid black;
+        }*/
+
+    .table-roll-details label {
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    .table-roll-details td {
+        font-weight: normal;
+        font-style: italic;
+    }
+    /*.popup_cont{
+        left: 100px !important;
+    }*/
+</style>
+
+
+@if (Model != null && @ViewData.ModelState.IsValid)
+{
+    <script>
+		$(document).ready(function () {
+			var rollCnt = @Model.GrooveActualRollUpper.Count() + 3;
+			var rowCnt = 15;
+			var mainWidth = 375 + (rollCnt - 3) * 130;
+			var mainHeight = 750;
+            ChangePopupSize(mainWidth);
+		})
+    </script>
+}
+@{ int rollCnt = Model.GrooveActualRollUpper.Count() + 3;
+    int rowCnt = 15;
+    int mainWidth = 375 + (rollCnt - 3) * 130;
+    int mainHeight = 750;
+}
+
+
+@using (Ajax.BeginForm("ConfigRollSetSubmit", "GrindingTurning", new AjaxOptions
+{
+    UpdateTargetId = "formContainer",
+    // OnBegin = "OnFormBegin",
+    /*OnSuccess = "OnSuccessResult()",*///add translation to js in service.js
+    OnFailure = "OnFormError"
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.RollSetId)
+    @Html.HiddenFor(m => m.RollSetName)
+    @Html.HiddenFor(m => m.ActualBottomDiameter)
+    @Html.HiddenFor(m => m.ActualUpperDiameter)
+    @Html.HiddenFor(m => m.ActualUpperRollName)
+    @Html.HiddenFor(m => m.ActualBottomRollName)
+    @Html.HiddenFor(m => m.ActualUpperRollId)
+    @Html.HiddenFor(m => m.ActualBottomRollId)
+    @Html.HiddenFor(m => m.RollSetType)
+    int j;
+    for (j = 0; j < Model.GrooveActualRollBottom.Count(); j++)
+    {
+        @Html.HiddenFor(m => m.GrooveActualRollBottom[j].AccBilletCnt);
+        @Html.HiddenFor(m => m.GrooveActualRollBottom[j].GrooveTemplateName);
+        @Html.HiddenFor(m => m.GrooveActualRollBottom[j].GrooveTemplateId);
+        @Html.HiddenFor(m => m.GrooveActualRollBottom[j].GrooveConfirmed);
+        @Html.HiddenFor(m => m.GrooveActualRollBottom[j].GrooveShortName);
+    }
+    for (j = 0; j < Model.GrooveActualRollUpper.Count(); j++)
+    {
+        @Html.HiddenFor(m => m.GrooveActualRollUpper[j].GrooveTemplateName);
+        @Html.HiddenFor(m => m.GrooveActualRollUpper[j].GrooveConfirmed);
+        @Html.HiddenFor(m => m.GrooveActualRollUpper[j].GrooveShortName);
+    }
+
+
+    <div style="width:@(mainWidth);height:@(mainHeight);">
+        @* Upper Roll*@
+        <table cellspacing="0" cellpadding="0" border="0" class="table-roll-details">
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.RollSetName))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">@Html.DisplayFor(m => m.RollSetName)</td>
+                <td rowspan="@(rowCnt)"><div class="v_blank_ln"></div></td>
+            </tr>
+
+            <tr>
+                <td align="left"><label>@PE.HMIWWW.Core.Resources.VM_Resources.NAME_NewGroove</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td class="h_dotted_right_ln"></td>
+                @{
+                    int i = 0;
+                    @*for (i = 0; i < Model.GrooveActualRollUpper.Count; i++)
+                        {
+                          <td align="center" class="h_dotted_right_ln">
+                              @Html.Kendo().DropDownList().Name(String.Format("GrooveActualRollUpper[{0}].GrooveTemplateId", i)).DataTextField("Text").DataValueField("Value").Value(Model.GrooveActualRollUpper.OrderBy(z =>z.GrooveNumber).ElementAt(i).GrooveTemplateId.ToString()).BindTo((SelectList)ViewBag.GrooveListShorts).HtmlAttributes(new { style = "width: 100px" })
+                          </td>
+                        }*@
+                    foreach (PE.HMIWWW.ViewModel.Module.VM_GroovesRoll rollUpper in Model.GrooveActualRollUpper.OrderBy(z => z.GrooveNumber))
+                    {
+                        <td align="center" class="h_dotted_right_ln">
+                            @Html.Kendo().DropDownList().Name(String.Format("GrooveActualRollUpper[{0}].GrooveTemplateId", i)).DataTextField("Text").DataValueField("Value").Value(rollUpper.GrooveTemplateId.ToString()).BindTo((SelectList)ViewBag.GrooveListShorts).HtmlAttributes(new { style = "width: 100px" })
+                        </td>
+                        i++;
+                    }
+                }
+
+            </tr>
+
+            @*<tr>
+                    <td align="left"><label>@(Html.LabelFor(m => m.RollSetHistoryName))</label></td>
+                    <td><div class="v_blank_ln"></div></td>
+                    <td colspan="@rollCnt" align="left">
+                        @(Html.Kendo().DropDownList().Name("RollSetHistory").DataTextField("Text").DataValueField("Value").Value(Model.RollSetHistoryId.ToString()).BindTo((SelectList)ViewBag.RSetHistory).HtmlAttributes(new { style = "width: 260px" }).Events(e => e.Select("refreshhistory")))
+                    </td>
+                    <td rowspan="@(rowCnt)"><div class="v_blank_ln"></div></td>
+                </tr>*@
+            <tr>
+                <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+            </tr>
+            <tr>
+                <td align="left"></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td align="center"><img src="~/Content/System/img/roll-profille-left.png"></td>
+                @{foreach (PE.HMIWWW.ViewModel.Module.VM_GroovesRoll rollUpper in Model.GrooveActualRollUpper.OrderBy(z => z.GrooveNumber))
+                    {
+                        if (rollUpper.GrooveShortName == "Flat")
+                        {
+                            <td align="center"><img src="~/Content/System/img/roll-profille-full.png"></td>
+                        }
+                        else
+                        {
+                            <td align="center"><img src="~/Content/System/img/roll-profille-rd60.png"></td>
+                        }
+
+                    }
+                }
+                <td align="center"><img src="~/Content/System/img/roll-profille-right.png"></td>
+            </tr>
+            <tr>
+                <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+            </tr>
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.GrooveTemplateName))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td class="h_dotted_right_ln"></td>
+                @{foreach (PE.HMIWWW.ViewModel.Module.VM_GroovesRoll rollUpper in Model.GrooveActualRollUpper.OrderBy(z => z.GrooveNumber))
+                    {
+                        <td align="center" class="h_dotted_right_ln">@Html.DisplayFor(m => rollUpper.GrooveTemplateName)</td>
+                    }
+                }
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+            </tr>
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.ActualUpperRollName))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">@Html.DisplayFor(m => m.ActualUpperRollName)</td>
+            </tr>
+
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.ActualUpperDiameter))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">@Html.DisplayFor(m => m.ActualUpperDiameter)</td>
+            </tr>
+            @*<tr>
+                    <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+                </tr>*@
+
+
+            @*<tr>
+                    <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+                </tr>*@
+            @*<tr>
+                    <td align="left"><label>@(Html.LabelFor(m => m.AccWeight))</label></td>
+                    <td><div class="v_blank_ln"></div></td>
+                    <td class="h_dotted_right_ln"></td>
+                    @{foreach (PE.HMIWWW.ViewModel.Module.VM_GroovesRoll rollUpper in Model.GrooveActualRollUpper)
+                        {
+                            <td align="center" class="h_dotted_right_ln">@Html.DisplayFor(m => rollUpper.AccWeight)</td>
+                        }
+                    }
+                    <td></td>
+                </tr>*@
+
+            @*<tr>
+                    <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+                </tr>*@
+
+            @*<tr>
+                    <td align="left"><label>@(Html.LabelFor(m => m.AccBilletCnt))</label></td>
+                    <td><div class="v_blank_ln"></div></td>
+                    <td class="h_dotted_right_ln"></td>
+                    @{foreach (PE.HMIWWW.ViewModel.Module.VM_GroovesRoll rollUpper in Model.GrooveActualRollUpper)
+                        {
+                            <td align="center" class="h_dotted_right_ln">@Html.DisplayFor(m => rollUpper.AccBilletCnt)</td>
+                        }
+                    }
+
+
+
+                </tr>*@
+
+
+            @*
+
+                        <tr>
+                            <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+                        </tr>
+                        <tr>
+
+                     <td colspan="@(rollCnt + 1)"><div class="h_dotted_ln"></div></td>
+                 </tr>
+                <tr>
+                     <td><div class="v_blank_ln"></div></td>
+                     <td class="h_dotted_right_ln"></td>
+                     <td></td>
+                 </tr>*@
+            <tr>
+                <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+            </tr>
+
+            <tr>
+                @* Bottom Roll*@
+                <td align="left"><label>@(Html.LabelFor(m => m.ActualBottomRollName))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">@Html.DisplayFor(m => m.ActualBottomRollName)</td>
+            </tr>
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.ActualBottomDiameter))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">@Html.DisplayFor(m => m.ActualBottomDiameter)</td>
+            </tr>
+
+            @*<tr>
+                    <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+                </tr>*@
+            @*<tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.GrooveTemplateName))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td class="h_dotted_right_ln"></td>
+                @{foreach (PE.HMIWWW.ViewModel.Module.VM_GroovesRoll rollBottom in Model.GrooveActualRollBottom)
+                {
+                        <td align="center" class="h_dotted_right_ln">@Html.DisplayFor(m => rollBottom.GrooveTemplateName)</td>
+                    }
+                }
+                <td></td>*@
+
+            @*<tr>
+                    <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+                </tr>*@
+            @*<tr>
+                    <td align="left"><label>@(Html.LabelFor(m => m.AccWeight))</label></td>
+                    <td><div class="v_blank_ln"></div></td>
+                    <td class="h_dotted_right_ln"></td>
+                    @{foreach (PE.HMIWWW.ViewModel.Module.VM_GroovesRoll rollBottom in Model.GrooveActualRollBottom)
+                    {
+                            <td align="center" class="h_dotted_right_ln">@Html.DisplayFor(m => rollBottom.AccWeight)</td>
+                        }
+                    }
+                    <td></td>
+                </tr>*@
+
+
+
+            @*<tr>
+                    <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+                </tr>*@
+            @*<tr>
+                    <td align="left"><label>@(Html.LabelFor(m => m.AccBilletCnt))</label></td>
+                    <td><div class="v_blank_ln"></div></td>
+                    <td class="h_dotted_right_ln"></td>
+                    @{foreach (PE.HMIWWW.ViewModel.Module.VM_GroovesRoll rollBottom in Model.GrooveActualRollBottom)
+                    {
+                            <td align="center" class="h_dotted_right_ln">@Html.DisplayFor(m => rollBottom.AccBilletCnt)</td>
+                        }
+                    }
+                    <td></td>
+                </tr>*@
+        </table>
+        <br />
+
+    </div>
+    @*<div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.GLOB_Form_Button_Add
+            </button>
+        </div>*@
+
+    <hr />
+
+    <input id="save" type="submit" name="submit" class="btn btn-primary popup_button" value="@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Form_Button_Save" />
+    <input id="add" type="submit" name="submit" class="btn btn-primary popup_button" value="@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Form_Button_Add" />
+    <input id="delete" type="submit" name="submit" class="btn btn-primary popup_button" value="@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Form_Button_Delete" />
+}
+
+
+<script>
+    function ChangePopupSize(mainWidth) {
+        $(".popup_content").width(mainWidth);
+        var actualPopUpPosition = $(".popup_cont")[0].offsetLeft;
+        var actualPopupWidth = $(".popup_cont")[0].offsetWidth;
+        var backOfPopUp = $(".popup_back")[0].offsetWidth;
+        var widthPopuupWithlengthfromLeftSide = actualPopUpPosition + actualPopupWidth;
+        if (widthPopuupWithlengthfromLeftSide > backOfPopUp) {
+            changePopUpPosition(100);
+        }
+    }
+    function changePopUpPosition(positionOfPopup) {
+        $(".popup_cont").css("left", positionOfPopup + "px");
+    }
+    var value = "";
+    $("#add").on("click", function () {
+        value = "add";
+        var numberOfroll = 140
+        OnSuccessResult(value);
+        var actualPopUpPosition = $(".popup_cont")[0].offsetLeft;
+        var positionOfPopUpToSet = actualPopUpPosition - numberOfroll;
+        changePopUpPosition(positionOfPopUpToSet);
+    });
+    $("#save").on("click", function () {
+        RequestStarted();
+        value = "save";
+        OnSuccessResult(value)
+        $(".popup_close").click();
+    });
+    $("#delete").on("click", function () {
+        value = "delete";
+        OnSuccessResult(value);
+        var numberOfroll = 140;
+        var actualPopUpPosition = $(".popup_cont")[0].offsetLeft;
+        var actualPopupWidth = $(".popup_cont")[0].offsetWidth;
+        var backOfPopUp = $(".popup_back")[0].offsetWidth;
+        var widthPopuupWithlengthfromLeftSide = actualPopUpPosition + actualPopupWidth + 100;
+        if (widthPopuupWithlengthfromLeftSide < backOfPopUp) {
+            var positionOfPopUpToSet = actualPopUpPosition + numberOfroll;
+            changePopUpPosition(positionOfPopUpToSet);
+        }
+    });
+
+    function OnSuccessResult(eventValue) {
+        OnFormSuccessAddOrDelete(eventValue);
+
+    }
+
+
+
+
+
+
+
+    //$("#save").on("click", function () {
+    //    setTimeout(stopTime, 2000);
+    //    function stopTime() {
+    //        $(".popup_close").click();
+    //    }
+    //});
+
+</script>
+
+

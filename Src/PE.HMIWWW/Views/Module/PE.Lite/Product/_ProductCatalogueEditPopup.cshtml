@@ -1,0 +1,431 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Product.VM_ProductCatalogue
+@{
+    /**/
+
+    /**/
+
+    ViewBag.Title = VM_Resources.PAGE_TITLE_PassSchedule_EditProductCatalogueDialog;
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+<style>
+
+    .container {
+        padding: 0;
+    }
+
+    .form-group label {
+        color: #00587c;
+        font-size: 14px;
+        margin-top: 2px;
+    }
+</style>
+
+@using (Ajax.BeginForm("UpdateMaterialCatalogue", "ProductCatalogue", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id);
+    <div style="height:auto;overflow-x:hidden">
+
+        <div class="row form-group">
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.Name)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.Name).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                @Html.ValidationMessageFor(x => x.Name)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.Description)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.Description).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.Description)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.SAPNumber)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.SAPNumber).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                @Html.ValidationMessageFor(x => x.SAPNumber)
+            </div>
+
+
+        </div>
+
+        <div class="row form-group">
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.Type)</label>
+            </div>
+            <div class="col">
+                @(Html.Kendo().DropDownListFor(x => x.TypeId)
+                              .Name("TypeId")
+                              .DataTextField("Text")
+                              .DataValueField("Value")
+                              .HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                              .BindTo(new SelectList(@ViewBag.TypeList, "Id", "Symbol"))
+                              .OptionLabel("-")
+                )
+                @*@Html.Kendo().TextBoxFor(x => x.Type).HtmlAttributes(new { @class = "form-control form-control-sm" })*@
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.Shape)</label>
+            </div>
+            <div class="col">
+                @(Html.Kendo().DropDownListFor(x => x.ShapeId)
+                              .Name("ShapeId")
+                              .DataTextField("Text")
+                              .DataValueField("Value")
+                              .HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                              .BindTo(new SelectList(@ViewBag.ShapeList, "Id", "Symbol"))
+                              .OptionLabel("-")
+                )
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.Steelgrade)</label>
+            </div>
+            <div class="col">
+                @(Html.Kendo().DropDownListFor(x => x.SteelgradeId)
+                                      .Name("SteelgradeId")
+                                      .DataTextField("Text")
+                                      .DataValueField("Value")
+                                      .HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                                      .BindTo(new SelectList(@ViewBag.SteelgradeList, "Id", "SteelgradeCode"))
+                                      .OptionLabel("-")
+                )
+            </div>
+
+
+
+
+        </div>
+
+
+        <div class="row form-group">
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.Length)</label>
+            </div>
+            <div class="col">
+                @*@Html.Kendo().TextBoxFor(x => x.Length).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard", type = "number" })*@
+                @Html.Kendo().NumericTextBoxFor(x => x.Length).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.Length)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.LengthMin)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.LengthMin).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.LengthMin)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.LengthMax)</label>
+            </div>
+            <div class="col">
+
+                @Html.Kendo().NumericTextBoxFor(x => x.LengthMax).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.LengthMax)
+            </div>
+
+
+        </div>
+
+        <div class="row form-group">
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.Width)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.Width).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.Width)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.WidthMin)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.WidthMin).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.WidthMin)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.WidthMax)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.WidthMax).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.WidthMax)
+            </div>
+
+
+        </div>
+
+
+        <div class="row form-group">
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.Thickness)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.Thickness).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.Thickness)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.ThicknessMin)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.ThicknessMin).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.ThicknessMin)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.ThicknessMax)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.ThicknessMax).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.ThicknessMax)
+            </div>
+
+
+        </div>
+        <div class="row form-group">
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.Weight)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.Weight).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.Weight)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.WeightMin)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.WeightMin).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.WeightMin)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.WeightMax)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.WeightMax).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.WeightMax)
+            </div>
+
+
+
+
+        </div>
+
+        <div class="row form-group">
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.StdGapTime)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.StdGapTime).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.StdGapTime)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.ProfileToleranceMin)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.ProfileToleranceMin).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.ProfileToleranceMin)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.ProfileToleranceMax)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.ProfileToleranceMax).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.ProfileToleranceMax)
+            </div>
+
+
+
+
+        </div>
+
+        <div class="row form-group">
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.StdRollingTime)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.StdRollingTime).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.StdRollingTime)
+                @*@Html.Kendo().TextBoxFor(x => x.StdRollingTime).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard", type = "number" })*@
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.Ovality)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.Ovality).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.Ovality)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.OvalityMax)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.OvalityMax).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.OvalityMax)
+            </div>
+
+
+
+
+        </div>
+
+        <div class="row form-group">
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.StdProductionTime)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.StdProductionTime).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.StdProductionTime)
+                @*@Html.Kendo().TextBoxFor(x => x.StdProductionTime).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard", type = "number" })*@
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.ExitSpeed)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.ExitSpeed).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.ExitSpeed)
+            </div>
+
+
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.MaxTensile)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.MaxTensile).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.MaxTensile)
+            </div>
+        </div>
+
+
+        <div class="row form-group">
+
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.StdUtilizationTime)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.StdUtilizationTime).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.StdUtilizationTime)
+            </div>
+
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.StdQualityYield)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.StdQualityYield).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.StdMetallicYield)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.StdMetallicYield)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.StdMetallicYield).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.StdMetallicYield)
+            </div>
+
+
+
+
+        </div>
+
+        <div class="row form-group">
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.StdProductivity)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.StdProductivity).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.StdProductivity)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.Slitting)</label>
+            </div>
+            <div class="col mt-1">
+                @Html.Kendo().CheckBoxFor(x => x.Slitting).HtmlAttributes(new { @class = "form-control" }).Label(String.Empty)
+                @*@Html.Kendo().TextBoxFor(x => x.Slitting).HtmlAttributes(new { @class = "form-control form-control-sm", type = "number" })*@
+            </div>
+
+
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.MaxYieldPoint)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.MaxYieldPoint).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.MaxYieldPoint)
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+    <hr />
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.GLOB_Form_Button_Update
+            </button>
+        </div>
+    </div>
+}
+
+<script>
+
+    $(function () {
+
+        $('#error').css("display", "none");
+        $("#form").kendoValidator().data("kendoValidator");
+
+    });
+
+     function displayMessage() {
+        
+        var validator = $("#form").kendoValidator().data("kendoValidator");
+
+        if (validator.validate()) {
+                 $('#error').css("display", "none");
+            } else {
+                 $('#error').css("display", "block");
+                 $('#popup-footer')
+                        .css('display', 'block')
+                        .css('background-color', 'rgb(206, 0, 55)');
+            }
+    };
+
+
+</script>
+

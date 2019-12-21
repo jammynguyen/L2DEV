@@ -1,0 +1,302 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.WorkOrder.VM_WorkOrder
+@{
+    ViewBag.Title = "_WorkOrderEditPopup";
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@using (Ajax.BeginForm("EditWorkOrder", "WorkOrder", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.WorkOrderId)
+    <div style="height:auto;overflow-x:hidden">
+        
+        
+        <div class="row form-group">
+
+            <div class="col-2 text-right">
+                <label>
+                    @Html.LabelFor(x => x.WorkOrderName)
+                </label>
+            </div>
+            <div class="col-2">
+                @Html.Kendo().TextBoxFor(x => x.WorkOrderName).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                @Html.ValidationMessageFor(x => x.WorkOrderName)
+            </div>
+
+            <div class="col text-right">
+                <label>
+                    @Html.LabelFor(x => x.TargetOrderWeight)
+                </label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.TargetOrderWeight).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" })
+                @Html.ValidationMessageFor(x => x.TargetOrderWeight)
+            </div>
+
+        </div>
+
+
+
+        <div class="row form-group">
+            <div class="col-2 text-right">
+                <label>@Html.LabelFor(x => x.WorkOrderStatus)</label>
+            </div>
+
+            <div class="col-2">
+                @(Html.Kendo().DropDownListFor(x => x.WorkOrderStatus).BindTo((SelectList)ViewBag.WorkOrderStatuses).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" }))
+                @Html.ValidationMessageFor(m => m.ToBeCompletedBefore)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.ToBeCompletedBefore)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().DatePickerFor(m => m.ToBeCompletedBefore).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                @Html.ValidationMessageFor(m => m.ToBeCompletedBefore)
+            </div>
+        </div>
+
+
+
+        <div class="row form-group">
+            <div class="col-2 text-right">
+                <label>@Html.LabelFor(x => x.IsTestOrder)</label>
+            </div>
+            <div class="col-2 mt-1">
+                @Html.Kendo().CheckBoxFor(x => x.IsTestOrder).HtmlAttributes(new { @class = "form-control" }).Label(String.Empty)
+            </div>
+
+            <div class="col-2 text-right"></div>
+            <div class="col-2"></div>
+        </div>
+
+
+
+
+        <hr>
+
+
+
+
+
+        <div class="row form-group">
+            <div class="col-2 text-right">
+                <label>@Html.LabelFor(x => x.FKProductCatalogueId)</label>
+            </div>
+
+            <div class="col-2">
+                @(Html.Kendo().DropDownListFor(x => x.FKProductCatalogueId)
+                  .Name("FKProductCatalogueId")
+                  .DataTextField("Text")
+                  .DataValueField("Value")
+                  .HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                  .BindTo(new SelectList(@ViewBag.ProductList, "ProductCatalogueId", "ProductCatalogueName", Model.FKProductCatalogueId))
+                  .OptionLabel("-")
+                  .Events(x => x.Change("ShowProductCatalogueDetailsAfterSelect"))
+                )
+            </div>
+
+            <div style="display: none;" class="product-details row form-group">
+                <div class="col-2 text-right"><label>@VM_Resources.NAME_Thickness</label></div><div class="col-2" id="Thickness"></div>
+                <div class="col-2 text-right"><label>@VM_Resources.NAME_Width</label></div><div class="col-2" id="Width"></div>
+                <div class="col-2 text-right"><label>@Html.LabelFor(x => x.TargetOrderWeight)</label></div><div class="col-2" id="Weight"></div>
+                <div class="col-2 text-right"><label>@VM_Resources.NAME_Steelgrade</label></div><div class="col-2" id="Steelgrade"></div>
+                <div class="col-2 text-right"><label>@VM_Resources.NAME_Shape</label></div><div class="col-2" id="Shape"></div>
+            </div>
+        </div>
+
+
+
+
+
+
+         <hr>
+
+
+
+
+        <div class="row form-group">
+            <div class="col-2 text-right ">
+                <label>@Html.LabelFor(x => x.FKHeatIdRef)</label>
+            </div>
+            <div class="col-2">
+                @(Html.Kendo().AutoCompleteFor(x => x.FKHeatIdRef)
+                    .HtmlAttributes(new { @style = "width: 400px;" })
+                    .Name("FKHeatIdRef")
+                    .Filter("contains")
+                    .DataTextField("HeatName")
+                    .Value(Model.FKHeatIdRef)
+                    .Placeholder(@VM_Resources.GLOB_StartTyping)
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("ServerFiltering_GetHeats", "Heat")
+                                .Data("onAdditionalData");
+                        })
+                        .ServerFiltering(true);
+                    })
+                    .Events(x =>x.Change("CalculateMaterialsWeight"))
+                    .Template("<div class='heat'>" +
+                                "<p class='details-row heat-name'><span class='col-10 nowrap'>#: data.HeatName #</span></p>" +
+                                "<p class='details-row heat-details'><span class='col-4'>" + @VM_Resources.NAME_Steelgrade + ":</span> <span class='col-6 heat-data'> #: data.SteelgradeName # </span> </p>" +
+                                "<p class='details-row heat-details'><span class='col-4'>" + @VM_Resources.NAME_MaterialCatalogue + ":</span> <span class='col-6 nowrap heat-data'> #: data.MaterialCatalogueName # </span> </p>" +
+                                "</div>")
+                )
+                @Html.ValidationMessageFor(x => x.FKHeatIdRef)
+            </div>
+
+            <div style="display: none;" class="material-weight row form-group">
+                <div class="col-8 text-right"><label>@Html.LabelFor(x => x.TargetOrderWeight)</label></div><div class="col-2" id="material-weight-value"></div>
+            </div>
+        </div>
+
+
+
+        <div class="row form-group">
+            <div class="col-2 text-right">
+                <label>
+                    @Html.LabelFor(x => x.MaterialsNumber)
+                </label>
+            </div>
+            <div class="col-2">
+                @Html.Kendo().NumericTextBoxFor(x => x.MaterialsNumber).HtmlAttributes(new { @class = "form-control form-control-sm", @style = "width: 150px" }).Min(1).Max(1000).Decimals(0).Format("0").Events(x =>x.Change("CalculateMaterialsWeight"))
+                @Html.ValidationMessageFor(x => x.MaterialsNumber)
+            </div>
+
+            <div class="col-2 text-right"></div>
+            <div class="col-2"></div>
+        </div>
+        
+
+
+
+        <hr>
+
+        <div class="row form-group">
+
+            <div class="col text-right">
+                <label>
+                    @Html.LabelFor(x => x.ExtraLabelInformation)
+                </label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.ExtraLabelInformation).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                @Html.ValidationMessageFor(x => x.ExtraLabelInformation)
+            </div>
+
+            <div class="col text-right">
+                <label>
+                    @Html.LabelFor(x => x.NextAggregate)
+                </label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.NextAggregate).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                @Html.ValidationMessageFor(x => x.NextAggregate)
+            </div>
+
+            <div class="col text-right">
+                <label>
+                    @Html.LabelFor(x => x.OperationCode)
+                </label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.OperationCode).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                @Html.ValidationMessageFor(x => x.OperationCode)
+            </div>
+
+        </div>
+        <div class="row form-group">
+
+            <div class="col text-right">
+                <label>
+                    @Html.LabelFor(x => x.QualityPolicy)
+                </label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.QualityPolicy).HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                @Html.ValidationMessageFor(x => x.QualityPolicy)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.FKCustomerId)</label>
+            </div>
+            <div class="col">
+                @(Html.Kendo().DropDownListFor(x => x.FKCustomerId)
+                    .Name("FKCustomerId")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                    .BindTo(new SelectList(@ViewBag.CustomerList, "CustomerId", "CustomerName"))
+                    .OptionLabel("-")
+                )
+                @Html.ValidationMessageFor(x => x.FKCustomerId)
+            </div>
+
+            <div class="col text-right">
+                <label>@Html.LabelFor(x => x.FKReheatingGroupId)</label>
+            </div>
+            <div class="col">
+                @(Html.Kendo().DropDownListFor(x => x.FKReheatingGroupId)
+                    .Name("FKReheatingGroupId")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .HtmlAttributes(new { @class = "form-control form-control-sm popup_input_standard" })
+                    .BindTo(new SelectList(@ViewBag.ReheatingList, "ReheatingGroupId", "ReheatingGroupName"))
+                    .OptionLabel("-")
+                )
+                @Html.ValidationMessageFor(x => x.FKReheatingGroupId)
+            </div>
+
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.GLOB_Form_Button_Update
+            </button>
+        </div>
+    </div>
+
+}
+
+<script>
+    $(function () {
+
+    $('#error').css("display", "none");
+    $("#form").kendoValidator().data("kendoValidator");
+
+    $('.k-autocomplete').css("width", "150px");
+
+    $('.k-autocomplete input').keydown(function () {
+        $('.k-autocomplete').animate({
+            width: 400
+        }, 200, function () {
+            // Animation complete.
+        });
+    })
+
+    $('.k-autocomplete input').focusout(function () {
+        $('.k-autocomplete').animate({
+            width: 150
+        }, 400, function () {
+            // Animation complete.
+        });
+    })
+
+        disableInputs();
+        ShowProductCatalogueDetailsAfterSelect();
+        CalculateMaterialsWeight();
+
+    });
+
+    
+</script>

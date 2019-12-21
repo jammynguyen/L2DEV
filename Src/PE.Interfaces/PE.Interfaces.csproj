@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DFE01277-6CD1-4CBE-9FCF-3CAD1F7B73D8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PE.Interfaces</RootNamespace>
+    <AssemblyName>PE.Interfaces</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\Custom\IL1Adapter.cs" />
+    <Compile Include="Interfaces\IModuleB.cs" />
+    <Compile Include="Interfaces\IModuleA.cs" />
+    <Compile Include="Interfaces\IHmi.cs" />
+    <Compile Include="Interfaces\Lite\IAdapter.cs" />
+    <Compile Include="Interfaces\Lite\IDBAdapter.cs" />
+    <Compile Include="Interfaces\Lite\IDelay.cs" />
+    <Compile Include="Interfaces\Lite\IDispatcher.cs" />
+    <Compile Include="Interfaces\Lite\IL1Simulation.cs" />
+    <Compile Include="Interfaces\Lite\IQuality.cs" />
+    <Compile Include="Interfaces\Lite\IMaintenance.cs" />
+    <Compile Include="Interfaces\Lite\IMVHistory.cs" />
+    <Compile Include="Interfaces\Lite\IProdManager.cs" />
+    <Compile Include="Interfaces\Lite\IProdPlaning.cs" />
+    <Compile Include="Interfaces\Lite\IRollShop.cs" />
+    <Compile Include="Interfaces\Lite\ISetup.cs" />
+    <Compile Include="Interfaces\Lite\ISImulation.cs" />
+    <Compile Include="Interfaces\Lite\IZebraPC.cs" />
+    <Compile Include="Interfaces\Managers\Custom\IL1SetupManager.cs" />
+    <Compile Include="Interfaces\Managers\Custom\IL1ConsumptionManager.cs" />
+    <Compile Include="Interfaces\Managers\Custom\IL1TrackingManager.cs" />
+    <Compile Include="Interfaces\Managers\ICassetteManager.cs" />
+    <Compile Include="Interfaces\Managers\ICassetteTypeManager.cs" />
+    <Compile Include="Interfaces\Managers\ICustomRollGroovesManager.cs" />
+    <Compile Include="Interfaces\Managers\IDelayManager.cs" />
+    <Compile Include="Interfaces\Managers\IDispatcherManager.cs" />
+    <Compile Include="Interfaces\Managers\IQualityAssignment.cs" />
+    <Compile Include="Interfaces\Managers\IEquipmentAccuManager.cs" />
+    <Compile Include="Interfaces\Managers\IEquipmentManager.cs" />
+    <Compile Include="Interfaces\Managers\IEquipmentGroupManager.cs" />
+    <Compile Include="Interfaces\Managers\IGrooveTemplateManager.cs" />
+    <Compile Include="Interfaces\Managers\ILevel3SimulationManager.cs" />
+    <Compile Include="Interfaces\Managers\IProductManager.cs" />
+    <Compile Include="Interfaces\Managers\IRollChangeManager.cs" />
+    <Compile Include="Interfaces\Managers\IRollSetHistoryManager.cs" />
+    <Compile Include="Interfaces\Managers\IRollSetManager.cs" />
+    <Compile Include="Interfaces\Managers\IRollShopManager.cs" />
+    <Compile Include="Interfaces\Managers\IRollTypeManager.cs" />
+    <Compile Include="Interfaces\Managers\ISetupTelegramsManager.cs" />
+    <Compile Include="Interfaces\Managers\ILevel1SimulationManager.cs" />
+    <Compile Include="Interfaces\Managers\ITcpCommunicationListeners.cs" />
+    <Compile Include="Interfaces\Lite\ITcpProxy.cs" />
+    <Compile Include="Interfaces\Lite\ITracking.cs" />
+    <Compile Include="Interfaces\Lite\IWalkingBeamFurnance.cs" />
+    <Compile Include="Interfaces\Managers\ICatalogueManager.cs" />
+    <Compile Include="Interfaces\Managers\IDefectCatalogueManager.cs" />
+    <Compile Include="Interfaces\Managers\IDelayCatalogueManager.cs" />
+    <Compile Include="Interfaces\Managers\IFurnanceTriggersManager.cs" />
+    <Compile Include="Interfaces\Managers\IL1CommunicationManager.cs" />
+    <Compile Include="Interfaces\Managers\IL1CommunicationMeasurementsManager.cs" />
+    <Compile Include="Interfaces\Managers\IL1SimulationFurnace.cs" />
+    <Compile Include="Interfaces\Managers\IL1SimulationManager.cs" />
+    <Compile Include="Interfaces\Managers\IL3CommunicationManager.cs" />
+    <Compile Include="Interfaces\Managers\IL3DBCommunicationManager.cs" />
+    <Compile Include="Interfaces\Managers\IManagerBase.cs" />
+    <Compile Include="Interfaces\Managers\IMeasurementManager.cs" />
+    <Compile Include="Interfaces\Managers\IRawMaterialManager.cs" />
+    <Compile Include="Interfaces\Managers\IScheduleManager.cs" />
+    <Compile Include="Interfaces\Managers\ITcpCommunicationSenders.cs" />
+    <Compile Include="Interfaces\Managers\ITrackingTriggersManager.cs" />
+    <Compile Include="Interfaces\Managers\IWorkOrderManager.cs" />
+    <Compile Include="Interfaces\Managers\IZebraConnectionManager.cs" />
+    <Compile Include="Interfaces\SendOffice\Custom\IL1ConsumptionSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\Custom\IL1TrackingSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\Custom\IL1SetupSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IAdapterL1SendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IAdapterL3SendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\ICassetteManagerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\ICassetteTypeManagerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\ICustomRollGroovesManagerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IDbAdapterSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IDelayManagerCatalogueSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IDelayManagerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IDispatcherManagerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IFurnaceProcessTriggersSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IGrooveTemplateManagerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IMeasValuesHistoryRawaterialSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IMeasValuesHistoryMeasurementSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IMeasValuesHistoryDefectSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IProdManagerCatalogueSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IProdManagerProductSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IProdManagerWorkOrderCendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IProductionPlanningSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IRollChangeManagerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IRollSetHistoryManagerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IRollSetManagerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IRollShopManagerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\ISetupTelegramSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IRollTypeManagerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\ITrackingProcessTriggerSendOffice.cs" />
+    <Compile Include="Interfaces\SendOffice\IZebraManagerSendOffice.cs" />
+    <Compile Include="Module\Modules.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Interfaces\SendOffice\ISimulationSendOffice.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Telegram\External\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PE.DbEntity\PE.DbEntity.csproj">
+      <Project>{0ca28630-444c-4678-a2dd-05111132c899}</Project>
+      <Name>PE.DbEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.DTO\PE.DTO.csproj">
+      <Project>{5a8b29e8-e78f-4a25-a509-cf6f5aba462e}</Project>
+      <Name>PE.DTO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.Core, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.Core.2.4.165\lib\net461\SMF.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.Module, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.Module.2.4.165\lib\net461\SMF.Module.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,24 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Tracking.VM_TrackingOverview
+
+<div class="row h-100">
+    <div class="col">
+        @(Html.Kendo().TabStrip()
+            .Name("TrackingBody")
+            .Animation(false)
+            .Scrollable(false)
+            .Items(tabstrip =>
+            {
+                tabstrip.Add().Text(VM_Resources.NAME_MaterialDetails)
+                    .Selected(true).Content(@Html.Partial("~/Views/Module/PE.Lite/Tracking/_TrackingDetails.cshtml", Model).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                tabstrip.Add().Text(VM_Resources.NAME_WorkOrderDetails)
+                    .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/WorkOrder/_WorkOrderDetails.cshtml", Model.WO).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+                tabstrip.Add().Text(VM_Resources.NAME_HeatDetails)
+                    .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/Heat/_HeatDetails.cshtml", Model.H).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+            })
+            .Events(e =>
+            {
+                e.Select("saveTabStripState");
+            })
+        )
+    </div>
+</div>

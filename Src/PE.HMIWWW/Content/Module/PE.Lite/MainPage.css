@@ -1,0 +1,167 @@
+﻿.schema-container {
+    display: flex;
+    flex-direction: row;
+    width: 1300px;
+    height: 500px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.stage-column {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 100%;
+}
+
+.stage-line {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    height: 32px;
+}
+
+.line {
+    position: relative;
+    width: 100%;
+    height: 15px;
+}
+
+    .line::after {
+        content: '';
+        position: absolute;
+        top: -10px;
+        right: -20px;
+        width: 38px;
+        height: 38px;
+        z-index: 1;
+        border-radius: 50%;
+    }
+
+.stage-point {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 98px;
+}
+
+.point {
+    position: relative;
+    width: 5px;
+    height: 70px;
+}
+
+    .point::after {
+        content: '';
+        position: absolute;
+        left: -6px;
+        bottom: -5px;
+        width: 18px;
+        height: 18px;
+        z-index: 1;
+        border-radius: 50%;
+    }
+
+.stage-icon {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    height: 220px;
+}
+
+.stage-icon-content {
+    align-self: center;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.stage-icon-content:hover .icon {
+    opacity: 0.85;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.icon-light {
+    width: 0;
+    height: 0;
+    position: absolute;
+    opacity: 0.12;
+    border-top: 120px solid #fff;
+    border-left: 160px solid transparent;
+    transition: 0.3s;
+}
+
+.icon-img {
+    align-self: center;
+    width: 77px;
+    height: 77px;
+}
+
+.description {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+}
+
+    .description:after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        margin: 0 auto;
+        margin-top: 10px;
+        transition: transform 0.5s;
+    }
+
+.stage-icon-content:hover .description:after {
+    transform: scaleX(1.7);
+}
+
+/*  colors */
+
+.schedule .line, .schedule .line::after, .schedule .point, .schedule .point::after, .schedule .icon, .schedule .description::after {
+    background-color: #0089b9;
+}
+
+.furnace .line, .furnace .line::after, .furnace .point, .furnace .point::after, .furnace .icon, .furnace .description::after {
+    background-color: #f2a900;
+}
+
+.products .line, .products .line::after, .products .point, .products .point::after, .products .icon, .products .description::after {
+    background-color: #8f8f8f;
+}
+
+.delays .line, .delays .line::after, .delays .point, .delays .point::after, .delays .icon, .delays .description::after {
+    background-color: #006487;
+}
+
+.schedule .description {
+    color: #0089b9;
+}
+
+.furnace .description {
+    color: #f2a900;
+}
+
+.products .description {
+    color: #8f8f8f;
+}
+
+.delays .description {
+    color: #006487;
+}

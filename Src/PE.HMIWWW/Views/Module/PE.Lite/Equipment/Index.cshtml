@@ -1,0 +1,58 @@
+﻿@{
+	ViewBag.Title = VM_Resources.PAGE_TITLE_Equipment_Index;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section module_menu
+{
+	@Html.ImageButton("new", "AddNew()", false)
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Maintenance.VM_Equipment>()
+		.Name("EquipmentGrid")
+		.HtmlAttributes(new { style = @String.Format(" height:{0}px;", ViewBag.FullGridHeight) })
+		.Scrollable()
+		.Pageable(p => p
+				.Messages(m => m
+						.Display(VM_Resources.GLOB_pagination)))
+		.Filterable()
+		.Sortable()
+		.Columns(c =>
+		{
+			c.Bound(x => x.EquipmentId)
+					.Visible(false);
+			c.Bound(x => x.EquipmentGroupId)
+					.Visible(false);
+			c.Bound(x => x.EquipmentCode)
+					.Filterable(true).Width(100);
+			c.Bound(x => x.EquipmentName)
+					.Filterable(true).Width(200);
+			c.Bound(x => x.EquipmentGroupCode)
+					.Filterable(true).Width(70).Sortable(true);
+			//c.Bound(x => x.EquipmentStatus)
+			//		.Filterable(true).Width(100);
+			c.ForeignKey(o => o.EquipmentStatus, (SelectList)ViewBag.EquipmentStatus)
+			.Filterable(true).Width(120).Sortable(true);
+			c.Bound(x => x.ActualValue)
+					.Filterable(true).Width(80).Sortable(true);
+			c.Bound(x => x.WarningValue)
+				.Filterable(true).Width(80).Sortable(true);
+			c.Bound(x => x.AlarmValue)
+				.Filterable(true).Width(80).Sortable(true);
+			c.Bound(x => x.ServiceExpires)
+					.Filterable(false).Width(200).Format(PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ShortDateTime_FORMAT).Sortable(true);
+			c.Bound(x => x.EquipmentId)
+					.Filterable(false)
+					.ClientTemplate(Html.ImageButton("edit", "EditEquipmentPopup(#:EquipmentId#)").ToString() +  Html.ImageButton("clone", "CloneEquipmentPopup(#=EquipmentId#)").ToString() + Html.ImageButton("history", "ShowHistory(#=EquipmentId#)").ToString() + Html.ImageButton("delete", "Delete(#=EquipmentId#)").ToString())
+					.Title(String.Empty)
+					.Width(80);
+		})
+		.DataSource(ds => ds
+				.Ajax()
+				.ServerOperation(true)
+				.PageSize(27)
+				.Events(e => e.Error("TelerikErrorHandler"))
+				.Read(r => r.Action("GetEquipmentList", "Equipment")))
+)
+
+@Scripts.Render("~/Scripts/Module/Equipment")

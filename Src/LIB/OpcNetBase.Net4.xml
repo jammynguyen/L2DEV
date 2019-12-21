@@ -1,0 +1,1478 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OpcNetBase.Net4</name>
+    </assembly>
+    <members>
+        <member name="T:OPCDA.OPCDATASOURCE">
+            <summary>
+            Enumerator for the selection of the read source.
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPCBROWSETYPE">
+            <summary>
+            Enumerator for for browse mode selection
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPCNAMESPACETYPE">
+            <summary>
+            Enumerator for the server's namespace organization.
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPCBROWSEDIRECTION">
+            <summary>
+            Browse direction enumerator
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPCACCESSRIGHTS">
+            <summary>
+            Item access right enumerator flags ( can be or-ed )
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPCEUTYPE">
+            <summary>
+            Item Engineering Units enumerator
+            </summary>
+        </member>
+        <member name="T:OPCDA.OpcServerState">
+            <summary>
+            OPC server state enumerator used in ServerStatus2
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPCENUMSCOPE">
+            <summary>
+            Enumerator Scope enumerator
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPC_QUALITY_MASKS">
+            <summary>
+            OPC Quality mask definition   QQSSSSLL
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPC_QUALITY_MASTER">
+            <summary>
+            OPC Item quality enumerator for QQ bits only
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPC_QUALITY_STATUS">
+            <summary>
+            Complete OPC Item Quality enumerator  QQSSSS--
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPC_QUALITY_LIMIT">
+            <summary>
+            OPC Item Quality enumerator for Litmit Bits ------LL
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPC_PROPS">
+            <summary>
+            OPC Item Property Id enumerator
+            </summary>
+        </member>
+        <member name="T:OPCDA.SERVERSTATUS">
+            <summary>
+            OPC Server status class returned from OpcServer::GetStatus and IOPCServer::GetStatus
+            </summary>
+        </member>
+        <member name="T:OPCDA.SrvStatus">
+            <summary>
+            Server status information returned in GetStatus()
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus.StartTime">
+            <summary>
+            Time (UTC) the server was started. This is constant for the server instance and is not 
+            reset when the server changes states. Each instance of a server should keep the time when 
+            the process started.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus.CurrentTime">
+            <summary>
+            The current time (UTC) as known by the server.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus.LastUpdateTime">
+            <summary>
+            The time (UTC) the server sent the last data value update to this client. 
+            This value is maintained on an instance basis.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus.ServerState">
+            <summary>
+            The current status of the server.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus.GroupCount">
+            <summary>
+            The total number of groups being managed by the server instance. 
+            This is mainly for diagnostic purposes.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus.BandWidth">
+            <summary>
+            The behavior of this field is server specific. A suggested use is that it return the approximate 
+            Percent of Bandwidth currently in use by server. If multiple links are in use it could return the 
+            ‘worst case’ link. Note that any value over 100% indicates that the aggregate combination of items 
+            and UpdateRate is too high. The server may also return 0xFFFFFFFF if this value is unknown.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus.MajorVersion">
+            <summary>
+            The major version of the server software
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus.MinorVersion">
+            <summary>
+            The minor version of the server software
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus.BuildNumber">
+            <summary>
+            The buil number version of the server software
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus.VendorInfo">
+            <summary>
+            Vendor specific string providing additional information about the server. 
+            It is recommended that this mention the name of the company and the type of device(s) supported.
+            </summary>
+        </member>
+        <member name="T:OPCDA.SrvStatus2">
+            <summary>
+            Server status information returned in GetStatus()
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus2.StartTime">
+            <summary>
+            Time (UTC) the server was started. This is constant for the server instance and is not 
+            reset when the server changes states. Each instance of a server should keep the time when 
+            the process started.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus2.CurrentTime">
+            <summary>
+            The current time (UTC) as known by the server.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus2.LastUpdateTime">
+            <summary>
+            The time (UTC) the server sent the last data value update to this client. 
+            This value is maintained on an instance basis.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus2.ServerState">
+            <summary>
+            The current status of the server.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus2.GroupCount">
+            <summary>
+            The total number of groups being managed by the server instance. 
+            This is mainly for diagnostic purposes.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus2.BandWidth">
+            <summary>
+            The behavior of this field is server specific. A suggested use is that it return the approximate 
+            Percent of Bandwidth currently in use by server. If multiple links are in use it could return the 
+            ‘worst case’ link. Note that any value over 100% indicates that the aggregate combination of items 
+            and UpdateRate is too high. The server may also return 0xFFFFFFFF if this value is unknown.
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus2.MajorVersion">
+            <summary>
+            The major version of the server software
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus2.MinorVersion">
+            <summary>
+            The minor version of the server software
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus2.BuildNumber">
+            <summary>
+            The buil number version of the server software
+            </summary>
+        </member>
+        <member name="F:OPCDA.SrvStatus2.VendorInfo">
+            <summary>
+            Vendor specific string providing additional information about the server. 
+            It is recommended that this mention the name of the company and the type of device(s) supported.
+            </summary>
+        </member>
+        <member name="T:OPCDA.OPCQuality">
+            <summary>
+            OPC Item quality as a .Net class.<br/>
+            The class also contains conversion methods.
+            </summary>
+        </member>
+        <member name="F:OPCDA.OPCQuality.QualityField">
+            <summary>
+            This is the 6 bit quality status field or the OPC Quality word
+            </summary>
+        </member>
+        <member name="F:OPCDA.OPCQuality.LimitField">
+            <summary>
+            This is the 2 bit limit status field or the OPC Quality word
+            </summary>
+        </member>
+        <member name="F:OPCDA.OPCQuality.VendorField">
+            <summary>
+            This is the 8 bit vendor field or the OPC Quality word
+            </summary>
+        </member>
+        <member name="M:OPCDA.OPCQuality.#ctor(OPCDA.qualityBits)">
+            <summary>
+            Constructor that sets the quality status to the value given in the qualityBits enumerator.
+            </summary>
+            <param name="qstat">initial quality status</param>
+        </member>
+        <member name="M:OPCDA.OPCQuality.#ctor(System.Int16)">
+            <summary>
+            Constructor that sets the quality status to the given OPC quality value.
+            </summary>
+            <param name="qVal">initial quality status</param>
+        </member>
+        <member name="M:OPCDA.OPCQuality.GetCode">
+            <summary>
+            Returns the status as an OPC conformant 16 bit value.
+            </summary>
+            <returns>OPC conformant 16 bit quality value</returns>
+        </member>
+        <member name="M:OPCDA.OPCQuality.ParseQualityBits(System.String)">
+            <summary>
+            Convert a quality status name to a qualityBits enumerator value.
+            </summary>
+            <param name="qs">quality status name. (one of the names in the enumerator)</param>
+            <returns>enumerator value</returns>
+        </member>
+        <member name="T:OPCDA.qualityBits">
+            <summary>
+            Enumerator with the OPC defined quality status names and the OPC defined values.
+            </summary>
+        </member>
+        <member name="T:OPCDA.limitBits">
+            <summary>
+            Enumerator with the OPC defined limit status names and the OPC defined values.
+            </summary>
+        </member>
+        <member name="T:OPCDA.PropertyIDs">
+            <summary>
+            Definitions of the OPC defined item property IDs.
+            </summary>
+        </member>
+        <member name="T:OPCDA.PropertyDescs">
+            <summary>
+            Definitions of the OPC defined item property descriptions.
+            </summary>
+        </member>
+        <member name="T:OPC.HRESULTS">
+            <summary>
+            HRESULTS enumerator. Defines the OPC error codes.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.S_OK">
+            <summary>
+            The server handled the call successfully.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.S_FALSE">
+            <summary>
+            The server handled the call successfully but there are error or warning indications 
+            for some items. The error array has to be checked for individual item error codes.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDHANDLE">
+            <summary>
+            The value of the handle is invalid.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_BADTYPE">
+            <summary>
+            The server cannot convert the data between the specified format and/or requested data 
+            type and the canonical data type.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_PUBLIC">
+            <summary>
+            The requested operation cannot be done on a internal group.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_BADRIGHTS">
+            <summary>
+            The item's access rights do not allow the operation.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_UNKNOWNITEMID">
+            <summary>
+            The item ID is not defined in the server address space or no longer exists in the server address space.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDITEMID">
+            <summary>
+            The item ID does not conform to the server's syntax
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDFILTER">
+            <summary>
+            The filter string was not valid.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_UNKNOWNPATH">
+            <summary>
+            The item's access path is not known to the server.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_RANGE">
+            <summary>
+            The value was out of range.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_DUPLICATENAME">
+            <summary>
+            The item's access path is not known to the server.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_S_UNSUPPORTEDRATE">
+            <summary>
+            The value was out of range.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_S_CLAMP">
+            <summary>
+            A value passed to write was accepted but the output was clamped.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_S_INUSE">
+            <summary>
+            The operation cannot be performed because the object is being referenced.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDCONFIGFILE">
+            <summary>
+            The server's configuration file is an invalid format.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_NOTFOUND">
+            <summary>
+            The requested object was not found.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALID_PID">
+            <summary>
+            The specified property ID is not valid for the item.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_NOTSUPPORTED">
+            <summary>
+            The requested feature is not supported.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_READONLY">
+            <summary>
+            The item is only readable.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDCONTINUATIONPOINT">
+            <summary>
+            The specified browse continuation point is invalid.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.E_NOTIMPL">
+            <summary>
+            Not implemented.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.E_NOINTERFACE">
+            <summary>
+            No such interface supported.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.E_ABORT">
+            <summary>
+            Operation aborted.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.E_FAIL">
+            <summary>
+            The operation failed.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.E_OUTOFMEMORY">
+            <summary>
+            Out of memory.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.E_INVALIDARG">
+            <summary>
+            The value of one or more parameters was not valid.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.CONNECT_E_NOCONNECTION">
+            <summary>
+            Unable to impersonate DCOM client.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.CONNECT_E_ADVISELIMIT">
+            <summary>
+            Advise limit exceeded for this object.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_BUSY">
+            <summary>
+            A refresh is currently in progress.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDBRANCHNAME">
+            <summary>
+            The string was not recognized as an area name.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDBUFFERTIME">
+            <summary>
+            The buffer time parameter was invalid.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDMAXSIZE">
+            <summary>
+            The max size parameter was invalid.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDTIME">
+            <summary>
+            The time does not match the latest active time.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_NOINFO">
+            <summary>
+            Information is not available.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_ALREADYACKED">
+            <summary>
+            The condition has already been acknowleged.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_MAXEXCEEDED">
+            <summary>
+            The maximum number of values requested exceeds the server's limit.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_S_NODATA">
+            <summary>
+            There is no data within the specified parameters.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_S_MOREDATA">
+            <summary>
+            There is more data satisfying the query than was returned
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDAGGREGATE">
+            <summary>
+            The aggregate requested is not valid.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_S_CURRENTVALUE">
+            <summary>
+            The server only returns current values for the requested item attributes.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_S_EXTRADATA">
+            <summary>
+            Additional data satisfying the query was found.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_W_NOFILTER">
+            <summary>
+            The server does not support this filter.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_UNKNOWNATTRID">
+            <summary>
+            The server does not support this attribute.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_NOT_AVAIL">
+            <summary>
+            The requested aggregate is not available for the specified item.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDDATATYPE">
+            <summary>
+            The supplied value for the attribute is not a correct data type.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_DATAEXISTS">
+            <summary>
+            Unable to insert - data already present.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_INVALIDATTRID">
+            <summary>
+            The supplied attribute ID is not valid.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_E_NODATAEXISTS">
+            <summary>
+            The server has no value for the specified time and item ID.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_S_INSERTED">
+            <summary>
+            The requested insert occurred.
+            </summary>
+        </member>
+        <member name="F:OPC.HRESULTS.OPC_S_REPLACED">
+            <summary>
+            The requested replace occurred.
+            </summary>
+        </member>
+        <member name="M:OPC.HRESULTS.Failed(System.Int32)">
+            <summary>
+            The function returns true if the HRESULTS code is a failure code. 
+            It returns false for S_OK or any success code such as S_FALSE.
+            </summary>
+            <param name="hresultcode">HRESULTS error/success code.</param>
+            <returns>returns true if the HRESULTS code is an error code.</returns>
+        </member>
+        <member name="M:OPC.HRESULTS.Succeeded(System.Int32)">
+            <summary>
+             The function returns true if the HRESULTS code is a success code such as S_OK or S_FALSE.
+            </summary>
+            <param name="hresultcode">HRESULTS error/success code.</param>
+            <returns>Returns TRUE if the HRESULTS code is S_OK aor any success code.</returns>
+        </member>
+        <member name="T:OPC.OPCException">
+            <summary>
+            Allows the exception handler to read the HResult error code.
+            </summary>
+        </member>
+        <member name="M:OPC.OPCException.#ctor(System.Int32)">
+            <summary>
+            Throwse an exception of type OPCException with the HRESULT error code only
+            </summary>
+            <param name="rtc">HRESULT error code.</param>
+        </member>
+        <member name="M:OPC.OPCException.#ctor(System.Int32,System.String)">
+            <summary>
+            Throws an exception of type OPCException with the HRESULT error code and error message
+            </summary>
+            <param name="rtc">HRESULT error code.</param>
+            <param name="emsg">Error descripotion.</param>
+        </member>
+        <member name="P:OPC.OPCException.Result">
+            <summary>
+            OPC error code.
+            </summary>
+        </member>
+        <member name="P:OPC.OPCException.Message">
+            <summary>
+            Message with error information.
+            </summary>
+        </member>
+        <member name="T:OPC.ErrorDescriptions">
+            <summary>
+            OPC and Win32 error code descriptions.
+            For OPC errors it may be necessary to get the error information from the OPC server. 
+            The server may use custom error codes and may provide the error descriptions in multiple languages.
+            </summary>
+        </member>
+        <member name="M:OPC.ErrorDescriptions.GetErrorDescription(System.Int32)">
+            <summary>
+            Get the description of the given error code.
+            </summary>
+            <param name="hr">OPC or Windows error code.</param>
+            <returns></returns>
+        </member>
+        <member name="M:OPC.ErrorDescriptions.AddErrorDefinition(System.Int32,System.String)">
+            <summary>
+            Add an error description to the component internal table.
+            </summary>
+            <param name="errNo">HRESULT error code</param>
+            <param name="errTxt">Description of the error code.</param>
+            <returns>S_OK or OPC_E_DUPLICATENAME (0xC004000C) if teh error code is already defined.</returns>
+        </member>
+        <member name="M:OPC.ErrorDescriptions.ReplaceErrorDefinition(System.Int32,System.String)">
+            <summary>
+            The error description is overwritten. 
+            The predefined description can be replaced, e.g. in more detail or in another language.
+            </summary>
+            <param name="errNo">HRESULT error code</param>
+            <param name="errTxt">Description of the error code.</param>
+            <returns>S_OK or OPC_E_NOTFOUND (0xC0040011) if the error code is not yet defined.</returns>
+        </member>
+        <member name="M:OPC.ErrorDescriptions.getExceptionHRresult(System.Exception)">
+            <summary>
+            Returns the private HResult field from an Exception object
+            </summary>
+            <param name="ex">Exception object</param>
+            <returns>The HResult code from the Exception HResult field.</returns>
+        </member>
+        <member name="T:OPCDA.NET.OPCItemState">
+            <summary>
+            OPCItemState class. Holds all data returned from the server at read.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemState.Error">
+            <summary>
+            HRESULTS success/errpr code. The other elements are only valid if Error=S_OK.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemState.HandleClient">
+            <summary>
+            The handle the client wishes to associate with the item. The client uses this handle typically
+            in callback handler to associate the value with the correct item.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemState.DataValue">
+            <summary>
+            Last read or written item value
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemState.Quality">
+            <summary>
+            The quality of this item.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemState.TimeStamp">
+            <summary>
+            UTC TimeStamp for this item's value. If the device cannot provide a 
+            timestamp then the server should provide one. 
+            </summary>
+        </member>
+        <member name="M:OPCDA.NET.OPCItemState.ToString">
+            <summary>
+            Converts the objects to a string representatation.
+            </summary>
+            <returns>HRESULT success/error code</returns>
+        </member>
+        <member name="P:OPCDA.NET.OPCItemState.TimeStampNet">
+            <summary>
+            Get or set the OPC UTC filetime timestamp as a DateTime type
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.OPCItemResult">
+            <summary>
+            OPCItemresult class. Holds all data returned from the server at AddItem.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemResult.Error">
+            <summary>
+            HRESULTS success/errpr code. The other elements are only valid if Error=S_OK.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemResult.HandleServer">
+            <summary>
+            The server handle used to refer to this item.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemResult.CanonicalDataType">
+            <summary>
+            The native data type. The type of data maintained within the server for this item. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemResult.AccessRights">
+            <summary>
+            Indicates if this item is read only, write only or read/write. 
+            This is NOT related to security but rather to the nature of the underlying hardware. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemResult.Blob">
+            <summary>
+            Blob data.
+            </summary>
+        </member>
+        <member name="P:OPCDA.NET.OPCItemResult.CanonicalType">
+            <summary>
+            The native data type as a .Net data type. 
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.OPCWriteResult">
+            <summary>
+            OPCWriteResult class. Holds all data returned from the server at a write call.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCWriteResult.Error">
+            <summary>
+            HRESULTS success/errpr code. The other elements are only valid if Error=S_OK.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCWriteResult.HandleClient">
+             <summary>
+             The handle the client wishes to associate with the item. The client uses this handle typically
+             in callback handler to associate the value with the correct item.
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.OPCItemAttributes">
+            <summary>
+            OPCItemAttributes class. Holds the attribute information of one item.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemAttributes.AccessPath">
+            <summary>
+            The access path specified by the client. A pointer to a NUL string is returned if the server 
+            does not support access paths.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemAttributes.ItemID">
+            <summary>
+            The unique identifier for this item. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemAttributes.Active">
+            <summary>
+            FALSE if the item is not currently active, TRUE if the item is currently active 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemAttributes.HandleClient">
+            <summary>
+            The handle the client has associated with this item. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemAttributes.HandleServer">
+            <summary>
+            The handle the server uses to reference this item. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemAttributes.AccessRights">
+            <summary>
+            Indicates if this item is read only, write only or read/write. This is NOT related to security but 
+            rather to the nature of the underlying hardware. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemAttributes.RequestedDataType">
+            <summary>
+            The data type in which the item's value will be returned. Note that if the requested data type 
+            was rejected then this field will return the canonical data type. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemAttributes.CanonicalDataType">
+            <summary>
+            The data type in which the item's value is maintained within the server. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemAttributes.EUType">
+            <summary>
+            Indicate the type of Engineering Units (EU) information (if any) contained in vEUInfo.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemAttributes.EUInfo">
+            <summary>
+            The object containing the EU information.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemAttributes.Blob">
+            <summary>
+            Blob data
+            </summary>
+        </member>
+        <member name="M:OPCDA.NET.OPCItemAttributes.ToString">
+            <summary>
+            Converts the objects to a string representatation.
+            </summary>
+            <returns>HRESULT success/error code</returns>
+        </member>
+        <member name="P:OPCDA.NET.OPCItemAttributes.RequestedType">
+            <summary>
+            The .Net data type in which the item's value will be returned. Note that if the requested data type 
+            was rejected then this field will return the canonical data type. <br/>
+            This is actually a property accessor to the RequestedDataType field.
+            </summary>
+        </member>
+        <member name="P:OPCDA.NET.OPCItemAttributes.CanonicalType">
+            <summary>
+            The .Net data type in which the item's value is maintained within the server. <br/>
+            This is actually a property accessor to the CanonicalDataType field.
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.DataChangeEventArgs">
+            <summary>
+            Data change callback argument. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.DataChangeEventArgs.transactionID">
+            <summary>
+            0 if the call is the result of an ordinary subscription.<br/>
+            If the call is the result of a call to Refresh2 then this is the value passed to Refresh2.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.DataChangeEventArgs.groupHandleClient">
+            <summary>
+            The Client handle of the group 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.DataChangeEventArgs.masterQuality">
+            <summary>
+            S_OK if OPC_QUALITY_MASK for all 'qualities' are OPC_QUALITY_GOOD<br/>
+             S_FALSE otherwise. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.DataChangeEventArgs.masterError">
+            <summary>
+            S_OK if all 'errors are S_OK<br/>
+            S_FALSE otherwise. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.DataChangeEventArgs.sts">
+            <summary>
+            Item data.
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.DataChangeEventHandler">
+            <summary>
+            Delegate of the user data change callback handler
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.ReadCompleteEventArgs">
+            <summary>
+            Read complete callback argument. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ReadCompleteEventArgs.transactionID">
+            <summary>
+            0 if the call is the result of an ordinary subscription.<br/>
+            If the call is the result of a call to Refresh2 then this is the value passed to Refresh2.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ReadCompleteEventArgs.groupHandleClient">
+            <summary>
+            The Client handle of the group 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ReadCompleteEventArgs.masterQuality">
+            <summary>
+            S_OK if OPC_QUALITY_MASK for all 'qualities' are OPC_QUALITY_GOOD<br/>
+             S_FALSE otherwise. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ReadCompleteEventArgs.masterError">
+            <summary>
+            S_OK if all 'errors are S_OK<br/>
+            S_FALSE otherwise. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ReadCompleteEventArgs.sts">
+            <summary>
+            Item data.
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.ReadCompleteEventHandler">
+            <summary>
+            Delegate of the user read complete callback handler
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.WriteCompleteEventArgs">
+            <summary>
+            Write complete callback argument. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.WriteCompleteEventArgs.transactionID">
+            <summary>
+            0 if the call is the result of an ordinary subscription.<br/>
+            If the call is the result of a call to Refresh2 then this is the value passed to Refresh2.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.WriteCompleteEventArgs.groupHandleClient">
+            <summary>
+            The Client handle of the group 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.WriteCompleteEventArgs.masterError">
+            <summary>
+            S_OK if all 'errors are S_OK<br/>
+            S_FALSE otherwise. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.WriteCompleteEventArgs.res">
+            <summary>
+            Item status information.
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.WriteCompleteEventHandler">
+            <summary>
+            Delegate of the user write complete callback handler
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.CancelCompleteEventArgs">
+            <summary>
+            Cancel complete callback argument. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.CancelCompleteEventArgs.transactionID">
+            <summary>
+            0 if the call is the result of an ordinary subscription.<br/>
+            If the call is the result of a call to Refresh2 then this is the value passed to Refresh2.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.CancelCompleteEventArgs.groupHandleClient">
+            <summary>
+            The Client handle of the group 
+            </summary>
+        </member>
+        <member name="M:OPCDA.NET.CancelCompleteEventArgs.#ctor(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="transactionIDp"></param>
+            <param name="groupHandleClientp"></param>
+        </member>
+        <member name="T:OPCDA.NET.CancelCompleteEventHandler">
+            <summary>
+            Delegate of the user cancel complete callback handler
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.SetStateArgs">
+            <summary>
+            Defines an object that is passed from the client in the OpcGroup.SetState method.
+            One or multiple group state settings can be defined in the call.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.RequestedUpdateRate">
+            <summary>
+            New update rate requested for the group by the client (milliseconds)
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.RequestedUpdateRateDefined">
+            <summary>
+            Determines if the update rate is changed in the server
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.RevisedUpdateRate">
+            <summary>
+            Set by the server to the closest update rate the server is able to provide for this group.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.Active">
+            <summary>
+            The active state of the group.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.ActiveDefined">
+            <summary>
+            Determines if the active state is changed in the server
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.TimeBias">
+            <summary>
+            The TimeZone Bias of the group (in minutes)
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.TimeBiasDefined">
+            <summary>
+            Determines if the TimeZone Bias is changed in the server
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.PercentDeadband">
+            <summary>
+            The percent change in an item value that will cause an exception report of that value to a client. 
+            This parameter only applies to items in the group that have EUType of Analog.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.PercentDeadbandDefined">
+            <summary>
+            Determines if the deadband size is changed in the server
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.LCID">
+            <summary>
+            Locale ID for the group
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.LCIDDefined">
+            <summary>
+            Determines if the Locale ID is changed in the server
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.ClientGroup">
+            <summary>
+            Client handle for the group.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.SetStateArgs.ClientGroupDefined">
+            <summary>
+            Determines if the Group Client Handle is changed in the server
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.ItemProperties">
+            <summary>
+            Container for a list of item properties.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemProperties.Error">
+            <summary>
+            HRESULTS error code.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemProperties.ItemID">
+            <summary>
+            The fully qualified ItemID of the item for which the properties are read.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemProperties.Properties">
+            <summary>
+            Information and value (if requested) of the requested item properties.
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.Property">
+            <summary>
+            Property class is returned from GetProperties for each requested item.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.Property.ID">
+            <summary>
+            The Property ID for this property. For a list of defined properties, 
+            see the tables in the ItemProperties section.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.Property.ItemID">
+            <summary>
+            A fully qualified ItemID that can be used to access this property. 
+            If a NULL string is returned, then the property can not be accessed via an ItemID.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.Property.Description">
+            <summary>
+            A non-localized text description of the property.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.Property.DataType">
+            <summary>
+            The canonical data type of this property.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.Property.Value">
+            <summary>
+            The current value of the property, if values were requested.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.Property.Error">
+            <summary>
+            HRESULT error code.
+            </summary>
+        </member>
+        <member name="P:OPCDA.NET.Property.DataTypeS">
+            <summary>
+            The canonical data type of this property as a .Net data type.
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.StandardProperties">
+            <summary>
+            OPC Standard Properties for one item.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.StandardProperties.ItemID">
+            <summary>
+            A fully qualified ItemID that can be used to access this property. 
+            If a NULL string is returned, then the property can not be accessed via an ItemID.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.StandardProperties.DataType">
+            <summary>
+            The canonical data type of this item.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.StandardProperties.Value">
+            <summary>
+            The current item value
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.StandardProperties.Quality">
+            <summary>
+            The quality of the current item value.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.StandardProperties.Timestamp">
+            <summary>
+            The timestamp of the current item value.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.StandardProperties.AccessRights">
+            <summary>
+            The item access rights.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.StandardProperties.ScanRate">
+            <summary>
+            The server scan rate for this item.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.StandardProperties.Error">
+            <summary>
+            HRESULT error code at reading the property values.
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.ItemIdentification">
+            <summary>
+            Holds the information that identifies an item.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemIdentification.ItemID">
+            <summary>
+            The unique identifier for this item. This element is used in the OpcServer.Read and OpcServer.Write 
+            methods to identify the item to be accessed. Some methods use the ServerHandle and ignore this element.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemIdentification.ServerHandle">
+            <summary>
+            Unique handle for this item, as returned from OpcGroup.AddItems. 
+            Some methods use the ItemID and ignore this element. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemIdentification.ClientHandle">
+            <summary>
+            May be used by the client to identify the item in asynchronous read replies.
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.ItemValue">
+            <summary>
+            ItemValue class is returned from the Read method and passed to the Write method.
+            For convenience the data returned from several Read methods and passed to Write methods are collected 
+            in this class. Some elements are used only in certain methods.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemValue.MaxAge">
+            <summary>
+            “staleness” for the item, requested in milliseconds. The server will calculate the number of 
+            milliseconds between “now” and the item timestamp. If the item that has not been updated within 
+            the last MaxAge milliseconds, the value must be obtained from the underlying device. Or if the 
+            item is not available from the cache, it will also need to be obtained from the underlying device. 
+            A max age of 0 is equivalent to OPC_DS_DEVICE and a max age of 0xFFFFFFFF is equivalent to 
+            OPC_DS_CACHE. Without existence of a cache the server will always read from device. In this case 
+            MaxAge is not relevant. Some servers maintain a global cache for all clients. If the needed item 
+            is in this global cache, it is expected that the server makes use of it to check the MaxAge value. 
+            Servers should not automatically create or change the caching of an item based on a Read call with 
+            MaxAge.<br/>
+            Note: Since this is a int of milliseconds, the largest MaxAge value would be approximately 24 days.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemValue.Value">
+            <summary>
+            Item value.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemValue.Quality">
+            <summary>
+            Item quality status.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemValue.QualitySpecified">
+            <summary>
+            True if the quality is defined. Some servers do not allow the item quality to be written and 
+            require this flag to be FALSE.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemValue.Timestamp">
+            <summary>
+            Item time stamp in UTC.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemValue.TimestampSpecified">
+            <summary>
+            True if the Timestamp is defined. Some servers do not allow the item Timestamp to be written and 
+            require this flag to be FALSE.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemValue.Error">
+            <summary>
+            HRESULT error code.
+            </summary>
+        </member>
+        <member name="M:OPCDA.NET.ItemValue.#ctor">
+            <summary>
+            initializes instance with default values.
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.OPCItemDef">
+            <summary>
+            OPCItemDef class. Contains all the data identifying an item.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemDef.AccessPath">
+            <summary>
+            The access path the server should associate with this item. By convention a pointer to a NUL string 
+            specifies that the server should select the access path. Support for access path is optional.<br/>
+            NOTE: version 1 indicated that a NULL pointer would allow the server to pick the path however 
+            passing a NULL pointer will cause a fault in the proxy/stub code and thus is not allowed.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemDef.ItemID">
+            <summary>
+            A string that uniquely identifies the OPC data item. See the Item ID discussion and the 
+            AddItems function for specific information about the contents of this field.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemDef.Active">
+            <summary>
+            This Boolean value affects the behavior various methods.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemDef.HandleClient">
+            <summary>
+            The handle the client wishes to associate with the item. See the OPCHANDLE for more specific 
+            information about the contents of this field.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemDef.Blob">
+            <summary>
+            A Blob associated with this item.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemDef.RequestedDataType">
+            <summary>
+            The data type requested by the client. An error is returned (See Additems or ValidateItems) if 
+            the server cannot provide the item in this format. 
+            Passing VT_EMPTY (void) means the client will accept the server’s canonical datatype.
+            </summary>
+        </member>
+        <member name="M:OPCDA.NET.OPCItemDef.#ctor(System.String,System.Boolean,System.Int32,System.Runtime.InteropServices.VarEnum)">
+            <summary>
+            Creates OPCItemDef object with the usually used elements. 
+            The data type is specified as a VARIANT VarEnum.
+            </summary>
+            <param name="id">A string that uniquely identifies the OPC data item. See the Item ID discussion and the 
+            AddItems function for specific information about the contents of this field.</param>
+            <param name="activ">This Boolean value affects the behavior various methods.</param>
+            <param name="hclt">The handle the client wishes to associate with the item. See the OPCHANDLE for more specific 
+            information about the contents of this field.</param>
+            <param name="vt">The data type requested by the client.</param>
+        </member>
+        <member name="M:OPCDA.NET.OPCItemDef.#ctor(System.String,System.Boolean,System.Int32,System.Type)">
+            <summary>
+            Creates OPCItemDef object with the usually used elements. 
+            The data type is specified as a .Net data type.
+            </summary>
+            <param name="id">A string that uniquely identifies the OPC data item. See the Item ID discussion and the 
+            AddItems function for specific information about the contents of this field.</param>
+            <param name="activ">This Boolean value affects the behavior various methods.</param>
+            <param name="hclt">The handle the client wishes to associate with the item. See the OPCHANDLE for more specific 
+            information about the contents of this field.</param>
+            <param name="st">The data type requested by the client.</param>
+        </member>
+        <member name="P:OPCDA.NET.OPCItemDef.RequestedType">
+            <summary>
+            The data type requested by the client as a .Net data type.
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.ItemDef">
+            <summary>
+            ItemDef data structure. Holds the data of one item in the SyncIOGroup
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemDef.OpcIDef">
+            <summary>
+            OPC Item definition structure with name etc.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemDef.OpcIInfo">
+            <summary>
+            OPC data structure with item information as returned from IOPCItemMgt::AddItems
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemDef.OpcIRslt">
+            <summary>
+            OPC data structure with item value, quality and error info
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.OPCItemProperty">
+            <summary>
+            OPCItemProperty class is returned from QueryAvailableProperties
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemProperty.PropertyID">
+            <summary>
+            The server assigns DWORD ID codes to the properties. 
+            This allows the client to more easily manage the list of properties it wants to access. 
+            These properties are divided (somewhat arbitrarily) into 3 'sets'. The OPC 'Fixed' set contains 
+            properties that are identical to some of those returned by OPCITEMATTRIBUTES, the 'recommended' 
+            set is expected to be common to many servers, the 'vendor specific' set contains additional 
+            properties as appropriate. The assigned IDs for the first two sets are fixed. The vendor 
+            specific properties should use ID codes above 5000. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemProperty.Description">
+            <summary>
+            A brief vendor supplied text description of each property. NOTE LocaleID does not apply to Descriptions. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.OPCItemProperty.DataType">
+            <summary>
+            The datatype which will be returned for this property by GetItemProperties. 
+            </summary>
+        </member>
+        <member name="M:OPCDA.NET.OPCItemProperty.ToString">
+            <summary>
+            Converts the object into a string
+            </summary>
+            <returns>Created string.</returns>
+        </member>
+        <member name="P:OPCDA.NET.OPCItemProperty.DataTypeS">
+            <summary>
+            The datatype which will be returned for this property by GetItemProperties as a .Net data type. 
+            </summary>
+        </member>
+        <member name="T:OPCDA.NET.ItemPropertyData">
+            <summary>
+            ItemPropertyData class is returned from GetItemProperties
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemPropertyData.PropertyID">
+            <summary>
+            The server assigns DWORD ID codes to the properties. This allows the client to more easily 
+            manage the list of properties it wants to access. These properties are divided (somewhat 
+            arbitrarily) into 3 'sets'. The OPC 'Fixed' set contains properties that are identical to 
+            some of those returned by OPCITEMATTRIBUTES, the 'recommended' set is expected to be common 
+            to many servers, the 'vendor specific' set contains additional properties as appropriate. 
+            The assigned IDs for the first two sets are fixed. 
+            The vendor specific properties should use ID codes above 5000. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemPropertyData.Error">
+            <summary>
+            HRESULT code.
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemPropertyData.Data">
+            <summary>
+            Current value of the property.
+            </summary>
+        </member>
+        <member name="M:OPCDA.NET.ItemPropertyData.ToString">
+            <summary>
+            Converts the object into a string
+            </summary>
+            <returns>Created string.</returns>
+        </member>
+        <member name="T:OPCDA.NET.ItemPropertyItemID">
+            <summary>
+            ItemPropertyItemID class is returned from LookupItemIDs
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemPropertyItemID.PropertyID">
+            <summary>
+            The server assigns DWORD ID codes to the properties. This allows the client to more easily 
+            manage the list of properties it wants to access. These properties are divided (somewhat 
+            arbitrarily) into 3 'sets'. The OPC 'Fixed' set contains properties that are identical to 
+            some of those returned by OPCITEMATTRIBUTES, the 'recommended' set is expected to be common to 
+            many servers, the 'vendor specific' set contains additional properties as appropriate. 
+            The assigned IDs for the first two sets are fixed. 
+            The vendor specific properties should use ID codes above 5000. 
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemPropertyItemID.Error">
+            <summary>
+            HRESULT code
+            </summary>
+        </member>
+        <member name="F:OPCDA.NET.ItemPropertyItemID.newItemID">
+            <summary>
+            ItemId to access this property.
+            </summary>
+        </member>
+        <member name="M:OPCDA.NET.ItemPropertyItemID.ToString">
+            <summary>
+            Converts the object into a string
+            </summary>
+            <returns>Created string.</returns>
+        </member>
+        <member name="T:OPC.Common.Host">
+            <summary>
+            The Host class is used to pass remote server access information to the Connect method. 
+            Which fields are actually used and need to be defined depend on the network, security and DCOM 
+            configuration.
+            </summary>
+        </member>
+        <member name="M:OPC.Common.Host.#ctor">
+            <summary>
+            Creates an empty Host object.
+            </summary>
+        </member>
+        <member name="M:OPC.Common.Host.#ctor(System.String)">
+            <summary>
+            Creates a Host object, initialized with the given host machine name.
+            </summary>
+            <param name="hostName"></param>
+        </member>
+        <member name="F:OPC.Common.Host.HostName">
+            <summary>
+            Network name of the computer on which the OPC server is to be accessed.
+            </summary>
+        </member>
+        <member name="F:OPC.Common.Host.UserName">
+            <summary>
+            Name of the user account used to launch the OPC server.
+            </summary>
+        </member>
+        <member name="F:OPC.Common.Host.Password">
+            <summary>
+            Password for the user account 
+            </summary>
+        </member>
+        <member name="F:OPC.Common.Host.Domain">
+            <summary>
+            Domain name
+            </summary>
+        </member>
+        <member name="T:OPC.Common.ComApi">
+            <summary>
+            This class exposes Win32 and DCOM functions for calls from managed .Net code.
+            </summary>
+        </member>
+        <member name="M:OPC.Common.ComApi.EnumComputers">
+            <summary>
+            Enumerates the computers on the local network using the Netapi32.dll - NetServerEnum function.
+            </summary>
+            <returns>String array with the names of the accessible computers.</returns>
+        </member>
+        <member name="M:OPC.Common.ComApi.GetComputerName">
+            <summary>
+            Retrieves the name of the local computer using the Kernel32.dll - GetComputerName function.
+            </summary>
+            <returns>name of the local machine</returns>
+        </member>
+        <member name="M:OPC.Common.ComApi.InitializeSecurity">
+            <summary>
+            Initialize DCOM security to default OPC client settings.
+            </summary>
+        </member>
+        <member name="M:OPC.Common.ComApi.InitializeSecurity(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initialize DCOM security settings.<br/>
+            This method must be called at the very beginning of an application. 
+            It can be executed only once. If it was not yet called then .Net calls it with its
+            default setting when the first DCOm access is made.
+            </summary>
+            <param name="authLevel">Authentication level. A value of the RPC_C_AUTHN_LEVEL enumerator.</param>
+            <param name="impLevel">Impersonation level. A value of the RPC_C_IMP_LEVEL enumerator.</param>
+            <param name="eoac">Cloaking selection. A value of the EOAC enumerator.</param>
+        </member>
+        <member name="M:OPC.Common.ComApi.CreateInstance(System.Guid,OPC.Common.Host)">
+            <summary>
+            Connect to the OPC server.
+            </summary>
+            <param name="clsid">CLSID string of the OPC server to be connected.</param>
+            <param name="host">Object with machine name and server access credentials.</param>
+            <returns></returns>
+        </member>
+        <member name="T:OPC.Common.ComApi.RPC_C_AUTHN_SVC">
+            <summary>
+            Authentication service selections for CoCreateInstance
+            </summary>
+        </member>
+        <member name="T:OPC.Common.ComApi.RPC_C_AUTHN_LEVEL">
+            <summary>
+            Authentication level values for CoInitializeSecurity
+            </summary>
+        </member>
+        <member name="T:OPC.Common.ComApi.RPC_C_IMP_LEVEL">
+            <summary>
+            Impersonation level values for CoInitializeSecurity
+            </summary>
+        </member>
+        <member name="T:OPC.Common.ComApi.EOAC">
+            <summary>
+            Cloaking level values for CoInitializeSecurity
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,80 @@
+﻿@using Kendo.Mvc.UI.Fluent
+@using PE.HMIWWW.ViewModel.System
+@using SMF.HMI.Resources
+@model VM_Menu
+
+@functions
+{
+	public void addChildren(MenuItemBuilder builder, VM_MenuItem parent)
+	{
+		if (parent.Children != null)
+		{
+			builder.Items(children =>
+			{
+				foreach (VM_MenuItem child in parent.Children.OrderBy(s => s.DisplayOrder))
+				{
+					string icon = "module";
+
+					if (child.IconName != null && child.IconName != "")
+					{
+						icon = child.IconName;
+					}
+
+					MenuItemBuilder childBuilder = children.Add().Text(child.DisplayName).ImageUrl(Url.Content("~/Content/menu/" + (icon) + ".png"));
+					if (child.Method != String.Empty && child.Controller != String.Empty)
+					{
+						childBuilder.Action(child.Method, child.Controller);
+					}
+					addChildren(childBuilder, child);
+				}
+			});
+		}
+	}
+}
+
+<div id="menu-container">
+	@(Html.Kendo().Menu()
+			.Name("Menu")
+			.Items(items =>
+			{
+				// Dynamic menu part, based on DB
+				foreach (VM_MenuItem parent in Model.Menuitems.OrderBy(s => s.DisplayOrder))
+				{
+					string icon = "module";
+
+					if (parent.IconName != null && parent.IconName != "")
+					{
+						icon = parent.IconName;
+					}
+
+					MenuItemBuilder parentBuilder = items.Add().Text(parent.DisplayName).ImageUrl(Url.Content("~/Content/menu/" + (icon) + ".png"));
+					if (parent.Method != String.Empty && parent.Controller != String.Empty)
+					{
+						parentBuilder.Action(parent.Method, parent.Controller);
+					}
+					addChildren(parentBuilder, parent);
+				}
+
+				// Constatnt menu part, language and log in/out
+                items.Add().Text(PE.HMIWWW.Core.Resources.VM_Resources.HMI_MENU_Reports).Url("/PEReports").ImageUrl(Url.Content("~/Content/menu/work-order-production-management.png"));
+				items.Add().Text(PE.HMIWWW.Core.Resources.VM_Resources.NAME_Language).ImageUrl(Url.Content("~/Content/menu/language.png")).Items(children =>
+				{
+					foreach (VM_LanguageItem item in Model.Languages.OrderBy(s => s.Order))
+					{
+						children.Add().Text(item.DisplayName).Action("SetCulture", "Home", new { culture = item.Code, returnUrl = @Context.Request.Url.PathAndQuery }).ImageUrl(Url.Content("~/Content/flag/" + item.IconName + ".png"));
+					}
+				});
+
+				if (User.Identity.IsAuthenticated)
+				{
+					items.Add().Text(PE.HMIWWW.Core.Resources.VM_Resources.HMI_MENU_Logout).Action("LogOff", "Account").ImageUrl(Url.Content("~/Content/menu/logout.png"));
+				}
+				else
+				{
+					items.Add().Text(PE.HMIWWW.Core.Resources.VM_Resources.HMI_MENU_Login).Action("Login", "Account", new { returnUrl = @Request.Url.AbsoluteUri }).ImageUrl(Url.Content("~/Content/menu/login.png"));
+				}
+
+			})
+	)
+</div>
+

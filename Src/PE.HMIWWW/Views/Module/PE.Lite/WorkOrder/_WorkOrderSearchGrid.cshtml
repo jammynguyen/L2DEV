@@ -1,0 +1,49 @@
+﻿@model long?
+@(
+    Html.Kendo()
+        .Grid<PE.HMIWWW.ViewModel.Module.Lite.WorkOrder.VM_WorkOrderSummary>()
+        .Name("SearchGrid")
+        .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+        .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+        .Sortable()
+        .Filterable()
+        .Selectable()
+        .HtmlAttributes(new { style = "height: 735px;" })
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.WorkOrderId).Visible(false);
+            columns.Bound(c => c.WorkOrderName).Visible(true);
+            columns.ForeignKey(o => o.WorkOrderStatus, (SelectList)ViewBag.WorkOrderStatuses).Width(100).Visible(true);
+            columns.Bound(c => c.ProductCatalogueName).Hidden(true);
+            columns.Bound(c => c.SteelgradeCode).Hidden(true);
+            columns.Bound(c => c.HeatName).Hidden(true);
+            columns.Bound(c => c.ToBeCompletedBefore).Hidden(true).Format(PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ShortDateTime_FORMAT);
+            columns.Bound(c => c.ProductionEnd).Hidden(true).Format(PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ShortDateTime_FORMAT);
+            columns.Bound(c => c.TargetOrderWeight).Hidden(true).Format(PE.HMIWWW.Core.Resources.VM_Resources.FORMAT_OrderWeight);
+            columns.Bound(c => c.MaterialsAssigned).Hidden(true);
+            columns.Bound(c => c.ProductsNumber).Hidden(true);
+            columns.Bound(c => c.ProductsWeight).Hidden(true).Format(PE.HMIWWW.Core.Resources.VM_Resources.FORMAT_ProductWeightKg);
+            columns.Bound(c => c.MetallicYield).Hidden(true).Format(PE.HMIWWW.Core.Resources.VM_Resources.FORMAT_MetallicYield); ;
+        })
+        .ToolBar(toolbar =>
+        {
+            toolbar.Template(@<text>
+                    <div class="refreshBtnContainer" onclick="showHideCategories()">              
+                                        <p class="k-pager-refresh k-link off show-hide-categories m-0">
+                                                            <span class="filters-text more">@VM_Resources.NAME_MoreFilters</span> <span class="filters-text less">@VM_Resources.NAME_LessFilters</span>
+                                            <span class="arrow arrow-categories arrow-white k-icon k-i-arrow-right"></span>
+                                        </p>
+                    </div>
+                </text>);
+        }
+        )
+ .DataSource(d => d
+     .Ajax()
+     .ServerOperation(true)
+     .PageSize(26)
+     .Read(r => r.Action("GetWorkOrderOverviewList", "WorkOrder"))
+     .Events(e => e.Change("dataSourceChange"))
+ )
+ .Events(e => e.Change("onElementSelect"))
+)

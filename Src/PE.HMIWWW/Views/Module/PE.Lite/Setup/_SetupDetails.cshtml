@@ -1,0 +1,78 @@
+﻿
+@model PE.HMIWWW.ViewModel.Module.Lite.Setup.VM_Telegrams
+@{
+    Layout = "~/Views/Shared/_TabLayout.cshtml";
+}
+
+    @*<div class="row">
+        <div class="col-2">
+            <label>Address</label> @Html.DisplayFor(x => x.IPAddress)
+        </div>
+        <div class="col-2">
+            <label>Port</label> @Html.DisplayFor(x => x.Port)
+        </div>
+        <div class="col-2">
+            <label>Last Send Date</label> @Html.Display(DateTime.Now.ToShortDateString())
+        </div>
+    </div>*@
+
+@(Html.Kendo().TreeList<PE.HMIWWW.ViewModel.Module.Lite.Setup.VM_TelegramStructure>()
+    .Name("TelegramStructureTree")
+    .Sortable()
+    .Columns(columns =>
+    {
+        columns.Add().Field(e => e.ElementCode).Width(280);
+        columns.Add().Field(e => e.DataType).Width(160);
+        columns.Add().Field(e => e.Value).Width(160)
+        .Editor("valueEditor")
+        .Template(
+        "#if(DataType == 'BOOL')" +
+        "{" +
+            "if(Value === '1')" +
+            "{" +
+                "#<span>true</span>#" +
+            "}" +
+            "else" +
+            "{" +
+                "#<span>false</span>#" +
+            "}" +
+        "}" +
+        "else" +
+        "{" +
+            "if(Value == null)" +
+            "{" +
+                "#<span></span>#" +
+            "}" +
+            "else" +
+            "{" +
+                "#<span>#:Value#</span>#" +
+            "}" +
+        "}#");
+        columns.Add().Field(e => e.StructurePath).Width(160);
+        columns.Add().Width(40).Command(c =>
+        {
+            c.Edit().Text(" ").ClassName("edit-button").ImageClass("edit-button-ico");
+        });
+
+    })
+    .Editable(e => e.Mode("inline"))
+    .DataSource(dataSource => dataSource
+    .Read(read => read.Action("GetTelegramLineData", "Setup", new { telegramId = Model.TelegramId }))
+    .Update(update => update.Action("UpdateValues", "Setup"))
+    .ServerOperation(true)
+    .Model(m =>
+    {
+        m.Id(f => f.TelegramStructureIndex);
+        m.ParentId(f => f.ParentTelegramStructureIndex);
+        m.Expanded(true);
+        m.Field(f => f.ElementCode).Editable(false);
+        m.Field(f => f.DataType).Editable(false);
+        m.Field(f => f.StructurePath).Editable(false);
+        m.Field(f => f.Value).Editable(true);
+    })
+    .Sort(sort=>sort.Add("Sort").Ascending())
+    )
+    
+    .Events(e => { e.Save("updateValuesSave"); e.DataBound("onBound");e.Edit("onEdit"); })
+    .Height(ViewBag.FullGridHeight))
+

@@ -1,0 +1,42 @@
+﻿@(
+    Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Material.VM_RawMaterialMeasurements>
+    ()
+    .Name("MeasurmentList")
+    .HtmlAttributes(new { @style = "height: 100%;" })
+    .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+    .Sortable()
+    .Filterable()
+    .Scrollable()
+    .Pageable(p => p
+    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+    .Columns(c =>
+    {
+        c.Bound(x => x.RawMaterialId).Visible(false);
+        c.Bound(x => x.FeatureName);
+        c.Bound(x => x.AssetName);
+        c.Bound(x => x.MeasurementTime)
+        .Width(200)
+        .Format(PE.HMIWWW.Core.Resources.VM_Resources.GLOB_LongDateTime_FORMAT); ;
+        c.Bound(x => x.PassNo)
+         .Width(130);
+        c.Bound(x => x.IsValid)
+         .ClientTemplate("<input type='checkbox' #= IsValid ? 'checked=checked' : '' # disabled='disabled'></input>")
+         .Width(100);
+        c.Bound(x => x.MeasurementValueMin)
+        .Width(80);
+        c.Bound(x => x.MeasurementValueAvg)
+        .Width(110);
+        c.Bound(x => x.MeasurementValueMax)
+        .Width(80);
+        c.Bound(x => x.UnitSymbol)
+        .Width(100);
+        c.Bound(p => p.MeasurementId).Sortable(false).Groupable(false).Filterable(false).Title("").Width(30)
+            .ClientTemplate(@Html.ImageButton("details", "GoToMeasurement(#:MeasurementId#)").ToString());
+    })
+    .DataSource(d => d
+    .Ajax()
+    .ServerOperation(true)
+    .PageSize(24)
+    .Read(r => r.Action("GetMeasurmentsByRawMaterialId", "RawMaterial", new { RawMaterialId = Model }))
+    )
+)

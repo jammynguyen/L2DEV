@@ -1,0 +1,129 @@
+﻿@model List<PE.HMIWWW.ViewModel.Module.Lite.EventCalendar.VM_ShiftDefinition>
+
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+@Styles.Render("~/Content/Module/EventCalendar")
+@Scripts.Render("~/Scripts/Module/EventCalendar")
+
+<!--DATE CHANGE PANEL BEGIN-->
+<div>
+    <div class="btn btn-default btn-date" style="display:inline-block" id="today">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_Today</div>
+    <div class="btn btn-default btn-date" style="display:inline-block" id='prev'>
+        <span class="k-icon k-i-arrow-60-left"></span>
+    </div>
+    <label id='dateName' class=label-date></label>
+    <div class="btn btn-default btn-date" style="display:inline-block" id='next'>
+        <span class="k-icon k-i-arrow-60-right"></span>
+    </div>
+</div>
+<!--DATE CHANGE PANEL END-->
+
+<div class="parent-pane">
+    <div class="filter-pane">
+        <!--MULTISELECT BEGIN-->
+        @(Html.Kendo().MultiSelect()
+              .Name("filters")
+              .Placeholder(PE.HMIWWW.Core.Resources.VM_Resources.NAME_ClickToSelect)
+              .DataTextField("EventName")
+              .DataValueField("EventType")
+              .ClearButton(false)
+              .TagTemplate(
+                "<span class='event-tag' style='border-left-color:#:EventColor.split(',')[0]#'>" +
+                "<span style=\"background-image: url(" + Url.Content("/Content/Functions/Small/") + "#:EventIcon#" + ");\" ></span>" +
+                "<span class='tab-event-name' >#: EventName #</span></span>")
+                .ItemTemplate(
+                "<span class='event-tag' style='border-left-color:#:EventColor.split(',')[0]#'>" +
+                "<span style=\"background-image: url(" + Url.Content("/Content/Functions/Small/") + "#:EventIcon#" + ");\" ></span>" +
+                "<span class='tab-event-name'>#: EventName #</span></span>")
+              .DataSource(source =>
+              {
+                  source.Read(read =>
+                  {
+                      read.Action("GetEventTypeList", "EventCalendar");
+                  });
+              })
+              .Events(e =>
+              {
+                  e.Select("onSelect").Deselect("onDeselect");
+              })
+              .HtmlAttributes(new { style = "width: 100%;" })
+        )
+        <!--MULTISELECT END-->
+    </div>
+    <!--TABLE BEGIN-->
+    <div class="table-pane">
+        <div id="table" style="height:700px">
+        </div>
+    </div>
+    <!--TABLE END-->
+</div>
+<!--INFO PANEL BEGIN-->
+<div class="info-pane" style="opacity: 0.93;">
+    <div class="popupContainer" style="margin:0px; width: 400px; height:100%; font-family: Segoe UI, Arial, sans-serif;">
+        <div id="header" class="popup-header">
+            <div class="popup-header-img info-header-img">
+                <img src="/Content/Functions/Big/details-white.png">
+            </div>
+            <div class="popup-header-title">
+                Information
+            </div>
+            <div class="info-pane-close popup_close">
+                x
+            </div>
+        </div>
+        <div class="container mb-3">
+            <div class="row form-group">
+                <div class="col-4 text-right align-self-center">
+                    <label>Start</label>
+                </div>
+                <div class="col-8">
+                    <span id="lbl_start"></span>
+
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-4 text-right align-self-center">
+                    <label>Stop</label>
+                </div>
+                <div class="col-8">
+                    <span id="lbl_end"></span>
+
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-4 text-right align-self-center">
+                    <label>Name</label>
+                </div>
+                <div class="col-8">
+                    <span id="lbl_name"></span>
+
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-4 text-right align-self-center">
+                    <label>Description</label>
+                </div>
+                <div class="col-8">
+                    <span id="lbl_desc"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col text-right mr-3 mb-2">
+                <button class="btn btn-primary popup_button edit-button" type="button">
+                    @VM_Resources.BUTTON_edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--INFOPANEL END-->
+
+
+<script>
+    $(document).ready(function () {
+        let data = @Html.Raw(Json.Encode(@Model));
+        GenerateTable({ id: "table", startHour: 0, endHour: 24,shiftDefinition: data});
+    });
+</script>

@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{45C16E36-29E7-4E0F-9365-A6254B96F03C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PE.HMIWWW.ViewModel</RootNamespace>
+    <AssemblyName>PE.HMIWWW.ViewModel</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Module\Lite\ActualStandConfiguration\VM_PassChangeDataActual.cs" />
+    <Compile Include="Module\Lite\ActualStandConfiguration\VM_PassChenageGroovesRoll.cs" />
+    <Compile Include="Module\Lite\ActualStandConfiguration\VM_RollChangeOperation.cs" />
+    <Compile Include="Module\Lite\ActualStandConfiguration\VM_RollSetOverviewRollChange.cs" />
+    <Compile Include="Module\Lite\ActualStandConfiguration\VM_StandConfiguration.cs" />
+    <Compile Include="Module\Lite\ActualStandConfiguration\VM_SwappingCassettes.cs" />
+    <Compile Include="Module\Lite\Asset\VM_Asset.cs" />
+    <Compile Include="Module\Lite\Asset\VM_TriggerOverView.cs" />
+    <Compile Include="Module\Lite\Asset\VM_Triggers.cs" />
+    <Compile Include="Module\Lite\CassetteType\VM_CassetteType.cs" />
+    <Compile Include="Module\Lite\Cassette\VM_CassetteOverview.cs" />
+    <Compile Include="Module\Lite\Defect\VM_DefectCatalogueCategory.cs" />
+    <Compile Include="Module\Lite\Delay\VM_Delay.cs" />
+    <Compile Include="Module\Lite\Delay\VM_DelayCatalogueCategory.cs" />
+    <Compile Include="Module\Lite\EquipmentGroup\VM_EquipmentHistory.cs" />
+    <Compile Include="Module\Lite\EquipmentGroup\VM_Equipment.cs" />
+    <Compile Include="Module\Lite\EquipmentGroup\VM_EquipmentGroup.cs" />
+    <Compile Include="Module\Lite\EventCalendar\VM_EventCalendar.cs" />
+    <Compile Include="Module\Lite\EventCalendar\VM_EventList.cs" />
+    <Compile Include="Module\Lite\EventCalendar\VM_ShiftDefinition.cs" />
+    <Compile Include="Module\Lite\FeatureMap\VM_Feature.cs" />
+    <Compile Include="Module\Lite\FeatureMap\VM_FeatureMap.cs" />
+    <Compile Include="Module\Lite\Furnace\VM_Furnace.cs" />
+    <Compile Include="Module\Lite\Heat\VM_Heat.cs" />
+    <Compile Include="Module\Lite\GrindingTurning\VM_RollSetTurningHistory.cs" />
+    <Compile Include="Module\Lite\GrooveTemplate\VM_GrooveTemplate.cs" />
+    <Compile Include="Module\Lite\Heat\VM_HeatChemAnalysis.cs" />
+    <Compile Include="Module\Lite\Heat\VM_HeatOverview.cs" />
+    <Compile Include="Module\Lite\Defect\VM_DefectCatalogue.cs" />
+    <Compile Include="Module\Lite\Heat\VM_HeatSummary.cs" />
+    <Compile Include="Module\Lite\Material\VM_L1L3MaterialAssignment.cs" />
+    <Compile Include="Module\Lite\Material\VM_L3MaterialData.cs" />
+    <Compile Include="Module\Lite\Material\VM_MaterialCatalogue.cs" />
+    <Compile Include="Module\Lite\Material\VM_MaterialCatalogueType.cs" />
+    <Compile Include="Module\Lite\Material\VM_RawMaterialFacts.cs" />
+    <Compile Include="Module\Lite\Material\VM_RawMaterialHistory.cs" />
+    <Compile Include="Module\Lite\Material\VM_RawMaterialList.cs" />
+    <Compile Include="Module\Lite\Material\VM_RawMaterialMeasurements.cs" />
+    <Compile Include="Module\Lite\Material\VM_RawMaterialOverviewExtended.cs" />
+    <Compile Include="Module\Lite\Material\VM_RawMaterialOverview.cs" />
+    <Compile Include="Module\Lite\Material\VM_MaterialOverview.cs" />
+    <Compile Include="Module\Lite\ConsumptionMonitoring\VM_Feature.cs" />
+    <Compile Include="Module\Lite\ConsumptionMonitoring\VM_Measurement.cs" />
+    <Compile Include="Module\Lite\Products\VM_ProductsList.cs" />
+    <Compile Include="Module\Lite\Products\VM_ProductsOverview.cs" />
+    <Compile Include="Module\Lite\Product\VM_ProductCatalogue.cs" />
+    <Compile Include="Module\Lite\Product\VM_ProductCatalogueType.cs" />
+    <Compile Include="Module\Lite\Product\VM_Shape.cs" />
+    <Compile Include="Module\Lite\Quality\VM_ProductDefect.cs" />
+    <Compile Include="Module\Lite\Quality\VM_ProductHistory.cs" />
+    <Compile Include="Module\Lite\RollChange\VM_ConfirmationForRmAndIm.cs" />
+    <Compile Include="Module\Lite\RollChange\VM_RollGrooveGrid.cs" />
+    <Compile Include="Module\Lite\RollChange\VM_RollSetGrid.cs" />
+    <Compile Include="Module\Lite\RollChange\VM_StandGrid.cs" />
+    <Compile Include="Module\Lite\RollsetDisplay\VM_RollsetDisplay.cs" />
+    <Compile Include="Module\Lite\RollsetManagement\VM_RollSetOverview.cs" />
+    <Compile Include="Module\Lite\RollsetManagement\VM_RollsetOverviewFull.cs" />
+    <Compile Include="Module\Lite\RollSetToCassette\VM_CassetteOverviewWithPositions.cs" />
+    <Compile Include="Module\Lite\RollSetToCassette\VM_RollSetShort.cs" />
+    <Compile Include="Module\Lite\RollsManagement\VM_RollsWithTypes.cs" />
+    <Compile Include="Module\Lite\RollType\VM_RollType.cs" />
+    <Compile Include="Module\Lite\Roll\VM_GroovesRoll.cs" />
+    <Compile Include="Module\Lite\Schedule\VM_Schedule.cs" />
+    <Compile Include="Module\Lite\Setup\VM_TelegramLine.cs" />
+    <Compile Include="Module\Lite\Setup\VM_Telegrams.cs" />
+    <Compile Include="Module\Lite\Setup\VM_TelegramStructure.cs" />
+    <Compile Include="Module\Lite\Steelgrade\VM_Steelgrade.cs" />
+    <Compile Include="Module\Lite\Delay\VM_DelayCatalogue.cs" />
+    <Compile Include="Module\Lite\Steelgrade\VM_SteelGroup.cs" />
+    <Compile Include="Module\Lite\Tracking\VM_TrackingOverview.cs" />
+    <Compile Include="Module\Lite\WeighingMonitor\VM_WeighingOverview.cs" />
+    <Compile Include="Module\Lite\WorkOrder\VM_Material.cs" />
+    <Compile Include="Module\Lite\WorkOrder\VM_WorkOrder.cs" />
+    <Compile Include="Module\Lite\WorkOrder\VM_WorkOrderOverview.cs" />
+    <Compile Include="Module\Lite\WorkOrder\VM_WorkOrderSummary.cs" />
+    <Compile Include="System\VM_AlarmShortItem.cs" />
+    <Compile Include="System\VM_AlarmSelection.cs" />
+    <Compile Include="System\VM_L3TransferTableGeneral.cs" />
+    <Compile Include="System\VM_L3L2WorkOrderDefinition.cs" />
+    <Compile Include="System\VM_ScheduleItems.cs" />
+    <Compile Include="System\VM_LongId.cs" />
+    <Compile Include="System\VM_StringId.cs" />
+    <Compile Include="System\VM_Test.cs" />
+    <Compile Include="System\VM_UserInRoles.cs" />
+    <Compile Include="System\VM_Right.cs" />
+    <Compile Include="System\VM_WidgetConfigurations.cs" />
+    <Compile Include="TextLookupModel.cs" />
+    <Compile Include="LookupModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\AccountViewModels.cs" />
+    <Compile Include="System\ManageViewModels.cs" />
+    <Compile Include="System\VM_AccountPassword.cs" />
+    <Compile Include="System\VM_AlarmItem.cs" />
+    <Compile Include="System\VM_Account.cs" />
+    <Compile Include="System\VM_Role.cs" />
+    <Compile Include="System\VM_ExtTelArchive.cs" />
+    <Compile Include="System\VM_Limit.cs" />
+    <Compile Include="System\VM_MenuItem.cs" />
+    <Compile Include="System\VM_Parameter.cs" />
+    <Compile Include="System\VM_UserRights.cs" />
+    <Compile Include="System\VM_Crew.cs" />
+    <Compile Include="System\VM_ViewsStatistics.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PE.DbEntity\PE.DbEntity.csproj">
+      <Project>{0ca28630-444c-4678-a2dd-05111132c899}</Project>
+      <Name>PE.DbEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.HMIWWW.Tools\PE.HMIWWW.Core.csproj">
+      <Project>{5885a692-03cc-44a4-bede-708ac3bab315}</Project>
+      <Name>PE.HMIWWW.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.Extended, Version=6.0.0.0, Culture=neutral, PublicKeyToken=05b7e29bdd433584, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Extended.6.1.0.168\lib\net45\EntityFramework.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.1.16.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.1.16\lib\net45\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.Core, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.Core.2.4.165\lib\net461\SMF.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.DbEntity, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.DbEntity.2.4.165\lib\net461\SMF.DbEntity.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.HMIWWW, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.HMIWWW.2.4.165\lib\net461\SMF.HMIWWW.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.RepositoryPattern.Ef6, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.RepositoryPattern.Ef6.2.4.165\lib\net461\SMF.RepositoryPattern.Ef6.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

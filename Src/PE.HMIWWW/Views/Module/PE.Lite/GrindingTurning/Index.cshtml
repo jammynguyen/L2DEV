@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_GrindingTurning_Index;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+@*@section module_menu
+        {
+    @Html.ImageButton("new", "AddNew()", false)
+}*@
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.RollsetManagement.VM_RollSetOverview>()
+                .Name("PlannedRollSetGrid")
+                .HtmlAttributes(new { style = @String.Format(" height:{0}px;", (ViewBag.FullGridHeight / 2) - 5) })
+                .Scrollable()
+                .Pageable(p => p
+                    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                .Filterable()
+                .Sortable()
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.Id).Visible(false).Filterable(false).Width(40);
+                    columns.Bound(p => p.RollSetName).Sortable(true).Filterable(true).Width(100).ClientTemplate("<a href='javascript:OpenTurningInfoPopup(#= Id #, #= RollSetType #)'>" + "#= RollSetName #</a>");
+                    columns.ForeignKey(o => o.RollSetType, (SelectList)ViewBag.RollsetTypes).Width(120);
+                    columns.ForeignKey(o => o.RollSetStatus, (SelectList)ViewBag.RSetStatus).Width(70);
+                    columns.Bound(p => p.RollNameUpper).Width(90);
+                    columns.Bound(p => p.UpperDiameter).Width(70).HtmlAttributes(new { style = "text-align: right;" });
+                    columns.Bound(p => p.RollNameBottom).Width(90);
+                    columns.Bound(p => p.BottomDiameter).Width(70).HtmlAttributes(new { style = "text-align: right;" });
+                    //columns.Bound(p => p.RollNameThird).Width(90);
+                    //columns.Bound(p => p.ThirdDiameter).Width(70).HtmlAttributes(new { style = "text-align: right;" });
+                    columns.Bound(p => p.Id).Width(60).Sortable(false).Groupable(false).Filterable(false).Title("")
+                                .ClientTemplate(@Html.ImageButton("rollset_config", "ConfigRollset(#= Id #, #= RollSetType #)", false).ToString()
+                                                + @Html.ImageButton("rollset_history", "HistoryRollset(#= Id #, #= RollSetType #)", false).ToString());
+                })
+                .DataSource(ds => ds
+                                    .Ajax()
+                                    .ServerOperation(true)
+                                    .PageSize(27)
+                                    .Events(e => e.Error("TelerikErrorHandler"))
+                                    .Read(r => r.Action("GetPlannedRollsetData", "GrindingTurning"))
+                           )
+)
+
+<div class="white-space" style="margin-left: 10px;"><h5 style="padding-bottom:5px; padding-top:0px; clear: both;">@PE.HMIWWW.Core.Resources.VM_Resources.NAME_ScheduledGrindingRollsets</h5></div>
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.RollsetManagement.VM_RollSetOverview>()
+                .Name("ScheduledRollSetGrid")
+                .HtmlAttributes(new { style = @String.Format(" height:{0}px;", (ViewBag.FullGridHeight / 2) - 15) })
+                .Scrollable()
+                .Pageable(p => p
+                    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                .Filterable()
+                .Sortable()
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.Id).Visible(false).Filterable(false).Width(40);
+                    columns.Bound(p => p.RollSetName).Sortable(true).Filterable(true).Width(100).ClientTemplate("<a href='javascript:OpenTurningForConfirmInfoPopup(#= Id #, #= RollSetType #)'>" + "#= RollSetName #</a>");
+                    columns.ForeignKey(o => o.RollSetType, (SelectList)ViewBag.RollsetTypes).Width(120);
+                    columns.ForeignKey(o => o.RollSetStatus, (SelectList)ViewBag.RSetStatus).Width(70);
+                    columns.Bound(p => p.RollNameUpper).Width(90);
+                    columns.Bound(p => p.UpperDiameter).Width(70).HtmlAttributes(new { style = "text-align: right;" });
+                    columns.Bound(p => p.RollNameBottom).Width(90);
+                    columns.Bound(p => p.BottomDiameter).Width(70); //.HtmlAttributes(new { style = "text-align: right;" });
+                    //columns.Bound(p => p.RollNameThird).Width(90);
+                    //columns.Bound(p => p.ThirdDiameter).Width(70).HtmlAttributes(new { style = "text-align: right;" });
+                    columns.Bound(p => p.Id).Width(60).Sortable(false).Groupable(false).Filterable(false).Title("")
+                               .ClientTemplate(@Html.ImageButton("confirm", "ConfirmRollset(#= Id #, #= RollSetType #)", false).ToString()
+                                                + @Html.ImageButton("cancel", "CancelRollset(#= Id #)", false).ToString());
+                })
+                .DataSource(ds => ds
+                                    .Ajax()
+                                    .ServerOperation(true)
+                                    .PageSize(27)
+                                    .Events(e => e.Error("TelerikErrorHandler"))
+                                    .Read(r => r.Action("GetScheduledRollsetData", "GrindingTurning"))
+                           )
+)
+
+
+@Scripts.Render("~/Scripts/module/GrindingTurning")

@@ -1,0 +1,168 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.RollSetToCassette.VM_CassetteOverviewWithPositions
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@if (Model != null && @ViewData.ModelState.IsValid)
+{
+    <script>
+		$(document).ready(function () {
+			var positionsCnt = @Model.NumberOfPositions + 3;
+			var mainHeight = 250 + (positionsCnt ) * 40;
+			ChangePopupSize(mainHeight);
+			//$("#header").css('background', '#ce0037').css('color', '#fff');
+		})
+    </script>
+}
+
+
+@using (Ajax.BeginForm("AssembleRollSetAndCassette", "RollSetToCassette", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "form-horizontal", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.CassetteName)
+    @Html.HiddenFor(m => m.FkCassetteType)
+    @Html.HiddenFor(m => m.Status)
+    @Html.HiddenFor(m => m.NumberOfPositions)
+
+    <div style="width:550px; height:@(250 + Model.NumberOfPositions * 40)px;">
+
+        <div class="row form-group">
+            <div class="col text-right align-self-center">
+                <label>@Html.LabelFor(x => x.CassetteName)</label>
+            </div>
+            <div class="col">
+                @Html.DisplayFor(m => m.CassetteName)
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col text-right align-self-center">
+                <label>@Html.LabelFor(x => x.FkCassetteType)</label>
+            </div>
+            <div class="col">
+                @Html.Raw(((SelectList)ViewBag.CassType).Where(p => p.Value == Model.FkCassetteType.ToString()).First().Text)
+
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col text-right align-self-center">
+                <label>@Html.LabelFor(x => x.StandStatus)</label>
+            </div>
+            <div class="col">
+                @Html.Raw(((SelectList)ViewBag.CassStatus).Where(p => p.Value == Model.Status.ToString()).First().Text)
+
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col text-right align-self-center">
+                <label>@Html.LabelFor(x => x.NumberOfPositions)</label>
+            </div>
+            <div class="col">
+                @Html.DisplayFor(m => m.NumberOfPositions)
+
+            </div>
+        </div>
+
+
+
+
+
+        @*<div class="col-xs-6">*@
+
+
+        <br />
+        <table cellspacing="2" cellpadding="2" border="0" align="center">
+            <tr>
+                <td width="180px" align="center">
+                    <b>@PE.HMIWWW.Core.Resources.VM_Resources.FIELDNAME_Position</b>
+                </td>
+                <td width="180px" align="center">
+                    <b>@PE.HMIWWW.Core.Resources.VM_Resources.FIELDNAME_Rollset</b>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+
+            @for (int i = 0; i < Model.RollSetss.Count; i++)
+            {
+                <tr>
+                    <td width="180px" align="center">@(i + 1).</td>
+
+                    <td width="180px" align="center">
+
+                        @(Html.Kendo().DropDownList()
+                            .Name("RollSetss[" + i + "].Id")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .HtmlAttributes(new { @class = "form-control form-control-sm" })
+                            .BindTo(new SelectList(@ViewBag.AvailableRollSetsForGivenCassette.Items, "Key", "Value"))
+                            .OptionLabel("-")
+                            
+                        )
+
+                        @*@(Html.Kendo().DropDownList().Name("RollSetss[" + i + "].Id")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .HtmlAttributes(new { style = "width: 300px" })
+                            .DataSource(source =>  source
+                                         .Read(read => read.Action("GetCassetteRSWith3RollsList", "RollSetToCassette", new { CassetteType = @Model.FkCassetteType }))))
+                                  @Html.ValidationMessageFor(m => m.RollSetss[i].Id)*@
+                    </td>
+                    @*CassetteId: $("#CassetteId").val()*@
+                </tr>
+            }
+
+        </table>
+        <br />
+
+
+        @*</center>*@
+
+
+        @*<input type="submit" class="btn btn-primary popup_button" value="@PE.HMIWWW.Core.Resources.VM_Resources.BUTTON_SubmitForm" />*@
+
+        @*</div>*@
+
+
+
+
+        @*<table cellspacing="2" cellpadding="2" border="0">
+                <tr>
+                    <td width="890px" style="border-left: #FFFFFF !important;">
+                        <div class='table-details'>
+                            <ul>
+                                <li><label>@Html.LabelFor(m => m.CassetteName)</label>@Html.DisplayFor(m => m.CassetteName)</li>
+                                <li><label>@Html.LabelFor(m => m.FkCassetteType)</label>@Html.Raw(((SelectList)ViewBag.CassType).Where(p => p.Value == Model.FkCassetteType.ToString()).First().Text)</li>
+                                <li><label>@Html.LabelFor(m => m.Status)</label>@Html.Raw(((SelectList)ViewBag.CassStatus).Where(p => p.Value == Model.Status.ToString()).First().Text)</li>
+                                <li><label>@Html.LabelFor(m => m.NumberOfPositions)</label>@Html.DisplayFor(m => m.NumberOfPositions)</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>*@
+
+    </div>
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.BUTTON_SubmitForm
+            </button>
+        </div>
+    </div>
+
+
+
+}
+
+<script>
+    function ChangePopupSize(mainHeight) {
+        $(".popup_content").height(mainHeight);
+    }
+</script>

@@ -1,0 +1,858 @@
+﻿table.furnace
+{
+    padding:0px;
+    margin:0px;
+    line-height: 12pt;
+    border-spacing: 0;
+    SF_height:150px;
+    border: 1px solid #ababab;
+}
+table.furnace td {
+    margin:0px;
+    padding:0px;
+}
+
+td.furnace-vertical {
+    width:11px;
+    background-image: url('../img/y-pattern-large.png');
+    background-repeat: no-repeat;
+    background-position-y: 0px;
+    background-position-x: 0px;
+}
+td.furnace-horizontal {
+    height:11px;
+    background-image: url('../img/x-pattern.png');
+    background-repeat:repeat-x;
+    background-position-y: 0px;
+    background-position-x: 0px;
+}
+td.furnace-body {
+    border: 1px solid #ababab;
+    position:relative;
+    display: block;
+    height:365px;
+}
+
+
+
+
+table.furnace-container
+{
+    padding:0px;
+    margin:0px;
+    line-height: 12pt;
+    border-spacing: 0;
+}
+table.furnace-container td {
+    margin:0px;
+    padding:0px;
+}
+td.furnace-container-head {
+    vertical-align: top;
+
+    height:40px;
+}
+td.furnace-container-body {
+}
+td.furnace-container-foot 
+{
+    vertical-align:top;
+}
+
+div.furnace-container-scale-l {
+    background-image: url('../img/scale-l.png');
+}
+div.furnace-container-scale-r {
+    background-image: url('../img/scale-r.png');
+}
+div.furnace-container-scale {
+    background-repeat:repeat-y;
+    background-position-y: 0px;
+    background-position-x: 100%;
+    height:10px;
+    background-color:#fff100;
+    border: 1px solid #ababab;
+    margin-top:5px;
+    margin-bottom:5px;
+
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box; 
+}
+.furnace-material-l {
+    float:left;
+		position:relative;
+}
+.furnace-material-r {
+    float:right;
+		position:relative;
+}
+.furnace-material {
+    width:10px;
+    height: 100%;
+    margin-left:1px;
+    position:relative;
+    display: block;
+    cursor: pointer;
+}
+.furnace-material-exists:hover
+    {
+        -moz-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        z-index: 1;
+    }
+.furnace-step-no {
+    vertical-align:bottom;
+    text-align:center;
+    height:20px; 
+    background-color:lightsteelblue; 
+    color:#000; 
+    text-align:center;
+    cursor: pointer;
+    display:block;
+    position: absolute;
+    left:0px;
+    bottom:0px;
+    width:100%;
+    font-size:13px;
+}
+
+div.furnace-zone-l {
+    float:left;
+}
+div.furnace-zone-r {
+    float:right;
+}
+div.furnace-zone {
+    height: 20px;
+    text-align: center;
+    border-top: 1px solid #ababab;
+    border-left: 1px solid #ababab;
+    border-right: 1px solid #ababab;
+    margin-left:1px;
+    margin-top:5px;
+    padding-top:5px;
+    overflow:visible;
+}
+
+div.furnace-heat-panel-l {
+     left:0px;
+}
+div.furnace-heat-panel-r {
+     right:0px;
+}
+div.furnace-heat-panel {
+     z-index:2;
+     position:relative;
+     top:10px;
+     background-color:red;
+}
+
+.heat-container-grid
+{
+    position: absolute; 
+    top:165px; 
+}
+.heat-container-grid-l
+{
+    left:0px;
+}
+.heat-container-grid-r
+{
+    right:0px;
+}
+.order-container-grid
+{
+    position: absolute; 
+    top:190px; 
+}
+.order-container-grid-l
+{
+    left:0px;
+}
+.order-container-grid-r
+{
+    right:0px;
+}
+
+
+
+div.furnace-order-panel {
+     z-index:2;
+     position:absolute;
+     top:30px;
+}
+.furnace-billet-panel-name {
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+    transform: rotate(-90deg);
+    text-align: left;
+    margin-top: 120px;
+    width: auto;
+    font-size:14px;
+    display:block;
+}
+.furnace-billet-panel-length {
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+    transform: rotate(-90deg);
+    text-align: left;
+    width: auto;
+    display:block;
+		position:relative;
+		top:80px;
+		font-size:14px;
+		font-style:italic;
+}
+.furnace-billet-panel-weight {
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+    transform: rotate(-90deg);
+    text-align: left;
+    width: auto;
+    display:block;
+		position:relative;
+		top:110px;
+		font-size:14px;
+		font-style:italic;
+}
+div.furnace-order-range-l {
+    float:left;
+}
+div.furnace-order-range-r {
+    float:right;
+}
+div.furnace-order-range {
+    text-align: center;
+
+    /*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    -khtml-opacity: 0.8;
+    opacity: 0.8;*/
+    border:1px solid #666666;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box; 
+    position:absolute;
+    top: 0px;
+    display:block;
+		padding-top:2px;
+		padding-bottom:2px;
+}
+div.furnace-order-range:hover
+{
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    z-index: 1;
+		overflow:visible;
+}
+
+
+
+div.furnace-heat-range-l {
+    float:left;
+}
+div.furnace-heat-range-r {
+    float:right;
+}
+div.furnace-heat-range {
+    text-align: center;
+    border:1px solid #666666;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box; 
+    position:absolute;
+    top: 0px;
+    display:block;
+		padding-top:2px;
+		padding-bottom:2px;
+}
+div.furnace-heat-range:hover
+{
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    z-index: 1;
+		overflow:visible;
+}
+
+td.schedule-material-grill {
+		background-color: #afd2b3;
+		color: #000000;
+	}
+
+	td.schedule-material-furnace {
+		background-color: #ffd27f;
+		color: #000000;
+	}
+
+		.heating-ok {
+			height: 20px;
+			background-color: #7A9A01;
+			color: #fff;
+			text-align: center;
+			cursor: pointer;
+			display: block;
+		}
+
+		.heating-warning {
+			height: 20px;
+			background-color: #F2A900;
+			color: #000;
+			text-align: center;
+			cursor: pointer;
+			display: block;
+		}
+
+		.heating-error {
+			height: 20px;
+			background-color: #CE0037;
+			color: #fff;
+			text-align: center;
+			cursor: pointer;
+			display: block;
+		}
+
+		.heating-warning-cell {
+			background-color: gold;
+			color: #000;
+		}
+
+		.heating-error-cell {
+			background-color: #CE0037;
+			color: #fff;
+		}
+
+		.heating-ok-cell {
+			background-color: #7A9A01;
+			color: #fff;
+		}
+
+		td.reheating-exceded {
+			background-color: #ff0000;
+			color: #ffffff;
+		}
+
+		td.reheating-warning {
+			background-color: #ff7f26;
+			color: #ffffff;
+		}
+
+		td.reheating-ready {
+			background-color: #458e59;
+			color: #ffffff;
+		}
+
+		td.reheating-not-ready {
+			background-color: #10a496;
+			color: #ffffff;
+		}
+
+		.furnace-zone-temp-setup {
+			background-color: yellowgreen;
+			padding-left: 2px;
+			padding-right: 2px;
+			color: #fff;
+		}
+
+		.furnace-zone-temp-meas {
+			background-color: orange;
+			padding-left: 2px;
+			padding-right: 2px;
+			color: #fff;
+		}
+			table.furnace {
+			padding: 0px;
+			margin: 0px;
+			line-height: 12pt;
+			border-spacing: 0;
+			SF_height: 150px;
+			border: 1px solid #ababab;
+		}
+
+			table.furnace td {
+				margin: 0px;
+				padding: 0px;
+			}
+
+		td.furnace-vertical {
+			width: 11px;
+			background-image: url('../img/y-pattern-large.png');
+			background-repeat: no-repeat;
+			background-position-y: 0px;
+			background-position-x: 0px;
+		}
+
+		td.furnace-horizontal {
+			height: 11px;
+			background-image: url('../img/x-pattern.png');
+			background-repeat: repeat-x;
+			background-position-y: 0px;
+			background-position-x: 0px;
+		}
+
+		td.furnace-body {
+			border: 1px solid #ababab;
+			position: relative;
+			display: block;
+			height: 365px;
+		}
+
+			.white-space {
+		margin-top: 10px;
+		margin-left: 10px;
+	}
+
+
+		table.furnace-container {
+			padding: 0px;
+			margin: 0px;
+			line-height: 12pt;
+			border-spacing: 0;
+		}
+
+			table.furnace-container td {
+				margin: 0px;
+				padding: 0px;
+			}
+
+		td.furnace-container-head {
+			vertical-align: top;
+			height: 40px;
+		}
+
+		td.furnace-container-body {
+		}
+
+		td.furnace-container-foot {
+			vertical-align: top;
+		}
+
+		div.furnace-container-scale-l {
+			background-image: url('../img/scale-l.png');
+		}
+
+		div.furnace-container-scale-r {
+			background-image: url('../img/scale-r.png');
+		}
+
+		div.furnace-container-scale {
+			background-repeat: repeat-y;
+			background-position-y: 0px;
+			background-position-x: 100%;
+			height: 10px;
+			background-color: #fff100;
+			border: 1px solid #ababab;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+			-moz-box-sizing: border-box; /* Firefox, other Gecko */
+			box-sizing: border-box;
+		}
+
+		.furnace-material-l {
+			float: left;
+			position: relative;
+		}
+
+		.furnace-material- {
+			float: left;
+			position: relative;
+		}
+
+		.furnace-material-r {
+			float: right;
+			position: relative;
+		}
+
+		.furnace-material {
+			width: 10px;
+			height: 100%;
+			margin-left: 1px;
+			position: relative;
+			display: block;
+			cursor: pointer;
+		}
+
+		.furnace-material-exists:hover {
+			-moz-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+			-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+			box-shadow: 0 0 10px rgba(0,0,0,0.8);
+			z-index: 1;
+		}
+
+		.furnace-step-no {
+			vertical-align: bottom;
+			text-align: center;
+			height: 20px;
+			background-color: lightsteelblue;
+			color: #000;
+			text-align: center;
+			cursor: pointer;
+			display: block;
+			position: absolute;
+			left: 0px;
+			bottom: 0px;
+			width: 100%;
+			font-size: 13px;
+		}
+
+		div.furnace-zone-l {
+			float: left;
+		}
+
+		div.furnace-zone-r {
+			float: right;
+		}
+
+		div.furnace-zone {
+			height: 20px;
+			text-align: center;
+			border-top: 1px solid #ababab;
+			border-left: 1px solid #ababab;
+			border-right: 1px solid #ababab;
+			margin-left: 1px;
+			margin-top: 5px;
+			padding-top: 5px;
+			overflow: visible;
+		}
+
+		div.furnace-heat-panel-l {
+			left: 0px;
+		}
+
+		div.furnace-heat-panel-r {
+			right: 0px;
+		}
+
+		div.furnace-heat-panel {
+			z-index: 2;
+			position: relative;
+			top: 10px;
+			background-color: red;
+		}
+
+		.heat-container-grid {
+			position: absolute;
+			top: 165px;
+		}
+
+		.heat-container-grid-l {
+			left: 0px;
+		}
+
+		.heat-container-grid-r {
+			right: 0px;
+		}
+
+		.order-container-grid {
+			position: absolute;
+			top: 190px;
+		}
+
+		.order-container-grid-l {
+			left: 0px;
+		}
+
+		.order-container-grid-r {
+			right: 0px;
+		}
+
+
+
+		div.furnace-order-panel {
+			z-index: 2;
+			position: absolute;
+			top: 30px;
+		}
+
+		.furnace-billet-panel-name {
+			-ms-transform: rotate(-90deg); /* IE 9 */
+			-webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+			transform: rotate(-90deg);
+			text-align: left;
+			margin-top: 120px;
+			width: auto;
+			top: 90px;
+			font-size: 14px;
+			display: block;
+		}
+
+		.furnace-billet-panel-length {
+			-ms-transform: rotate(-90deg); /* IE 9 */
+			-webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+			transform: rotate(-90deg);
+			text-align: left;
+			width: auto;
+			display: block;
+			position: relative;
+			top: 84px;
+			font-size: 14px;
+			font-style: italic;
+		}
+
+		.furnace-billet-panel-weight {
+			-ms-transform: rotate(-90deg); /* IE 9 */
+			-webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+			transform: rotate(-90deg);
+			text-align: left;
+			width: auto;
+			display: block;
+			position: relative;
+			top: 126px;
+			font-size: 14px;
+			font-style: italic;
+		}
+
+		div.furnace-order-range-l {
+			float: left;
+		}
+
+		div.furnace-order-range-r {
+			float: right;
+		}
+
+		div.furnace-order-range {
+			text-align: center;
+			/*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+		filter: alpha(opacity=80);
+		-moz-opacity: 0.8;
+		-khtml-opacity: 0.8;
+		opacity: 0.8;*/
+			border: 1px solid #666666;
+			-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+			-moz-box-sizing: border-box; /* Firefox, other Gecko */
+			box-sizing: border-box;
+			position: absolute;
+			top: 20px;
+			display: block;
+			padding-top: 2px;
+			padding-bottom: 2px;
+		}
+
+			div.furnace-order-range:hover {
+				-moz-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+				-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+				box-shadow: 0 0 10px rgba(0,0,0,0.8);
+				z-index: 1;
+				overflow: visible;
+			}
+
+		.k-tabstrip-wrapper {
+			background-color: white;
+		}
+
+		 .k-tabstrip {
+		background-color: white;
+		}
+
+
+
+		div.furnace-heat-range-l {
+			float: left;
+		}
+
+		div.furnace-heat-range-r {
+			float: right;
+		}
+
+		div.furnace-heat-range {
+			text-align: center;
+			border: 1px solid #666666;
+			-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+			-moz-box-sizing: border-box; /* Firefox, other Gecko */
+			box-sizing: border-box;
+			position: absolute;
+			top: 20px;
+			display: block;
+			padding-top: 2px;
+			padding-bottom: 2px;
+		}
+
+		div.furnace-heat-range:hover {
+			-moz-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+			-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+			box-shadow: 0 0 10px rgba(0,0,0,0.8);
+			z-index: 1;
+			overflow: visible;
+		}
+
+		.modulo-color-blank {
+			background-color: white;
+			color: #000000;
+		}
+
+		.modulo-color-0 {
+			background-color: #f2a900;
+			color: #000000;
+		}
+
+		.modulo-color-1 {
+			background-color: #6ba4b8;
+			color: #000000;
+		}
+
+		.modulo-color-2 {
+			background-color: #00b5e2;
+			color: #000000;
+		}
+
+		.modulo-color-3 {
+			background-color: #cedc00;
+			color: #000000;
+		}
+
+		.modulo-color-4 {
+			background-color: #97999b;
+			color: #000000;
+		}
+
+		.modulo-color-5 {
+			background-color: #c6aa76;
+			color: #000000;
+		}
+
+		.modulo-color-6 {
+			background-color: #5c462b;
+			color: #ffffff;
+		}
+
+		.modulo-color-7 {
+			background-color: #7a9a01;
+			color: #ffffff;
+		}
+
+		.modulo-color-8 {
+			background-color: #00587c;
+			color: #ffffff;
+		}
+
+		.modulo-color-9 {
+			background-color: #8c4799;
+			color: #ffffff;
+		}
+
+		.modulo-color-10 {
+			background-color: #500778;
+			color: #ffffff;
+		}
+
+		.modulo-color-11 {
+			background-color: #ffcd00;
+			color: #000000;
+		}
+
+		.modulo-color-12 {
+			background-color: #ce0037;
+			color: #ffffff;
+		}
+
+		.modulo-color-13 {
+			background-color: #971b2f;
+			color: #000000;
+		}
+
+		.modulo-color-14 {
+			background-color: #ffc90d;
+			color: #000000;
+		}
+
+		.modulo-color-15 {
+			background-color: #425563;
+			color: #ffffff;
+		}
+
+		.modulo-color-16 {
+			background-color: #e87722;
+			color: #000000;
+		}
+
+		.modulo-color-0 a {
+			text-decoration: none;
+			color: #000000;
+		}
+
+		.modulo-color-1 a {
+			text-decoration: none;
+			color: #ffffff;
+		}
+
+		.modulo-color-2 a {
+			text-decoration: none;
+			color: #ffffff;
+		}
+
+		.modulo-color-3 a {
+			text-decoration: none;
+			color: #000000;
+		}
+
+		.modulo-color-4 a {
+			text-decoration: none;
+			color: #ffffff;
+		}
+
+		.modulo-color-5 a {
+			text-decoration: none;
+			color: #ffffff;
+		}
+
+		.modulo-color-6 a {
+			text-decoration: none;
+			color: #ffffff;
+		}
+
+		.modulo-color-7 a {
+			text-decoration: none;
+			color: #000000;
+		}
+
+		.modulo-color-8 a {
+			text-decoration: none;
+			color: #ffffff;
+		}
+
+		.modulo-color-9 a {
+			text-decoration: none;
+			color: #000000;
+		}
+
+		.modulo-color-10 a {
+			text-decoration: none;
+			color: #ffffff;
+		}
+
+		.modulo-color-11 a {
+			text-decoration: none;
+			color: #ffffff;
+		}
+
+		.modulo-color-12 a {
+			text-decoration: none;
+			color: #ffffff;
+		}
+
+		.modulo-color-13 a {
+			text-decoration: none;
+			color: #000000;
+		}
+
+		.modulo-color-14 a {
+			text-decoration: none;
+			color: #000000;
+		}
+
+		.modulo-color-15 a {
+			text-decoration: none;
+			color: #000000;
+		}
+
+		.modulo-color-16 a {
+			text-decoration: none;
+			color: #ffffff;
+		}
+
+

@@ -1,0 +1,103 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Quality.VM_ProductHistory
+@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_ProductQualityManagement;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+@Styles.Render("~/Content/Module/Quality")
+@Scripts.Render("~/Scripts/Module/Quality")
+
+
+<div class="container-fluid p-3">
+    <div class="row">
+        <div class="col-2">
+            <div class="qualitySettingsPanel">
+                <div class="productQuality">
+                    <p class="frameTitle">@VM_Resources.NAME_Quality</p>
+                    <hr />
+                    <div class="qualitiesList" id="enumList">
+                    </div>
+                </div>
+                <div class="productDefects">
+                    <p class="frameTitle">@VM_Resources.NAME_Defects</p>
+                    <div class="checkboxList" id="checkboxList">
+                        <div class="defect">
+                            <div class="code title cell">@VM_Resources.NAME_Code</div>
+                            <div class="title cell">@VM_Resources.NAME_IsSelected</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-10">
+            @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Quality.VM_ProductHistory>()
+                    .Name("ProductHistoryGrid")
+                    .HtmlAttributes(new { style = @String.Format(" height:{0}px;", ViewBag.FullGridHeight) })
+                    .Scrollable()
+                    .Pageable(p => p
+                            .Messages(m => m
+                                    .Display(VM_Resources.GLOB_pagination)))
+                    .Filterable()
+                    .Sortable()
+                    .Columns(c =>
+                    {
+                        c.Bound(x => x.ProductId)
+                                .Visible(false);
+                        c.Bound(x => x.WorkOrderName)
+                                .Filterable(true).Width(120).Sortable(true);
+                        c.Bound(x => x.ProductName)
+                                .Filterable(true).Width(120).Sortable(true);
+                        c.Bound(x => x.Profile)
+                                .Filterable(true).Width(80).Sortable(true);
+                        c.Bound(x => x.ProductCreated)
+                                .Filterable(true).Width(150).Format(PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ShortDateTime_FORMAT).Sortable(true);
+                        c.Bound(x => x.ProductCatalogueTypeName)
+                                .Filterable(true).Width(60).Sortable(true);
+                        c.Bound(x => x.ProductCatalogueName)
+                                .Filterable(true).Width(160).Sortable(true);
+                        c.Bound(x => x.ShapeName)
+                                .Filterable(true).Width(90);
+                        c.Bound(x => x.ProdCatRefWeight)
+                                .Filterable(true).Width(120);
+                        c.Bound(x => x.Weight)
+                                .Filterable(true).Width(100);
+                        c.ForeignKey(o => o.QualityEnum, (SelectList)ViewBag.Qualities).Width(100);
+                        c.Bound(x => x.NumDefects)
+                                .Filterable(true).Width(60);
+                        c.Bound(x => x.SteelgradeName)
+                                .Filterable(true).Width(100);
+                        c.Bound(x => x.HeatName)
+                                .Filterable(true).Width(120);
+                        c.Bound(x => x.ProductId)
+                                .Filterable(false)
+                                .ClientTemplate(Html.ImageButton("details", "GoToProductDetails(#:ProductId#)").ToString() + Html.ImageButton("arrow_right", "setQuality(#:ProductId#)").ToString())
+                                //.ClientTemplate(Html.ImageButton("edit", "EditEquipmentPopup(#:EquipmentId#)").ToString() +  Html.ImageButton("clone", "CloneEquipmentPopup(#=EquipmentId#)").ToString() + Html.ImageButton("history", "ShowHistory(#=EquipmentId#)").ToString() + Html.ImageButton("delete", "Delete(#=EquipmentId#)").ToString())
+                                .Title(String.Empty)
+                                .Width(60);
+                    })
+                    .DataSource(ds => ds
+                            .Ajax()
+                            .ServerOperation(true)
+                            .PageSize(27)
+                            .Events(e => e.Error("TelerikErrorHandler"))
+                            .Read(r => r.Action("GetProductHistoryList", "ProductQualityMgm")))
+            )
+        </div>
+    </div>
+</div>
+
+<script>
+    let popupTitle = '@VM_Resources.PAGE_TITLE_Products_Index';
+
+    function GoToProductDetails(productId) {
+
+        CurrentElement = {
+            ProductId: productId
+        };
+
+        let dataToSend = {
+            ProductId: productId
+        };
+        openSlideScreen('Products', 'ElementDetails', dataToSend, popupTitle);
+    }
+
+</script>

@@ -1,0 +1,120 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Tracking.VM_TrackingOverview
+
+<div class="row">
+    <div class="col-4 p-0 pt-3">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialLastUpdated)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialLastUpdated)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.AssetName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.AssetName)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.WorkOrderName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.WorkOrderName)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.ProductCatalogueName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.ProductCatalogueName)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.SteelgradeName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.SteelgradeName)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-0 pt-4">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.SteelGroupName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.SteelGroupName)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialInitialWeight)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialInitialWeight)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialLastWeight)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialLastWeight)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialInitialLength)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialInitialLength)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.RawMaterialLastLength)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.RawMaterialLastLength)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-0 pt-4">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.HeatName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.HeatName)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.MaterialCatalogueName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.MaterialCatalogueName)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.MaterialName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.MaterialName)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

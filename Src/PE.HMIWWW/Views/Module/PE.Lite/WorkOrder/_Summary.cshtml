@@ -1,0 +1,92 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.WorkOrder.VM_WorkOrderOverview
+
+<div class="col-6 p-0 pt-3">
+    <div class="form-group yieldChart">
+        @(Html.Kendo().Chart()
+              .Name("MetalicYield")
+              .Title(VM_Resources.NAME_MetallicYield)
+              .Legend(legend => legend
+                  .Visible(true).Width(800)
+              )
+              .Series(series =>
+              {
+                  series.Bullet(new double?[][] { new double?[] { Model.MetallicYield, 1 } });
+              })
+              .ChartArea(chartArea => chartArea.Margin(0).Height(200))
+              .CategoryAxis(axis => axis
+                  .MajorGridLines(lines => lines.Visible(true))
+                  .MajorTicks(lines => lines.Visible(true))
+              )
+              .ValueAxis(axis => axis
+                  .Numeric()
+                  .Min(0)
+                  .Max(1)
+                  .MinorTicks(lines => lines.Visible(true))
+                  .MajorGridLines(lines => lines.Visible(false))
+                  .PlotBands(bands =>
+                  {
+                      bands.Add().From(0.0).To(0.4).Color("red").Opacity(0.3);
+                      bands.Add().From(0.4).To(0.8).Color("orange").Opacity(0.3);
+                      bands.Add().From(0.8).To(0.9).Color("green").Opacity(0.3);
+                      bands.Add().From(0.9).To(1).Color("green").Opacity(0.4);
+                  })
+              )
+              .Tooltip(tooltip => tooltip
+                  .Visible(true)
+                  .Shared(true)
+                  .Template("#= value.current #")
+              )
+        )
+    </div>
+</div>
+<div class="col-6 p-0 pt-3">
+    <div class="form-group completionChart">
+        @(Html.Kendo().Chart()
+              .Name("MetalicYieldd")
+              .Title(VM_Resources.NAME_Completion)
+              .Legend(legend => legend
+                  .Visible(true).Width(800)
+              )
+              .Series(series =>
+              {
+                  series.Bullet(new double?[][] { new double?[] { Model.Completion, 1 } });
+              })
+              .ChartArea(chartArea => chartArea.Margin(0).Height(200))
+              .CategoryAxis(axis => axis
+                  .MajorGridLines(lines => lines.Visible(true))
+                  .MajorTicks(lines => lines.Visible(true))
+              )
+              .ValueAxis(axis => axis
+                  .Numeric()
+                  .Min(0)
+                  .Max(1)
+                  .MinorTicks(lines => lines.Visible(true))
+                  .MajorGridLines(lines => lines.Visible(false))
+                  .PlotBands(bands =>
+                  {
+                      bands.Add().From(0.0).To(0.4).Color("red").Opacity(0.3);
+                      bands.Add().From(0.4).To(0.8).Color("orange").Opacity(0.3);
+                      bands.Add().From(0.8).To(0.9).Color("green").Opacity(0.3);
+                      bands.Add().From(0.9).To(1).Color("green").Opacity(0.4);
+                  })
+              )
+              .Tooltip(tooltip => tooltip
+                  .Visible(true)
+                  .Shared(true)
+                  .Template("#= value.current #")
+              )
+        )
+    </div>
+</div>
+
+<style>
+    .yieldChart {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .completionChart {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+</style>

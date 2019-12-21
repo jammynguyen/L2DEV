@@ -1,0 +1,29 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Setup.VM_Telegrams
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+@section module_menu{
+    @Html.ImageButton("telegram_resend", $"SendTelegram()", false)
+    @Html.ImageButton("new", $"CreateNewVersion()", false)
+    @Html.ImageButton("delete", $"DeleteSetup()", false)
+}
+
+<div class="container-fluid p-3">
+    <div class="row">
+        <div class="col-4">
+            @Html.Partial("~/Views/Module/PE.Lite/Setup/_SetupSearchGrid.cshtml", Model)
+        </div>
+        <div class="col-8 element-details" id="SetupDetails">
+            <div class="row justify-content-center plug">
+                <div class="col-6 align-self-center">
+                    <img src="~/Content/Shared/plug.png" />
+                    <p class="mt-5 plug-info">@VM_Resources.INFO_SelectPlugInfo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Styles.Render("~/Content/Module/Setup")
+@Scripts.Render("~/Scripts/Module/Setup")

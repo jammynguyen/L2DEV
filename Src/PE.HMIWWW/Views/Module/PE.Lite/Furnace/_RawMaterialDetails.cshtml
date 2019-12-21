@@ -1,0 +1,31 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Furnace.VM_Furnace
+
+
+<div class="row">
+    <div class="col">
+        @(Html.Kendo().TabStrip()
+                  .Name("MaterialBody")
+                  .Animation(false)
+                  .HtmlAttributes(new { style = "width: 100%;" })
+                  .Scrollable(false)
+                  .Items(tabstrip =>
+                  {
+                      if (Model.WorkOrderId != null)
+                      {
+                          tabstrip.Add().Text(VM_Resources.NAME_WorkOrderDetails)
+                            .Selected(true).Content(@Html.Partial("~/Views/Module/PE.Lite/WorkOrder/_WorkOrderDetails.cshtml", Model.WorkOrderOverview).ToHtmlString());
+                      }
+                      //if (Model.SteelGradeId != null)
+                      //{
+                      //    tabstrip.Add().Text(VM_Resources.NAME_WorkOrderName)
+                      //      .Selected(true).Content(@Html.Partial("~/Views/Module/PE.Lite/Material/_MaterialDetails.cshtml").ToHtmlString());
+                      //}
+                      if (Model.HeatId != null)
+                      {
+                          tabstrip.Add().Text(VM_Resources.NAME_HeatDetails)
+                            .Content(@Html.Partial("~/Views/Module/PE.Lite/Heat/_HeatDetails.cshtml", Model.HeatOverview).ToHtmlString());
+                      }
+                  })
+        )
+    </div>
+</div>

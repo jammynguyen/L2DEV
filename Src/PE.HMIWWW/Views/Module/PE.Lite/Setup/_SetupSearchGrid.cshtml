@@ -1,0 +1,32 @@
+﻿
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Setup.VM_Telegrams>()
+      .Name("SetupSearchGrid")
+      .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+      .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+      .Sortable()
+      .Filterable()
+      .Selectable()
+      .HtmlAttributes(new { style = @String.Format("height:{0}px;", ViewBag.FullGridHeight) })
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.TelegramId).Visible(false);
+          columns.Bound(c => c.TelegramCode).Width(60);
+          columns.Bound(c => c.TelegramName).Width(60);
+          columns.Bound(c => c.IPAddress).ClientTemplate("#:IPAddress#:#:Port#").Width(60);
+          columns.Bound(c => c.LastSent).Width(80);
+          // columns.Bound(c => c.Port).Width(40);
+
+      })
+      .DataSource(d => d
+          .Ajax()
+          .ServerOperation(true)
+          .PageSize(28)
+          .Read(r => r.Action("GetTelegramsSearchGridData", "Setup"))
+          .Sort(sort=> {
+              sort.Add("TelegramName").Ascending();
+              sort.Add("TelegramCode").Ascending();
+          })
+      )
+      .Events(e => e.Change("onElementSelect"))
+)

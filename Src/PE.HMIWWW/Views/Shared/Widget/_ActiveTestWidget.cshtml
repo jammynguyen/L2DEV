@@ -1,0 +1,36 @@
+﻿@{
+	string controllerName = "header_home" + ".png";
+	string styleBackgroundImage = "background-image:url(\'/content/ControllerIcon/" + controllerName + "\')";
+}
+
+<div class="widget-body">
+	<div class="widget-header">Active test widget</div>
+	This is just a test.
+@*@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.VM_WidgetFirstOnProductionSchedule>()
+    .Name("FirstInProdScheduleGrid").HtmlAttributes(new { @style = "border: 0px; " })
+    .Columns(columns =>
+    {
+        columns.Template(e => { }).ClientTemplate(" ").Width(252).HeaderHtmlAttributes(new { @style = "display: none; " });
+    })
+    .ClientRowTemplate(
+        "<tr class='widget-grid-row' data-uid='#: uid #'>" +
+            "<td class='widgetSchedule'>" +
+            "<table style='border:0px; padding:0px; margin:0px;'><tr><td class=\"widget-label\">Campaign:</td><td class=\"widget-value\">#: CampaignName #</td></tr>    <tr><td class=\"widget-label\">Order:</td><td class=\"widget-value\">#: WorkOrderName #</td></tr>    <tr><td class=\"widget-label\">Billet:</td><td class=\"widget-value\">#: BilletName #</td></tr></table>" +
+         "</tr>"
+    )
+      .ClientAltRowTemplate(
+        "<tr class='widget-grid-row-odd' data-uid='#: uid #'>" +
+            "<td class='widgetSchedule'>" +
+                "<table style='border:0px; padding:0px; margin:0px;'><tr><td class=\"widget-label\">Campaign:</td><td class=\"widget-value\">#: CampaignName #</td></tr>    <tr><td class=\"widget-label\">Order:</td><td class=\"widget-value\">#: WorkOrderName #</td></tr>    <tr><td class=\"widget-label\">Billet:</td><td class=\"widget-value\">#: BilletName #</td></tr></table>" +
+            "</td>" +
+         "</tr>"
+    )
+  .DataSource(dataSource => dataSource
+    .Ajax()
+    .ServerOperation(true)
+    .PageSize(5)
+    .Events(events => events.Error("TelerikErrorHandler"))
+    .Read(read => read.Action("GetFirstInProductionScheduleWidgetData", "ProductionSchedule"))
+    ))*@
+
+</div>

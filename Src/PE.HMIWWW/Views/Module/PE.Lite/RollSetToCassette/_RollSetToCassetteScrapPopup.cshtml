@@ -1,0 +1,69 @@
+﻿@model PE.HMIWWW.ViewModel.Module.VM_RollsWithTypes
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@if (Model != null && !@ViewData.ModelState.IsValid)
+{
+    <script>
+		$(document).ready(function () {
+			$("#header").css('background', '#ce0037').css('color', '#fff');
+		})
+    </script>
+}
+
+
+@using (Ajax.BeginForm("ScrapRoll", "RollsManagement", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "form-horizontal", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.RollName)
+    @Html.HiddenFor(model => model.Status)
+
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="form-group">
+                @Html.LabelFor(m => m.RollName, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.Kendo().TextBoxFor(m => m.RollName).Enable(false).HtmlAttributes(new { style = "width:220px", @maxlength = 30, @disabled = "disabled" })@Html.ValidationMessageFor(m => m.RollName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.RollTypeId, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @(Html.Kendo().DropDownList().Name("RollTypeId").DataTextField("Text").DataValueField("Value").Value(Model.RollTypeId.ToString()).HtmlAttributes(new { style = "width:220px", @disabled = "disabled" }).BindTo((SelectList)ViewBag.RollTypes))@Html.ValidationMessageFor(m => m.RollTypeId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.RollSetName, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.Kendo().TextBoxFor(m => m.RollSetName).HtmlAttributes(new { style = "width:220px", @maxlength = 100, @disabled = "disabled" })@Html.ValidationMessageFor(m => m.RollSetName)
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="form-group">
+                @Html.LabelFor(m => m.ScrapDate, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @Html.Kendo().DatePickerFor(m => m.ScrapDate).HtmlAttributes(new { style = "width:220px", @maxlength = 100 })@Html.ValidationMessageFor(m => m.ScrapDate)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ScrapReason, new { @class = "col-md-11 control-label" })
+                <div class="col-md-10">
+                    @(Html.Kendo().DropDownList().Name("ScrapReason").DataTextField("Text").DataValueField("Value").Value(Model.ScrapReason.ToString()).HtmlAttributes(new { style = "width:220px" }).BindTo((SelectList)ViewBag.RollScrapReasons))@Html.ValidationMessageFor(m => m.ScrapReason)
+                </div>
+                <br />
+                <div class="col-md-10">
+                    <div class="col-md-offset-2 " style="text-align:right; padding-top:12px;">
+                        <input type="submit" class="btn btn-default formButton formButtonSubmit" value="@PE.HMIWWW.Core.Resources.VM_Resources.BUTTON_SubmitForm" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+

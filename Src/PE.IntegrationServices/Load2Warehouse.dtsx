@@ -1,0 +1,1686 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/3/2018 5:14:42 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="TKLAKLA"
+  DTS:CreatorName="TKLAKLA\Administrator"
+  DTS:DTSID="{69FF426E-2B5E-41BE-832E-09ED0F6435F8}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1300.375"
+  DTS:LocaleID="1045"
+  DTS:ObjectName="Load2Warehouse"
+  DTS:PackageType="5"
+  DTS:VersionBuild="104"
+  DTS:VersionGUID="{76907E93-2D97-4452-823C-070DACCF4F7E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[148.56.68.169.PE_Lite.sa]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{B96723FB-7E4D-4F7A-A207-908ACD9EAA69}"
+      DTS:ObjectName="148.56.68.169.PE_Lite.sa">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=148.56.68.169;User ID=sa;Initial Catalog=PE_Lite;Provider=MSOLEDBSQL.1;Persist Security Info=True;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAij/yId2lcEeD1/sw0U3KXQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAACS4/69GxoUzYWpLgnUKHxLAAAAAASAAACgAAAAEAAAAFNUVsupNOPam+iFzRrvBVAYAAAA/QkFz4/Mk9xHWZyC3LQn7r4gQM3W2JIUFAAAAMVM2D0hYsAKOJ4uuKRR8/fHDPkd</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[148.56.68.169.PE_Lite_DW.sa]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9A594AEE-B90F-4D25-8638-EE2965601EDE}"
+      DTS:ObjectName="148.56.68.169.PE_Lite_DW.sa">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=148.56.68.169;User ID=sa;Initial Catalog=PE_Lite_DW;Provider=MSOLEDBSQL.1;Persist Security Info=True;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAij/yId2lcEeD1/sw0U3KXQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAACYVRF1AOskchibu7xdiK7aAAAAAASAAACgAAAAEAAAAIjaH+qzlSgN97RLKgXA560YAAAAiVxubAAMPn8SiRpeZc3Bsl2ryDu30S7dFAAAACYSpaSmzyspPcpZ0oq9wIBBju1N</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="7"
+      DTS:DTSID="{21CA97A4-9F39-49B3-88DD-B6E6A2FF2A95}"
+      DTS:ObjectName="ETLTime">
+      <DTS:Property
+        DTS:DataType="7"
+        DTS:Name="ParameterValue">9/13/2019 10:30:00 AM</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C81ABB9F-2FB1-489F-B33C-B6FAC5A19550}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="GETUTCDATE()"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ETLTime">
+      <DTS:VariableValue
+        DTS:DataType="7">10/7/2019 1:15:44 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Dimension Flow"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{73F766D8-7798-4969-9FCA-941B1ACB0231}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Dimension Flow"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Dimension Flow\InsertLookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="InsertLookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [Dimensions].[Crew]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [Dimensions].[Crew]) [refTable]
+where [refTable].[DimCrewKey] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="DimCrewKey" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CrewName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CrewDescription" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CrewLeaderName" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DefaultCrewSize" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CrewOrderSeq" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ValidFrom" dataType="DT_DBTIMESTAMP2" length="0" precision="0" scale="3" codePage="0"/&gt;&lt;referenceColumn name="ValidTo" dataType="DT_DBTIMESTAMP2" length="0" precision="0" scale="3" codePage="0"/&gt;&lt;referenceColumn name="DataSource" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DimCrewKey]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1250</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dimension Flow\InsertLookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[148.56.68.169.PE_Lite_DW.sa]"
+                  connectionManagerRefId="Package.ConnectionManagers[148.56.68.169.PE_Lite_DW.sa]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dimension Flow\InsertLookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertLookup.Inputs[Lookup Input].Columns[DimCrewKey]"
+                      cachedDataType="i8"
+                      cachedName="DimCrewKey"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DimCrewKey]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">DimCrewKey</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dimension Flow\InsertLookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="RedirectRow"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Dimension Flow\InsertLookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dimension Flow\InsertLookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Dimension Flow\InsertLookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dimension Flow\InsertLookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Dimension Flow\InsertLookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dimension Flow\InsertLookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\InsertLookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\InsertLookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\InsertLookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dimension Flow\InsertNewCrew"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="InsertNewCrew"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Dimensions].[Crew]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1250</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dimension Flow\InsertNewCrew.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[148.56.68.169.PE_Lite_DW.sa]"
+                  connectionManagerRefId="Package.ConnectionManagers[148.56.68.169.PE_Lite_DW.sa]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].Columns[DimCrewKey]"
+                      cachedDataType="i8"
+                      cachedName="DimCrewKey"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[DimCrewKey]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DimCrewKey]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].Columns[CrewName]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CrewName"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewName]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewName]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].Columns[CrewDescription]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="CrewDescription"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewDescription]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewDescription]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].Columns[CrewLeaderName]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="CrewLeaderName"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewLeaderName]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewLeaderName]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].Columns[DefaultCrewSize]"
+                      cachedDataType="i2"
+                      cachedName="DefaultCrewSize"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[DefaultCrewSize]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DefaultCrewSize]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].Columns[DataSource]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="DataSource"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[DataSource]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DataSource]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].Columns[ValidFrom]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="ValidFrom"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[ValidFrom]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[ValidFrom]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].Columns[ValidTo]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="ValidTo"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[ValidTo]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[ValidTo]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].Columns[CrewOrderSeq]"
+                      cachedDataType="i2"
+                      cachedName="CrewOrderSeq"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewOrderSeq]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewOrderSeq]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[DimCrewKey]"
+                      dataType="i8"
+                      name="DimCrewKey" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewName]"
+                      dataType="wstr"
+                      length="50"
+                      name="CrewName" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewDescription]"
+                      dataType="wstr"
+                      length="100"
+                      name="CrewDescription" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewLeaderName]"
+                      dataType="wstr"
+                      length="100"
+                      name="CrewLeaderName" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[DefaultCrewSize]"
+                      dataType="i2"
+                      name="DefaultCrewSize" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[DataSource]"
+                      dataType="wstr"
+                      length="50"
+                      name="DataSource" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[ValidFrom]"
+                      dataType="dbTimeStamp2"
+                      name="ValidFrom"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[ValidTo]"
+                      dataType="dbTimeStamp2"
+                      name="ValidTo"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewOrderSeq]"
+                      dataType="i2"
+                      name="CrewOrderSeq" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dimension Flow\InsertNewCrew.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\InsertNewCrew.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\InsertNewCrew.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\InsertNewCrew.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dimension Flow\InsertUpdatedCrew"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="InsertUpdatedCrew"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Dimensions].[Crew]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1250</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dimension Flow\InsertUpdatedCrew.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[148.56.68.169.PE_Lite_DW.sa]"
+                  connectionManagerRefId="Package.ConnectionManagers[148.56.68.169.PE_Lite_DW.sa]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].Columns[DimCrewKey]"
+                      cachedDataType="i8"
+                      cachedName="DimCrewKey"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[DimCrewKey]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DimCrewKey]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].Columns[CrewName]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CrewName"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewName]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewName]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].Columns[CrewDescription]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="CrewDescription"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewDescription]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewDescription]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].Columns[CrewLeaderName]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="CrewLeaderName"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewLeaderName]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewLeaderName]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].Columns[DefaultCrewSize]"
+                      cachedDataType="i2"
+                      cachedName="DefaultCrewSize"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[DefaultCrewSize]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DefaultCrewSize]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].Columns[DataSource]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="DataSource"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[DataSource]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DataSource]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].Columns[ValidFrom]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="ValidFrom"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[ValidFrom]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[ValidFrom]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].Columns[ValidTo]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="ValidTo"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[ValidTo]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[ValidTo]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].Columns[CrewOrderSeq]"
+                      cachedDataType="i2"
+                      cachedName="CrewOrderSeq"
+                      externalMetadataColumnId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewOrderSeq]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewOrderSeq]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[DataSource]"
+                      dataType="wstr"
+                      length="50"
+                      name="DataSource" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[DimCrewKey]"
+                      dataType="i8"
+                      name="DimCrewKey" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewName]"
+                      dataType="wstr"
+                      length="50"
+                      name="CrewName" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewDescription]"
+                      dataType="wstr"
+                      length="100"
+                      name="CrewDescription" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewLeaderName]"
+                      dataType="wstr"
+                      length="100"
+                      name="CrewLeaderName" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[DefaultCrewSize]"
+                      dataType="i2"
+                      name="DefaultCrewSize" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[ValidFrom]"
+                      dataType="dbTimeStamp2"
+                      name="ValidFrom"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[ValidTo]"
+                      dataType="dbTimeStamp2"
+                      name="ValidTo"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input].ExternalColumns[CrewOrderSeq]"
+                      dataType="i2"
+                      name="CrewOrderSeq" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dimension Flow\InsertUpdatedCrew.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\InsertUpdatedCrew.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\InsertUpdatedCrew.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\InsertUpdatedCrew.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dimension Flow\Multicast"
+              componentClassID="Microsoft.Multicast"
+              contactInfo="Multicast;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Distributes every input row to every row in one or more outputs. For example, branch your data flow to make a copy of data so that some values can be masked before sharing with external partners."
+              name="Multicast">
+              <inputs>
+                <input
+                  refId="Package\Dimension Flow\Multicast.Inputs[Multicast Input 1]"
+                  name="Multicast Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dimension Flow\Multicast.Outputs[Multicast Output 1]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 1"
+                  synchronousInputId="Package\Dimension Flow\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dimension Flow\Multicast.Outputs[Multicast Output 2]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 2"
+                  synchronousInputId="Package\Dimension Flow\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dimension Flow\Multicast.Outputs[Multicast Output 3]"
+                  dangling="true"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 3"
+                  synchronousInputId="Package\Dimension Flow\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dimension Flow\UpdateLookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="UpdateLookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [Dimensions].[Crew]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [Dimensions].[Crew]) [refTable]
+where [refTable].[DimCrewKey] = ? and [refTable].[CrewName] = ? and [refTable].[CrewDescription] = ? and [refTable].[CrewLeaderName] = ? and [refTable].[DefaultCrewSize] = ? and [refTable].[DataSource] = ? and [refTable].[CrewOrderSeq] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="DimCrewKey" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CrewName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CrewDescription" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CrewLeaderName" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DefaultCrewSize" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CrewOrderSeq" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ValidFrom" dataType="DT_DBTIMESTAMP2" length="0" precision="0" scale="3" codePage="0"/&gt;&lt;referenceColumn name="ValidTo" dataType="DT_DBTIMESTAMP2" length="0" precision="0" scale="3" codePage="0"/&gt;&lt;referenceColumn name="DataSource" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DimCrewKey]};#{Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewName]};#{Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewDescription]};#{Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewLeaderName]};#{Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DefaultCrewSize]};#{Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DataSource]};#{Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewOrderSeq]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1250</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dimension Flow\UpdateLookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[148.56.68.169.PE_Lite_DW.sa]"
+                  connectionManagerRefId="Package.ConnectionManagers[148.56.68.169.PE_Lite_DW.sa]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input].Columns[CrewName]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CrewName"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewName]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CrewName</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input].Columns[CrewDescription]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="CrewDescription"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewDescription]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CrewDescription</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input].Columns[CrewLeaderName]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="CrewLeaderName"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewLeaderName]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CrewLeaderName</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input].Columns[DefaultCrewSize]"
+                      cachedDataType="i2"
+                      cachedName="DefaultCrewSize"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DefaultCrewSize]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">DefaultCrewSize</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input].Columns[DimCrewKey]"
+                      cachedDataType="i8"
+                      cachedName="DimCrewKey"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DimCrewKey]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">DimCrewKey</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input].Columns[DataSource]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="DataSource"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DataSource]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">DataSource</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input].Columns[CrewOrderSeq]"
+                      cachedDataType="i2"
+                      cachedName="CrewOrderSeq"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewOrderSeq]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CrewOrderSeq</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dimension Flow\UpdateLookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dimension Flow\UpdateLookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dimension Flow\UpdateLookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dimension Flow\UpdateLookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\UpdateLookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\UpdateLookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\UpdateLookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dimension Flow\UpdateValidTo"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="UpdateValidTo"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Update Dimensions.Crew Set ValidTo = ? Where DimCrewKey = ? and ValidTo='9999-12-31 23:59:59.999'</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1250</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dimension Flow\UpdateValidTo.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[148.56.68.169.PE_Lite_DW.sa]"
+                  connectionManagerRefId="Package.ConnectionManagers[148.56.68.169.PE_Lite_DW.sa]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dimension Flow\UpdateValidTo.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dimension Flow\UpdateValidTo.Inputs[OLE DB Command Input].Columns[DimCrewKey]"
+                      cachedDataType="i8"
+                      cachedName="DimCrewKey"
+                      externalMetadataColumnId="Package\Dimension Flow\UpdateValidTo.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DimCrewKey]" />
+                    <inputColumn
+                      refId="Package\Dimension Flow\UpdateValidTo.Inputs[OLE DB Command Input].Columns[ValidFrom]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="ValidFrom"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Dimension Flow\UpdateValidTo.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[ValidFrom]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\UpdateValidTo.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="dbTimeStamp2"
+                      name="Param_0"
+                      scale="3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\UpdateValidTo.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="i8"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dimension Flow\UpdateValidTo.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Dimension Flow\UpdateValidTo.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dimension Flow\UpdateValidTo.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Dimension Flow\UpdateValidTo.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dimension Flow\UpdateValidTo.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\UpdateValidTo.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\UpdateValidTo.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\UpdateValidTo.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dimension Flow\V_DimCrew"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="V_DimCrew"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[V_DW_DimCrew]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1250</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dimension Flow\V_DimCrew.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[148.56.68.169.PE_Lite.sa]"
+                  connectionManagerRefId="Package.ConnectionManagers[148.56.68.169.PE_Lite.sa]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DimCrewKey]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[DimCrewKey]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DimCrewKey]"
+                      name="DimCrewKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[CrewName]"
+                      length="50"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewName]"
+                      name="CrewName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewDescription]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[CrewDescription]"
+                      length="100"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewDescription]"
+                      name="CrewDescription"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewLeaderName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[CrewLeaderName]"
+                      length="100"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewLeaderName]"
+                      name="CrewLeaderName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DefaultCrewSize]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[DefaultCrewSize]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DefaultCrewSize]"
+                      name="DefaultCrewSize"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DataSource]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[DataSource]"
+                      length="50"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[DataSource]"
+                      name="DataSource"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[ValidFrom]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[ValidFrom]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[ValidFrom]"
+                      name="ValidFrom"
+                      scale="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[ValidTo]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[ValidTo]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[ValidTo]"
+                      name="ValidTo"
+                      scale="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewOrderSeq]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[CrewOrderSeq]"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].Columns[CrewOrderSeq]"
+                      name="CrewOrderSeq"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[DimCrewKey]"
+                      dataType="i8"
+                      name="DimCrewKey" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[CrewName]"
+                      dataType="wstr"
+                      length="50"
+                      name="CrewName" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[CrewDescription]"
+                      dataType="wstr"
+                      length="100"
+                      name="CrewDescription" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[CrewLeaderName]"
+                      dataType="wstr"
+                      length="100"
+                      name="CrewLeaderName" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[DefaultCrewSize]"
+                      dataType="i2"
+                      name="DefaultCrewSize" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[DataSource]"
+                      dataType="wstr"
+                      length="50"
+                      name="DataSource" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[ValidFrom]"
+                      dataType="dbTimeStamp2"
+                      name="ValidFrom"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[ValidTo]"
+                      dataType="dbTimeStamp2"
+                      name="ValidTo"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output].ExternalColumns[CrewOrderSeq]"
+                      dataType="i2"
+                      name="CrewOrderSeq" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[DataSource]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[DataSource]"
+                      name="DataSource" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[ValidFrom]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[ValidFrom]"
+                      name="ValidFrom"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[ValidTo]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[ValidTo]"
+                      name="ValidTo"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[DimCrewKey]"
+                      dataType="i8"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[DimCrewKey]"
+                      name="DimCrewKey" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[CrewName]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[CrewName]"
+                      name="CrewName" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[CrewDescription]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[CrewDescription]"
+                      name="CrewDescription" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[CrewLeaderName]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[CrewLeaderName]"
+                      name="CrewLeaderName" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[DefaultCrewSize]"
+                      dataType="i2"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[DefaultCrewSize]"
+                      name="DefaultCrewSize" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[CrewOrderSeq]"
+                      dataType="i2"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[CrewOrderSeq]"
+                      name="CrewOrderSeq" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Dimension Flow.Paths[Lookup Error Output]"
+              endId="Package\Dimension Flow\InsertNewCrew.Inputs[OLE DB Destination Input]"
+              name="Lookup Error Output"
+              startId="Package\Dimension Flow\InsertLookup.Outputs[Lookup Error Output]" />
+            <path
+              refId="Package\Dimension Flow.Paths[Lookup Match Output]"
+              endId="Package\Dimension Flow\UpdateLookup.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Dimension Flow\InsertLookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Dimension Flow.Paths[Lookup No Match Output]"
+              endId="Package\Dimension Flow\Multicast.Inputs[Multicast Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\Dimension Flow\UpdateLookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Dimension Flow.Paths[Multicast Output 1]"
+              endId="Package\Dimension Flow\InsertUpdatedCrew.Inputs[OLE DB Destination Input]"
+              name="Multicast Output 1"
+              startId="Package\Dimension Flow\Multicast.Outputs[Multicast Output 1]" />
+            <path
+              refId="Package\Dimension Flow.Paths[Multicast Output 2]"
+              endId="Package\Dimension Flow\UpdateValidTo.Inputs[OLE DB Command Input]"
+              name="Multicast Output 2"
+              startId="Package\Dimension Flow\Multicast.Outputs[Multicast Output 2]" />
+            <path
+              refId="Package\Dimension Flow.Paths[OLE DB Source Output]"
+              endId="Package\Dimension Flow\InsertLookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Dimension Flow\V_DimCrew.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\ShrinkDatabase"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6FE787E5-7B25-488E-ACED-927DE54D156B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ShrinkDatabase"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B96723FB-7E4D-4F7A-A207-908ACD9EAA69}"
+          SQLTask:SqlStatementSource="USE [PE_Lite]&#xA;GO&#xA;DBCC SHRINKDATABASE(N'PE_Lite', 10, TRUNCATEONLY)&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="153,42"
+          Id="Package\Dimension Flow"
+          TopLeft="573,13" />
+        <NodeLayout
+          Size="152,42"
+          Id="Package\ShrinkDatabase"
+          TopLeft="769,339" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Dimension Flow">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="134,42"
+          Id="Package\Dimension Flow\V_DimCrew"
+          TopLeft="57,31" />
+        <NodeLayout
+          Size="147,42"
+          Id="Package\Dimension Flow\UpdateValidTo"
+          TopLeft="563,307" />
+        <NodeLayout
+          Size="147,42"
+          Id="Package\Dimension Flow\UpdateLookup"
+          TopLeft="303,107" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Dimension Flow\InsertNewCrew"
+          TopLeft="33,182" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\Dimension Flow\InsertUpdatedCrew"
+          TopLeft="279,265" />
+        <NodeLayout
+          Size="120,42"
+          Id="Package\Dimension Flow\Multicast"
+          TopLeft="493,218" />
+        <NodeLayout
+          Size="141,42"
+          Id="Package\Dimension Flow\InsertLookup"
+          TopLeft="54,104" />
+        <EdgeLayout
+          Id="Package\Dimension Flow.Paths[OLE DB Source Output]"
+          TopLeft="124.25,73">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31"
+              Start="0,0"
+              End="0,23.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dimension Flow.Paths[Multicast Output 2]"
+          TopLeft="553,260">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="83.5,47"
+              Start="0,0"
+              End="83.5,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.5"
+                    Point2="0,23.5"
+                    Point3="4,23.5" />
+                  <mssgle:LineSegment
+                    End="79.5,23.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="79.5,23.5"
+                    Point2="83.5,23.5"
+                    Point3="83.5,27.5" />
+                  <mssgle:LineSegment
+                    End="83.5,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dimension Flow.Paths[Multicast Output 1]"
+          TopLeft="493,239">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-44,47"
+              Start="0,0"
+              End="-36.5,47">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-18,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18,0"
+                    Point2="-22,0"
+                    Point3="-22,4" />
+                  <mssgle:LineSegment
+                    End="-22,43" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22,43"
+                    Point2="-22,47"
+                    Point3="-26,47" />
+                  <mssgle:LineSegment
+                    End="-36.5,47" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dimension Flow.Paths[Lookup No Match Output]"
+          TopLeft="376.5,149">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="176.5,69"
+              Start="0,0"
+              End="176.5,61.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30.5"
+                    Point2="0,34.5"
+                    Point3="4,34.5" />
+                  <mssgle:LineSegment
+                    End="172.5,34.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="172.5,34.5"
+                    Point2="176.5,34.5"
+                    Point3="176.5,38.5" />
+                  <mssgle:LineSegment
+                    End="176.5,61.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="32.44361328125,39.5,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dimension Flow.Paths[Lookup Match Output]"
+          TopLeft="195,126.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="108,0"
+              Start="0,0"
+              End="100.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="100.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="2.05861328125,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dimension Flow.Paths[Lookup Error Output]"
+          TopLeft="124.5,146">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-16,36"
+              Start="0,0"
+              End="-16,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14"
+                    Point2="0,18"
+                    Point3="-4,18" />
+                  <mssgle:LineSegment
+                    End="-12,18" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-12,18"
+                    Point2="-16,18"
+                    Point3="-16,22" />
+                  <mssgle:LineSegment
+                    End="-16,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-53.86638671875,23,91.7327734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dimension Flow\V_DimCrew">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">View</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dimension Flow\UpdateLookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[Dimensions].[Crew]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dimension Flow\InsertNewCrew">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dimension Flow\InsertUpdatedCrew">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dimension Flow\InsertLookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[Dimensions].[Crew]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

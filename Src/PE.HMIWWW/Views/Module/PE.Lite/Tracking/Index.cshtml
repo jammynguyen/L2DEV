@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_Tracking_Index;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Tracking.VM_TrackingOverview>()
+    .Name("TrackingList")
+    .HtmlAttributes(new { style = @String.Format(" height:{0}px;", ViewBag.FullGridHeight) })
+    .Filterable()
+    .Scrollable()
+    .Columns(c =>
+    {
+    c.Bound(x => x.DimLastAssetKey)
+        .Visible(false);
+    c.Bound(x => x.RawMaterialLastUpdated)
+        .Width(200)
+        .Format(PE.HMIWWW.Core.Resources.VM_Resources.GLOB_LongDateTime_FORMAT);
+    c.Bound(x => x.ParentAssetName)
+        .Width(130);
+    c.Bound(x => x.MaterialName)
+        .Width(250);
+    c.Bound(x => x.WorkOrderName)
+        .Width(190);
+    c.Bound(x => x.ProductCatalogueName)
+    .Width(150);
+    c.Bound(x => x.HeatName)
+    .Width(170);
+    c.Bound(x => x.SteelgradeName)
+        .Width(130);
+    c.Bound(x => x.SteelGroupName);
+    c.Bound(x => x.RawMaterialLastWeight)
+    .Width(170);
+    c.Bound(x => x.RawMaterialLastLength)
+    .Width(170);
+    c.Bound(p => p.DimLastAssetKey)
+        .Sortable(false)
+        .Groupable(false)
+        .Filterable(false)
+        .Title("")
+        .Width(30)
+        .ClientTemplate(@Html.ImageButton("details", "GoToDetails(#:DimRawMaterialKey#,#:DimWorkOrderKey#,#:DimHeatKey#)").ToString());
+    })
+    .DataSource(ds => ds
+    .Ajax()
+    .ServerOperation(true)
+    .Events(e => e.Error("TelerikErrorHandler"))
+    .Read(r => r.Action("GetTrackingList", "Tracking"))
+    .Sort(sort =>
+    {
+    sort.Add(s => s.Sorting).Ascending();
+    }))
+)
+
+@Styles.Render("~/Content/Module/Tracking")
+@Scripts.Render("~/Scripts/Module/Tracking")

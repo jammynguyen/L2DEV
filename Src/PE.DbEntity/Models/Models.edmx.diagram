@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fc0914f547624e23bce4b14e28763899" Name="Diagram1" ZoomLevel="95" ShowGrid="true" DisplayType="true">
+        <EntityTypeShape EntityType="PE_LiteModel.HMIUserConfiguration" Width="1.5" PointX="0.75" PointY="5.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.HMIWidgetConfiguration" Width="1.5" PointX="2.625" PointY="7" />
+        <EntityTypeShape EntityType="PE_LiteModel.PPLSchedule" Width="1.5" PointX="14.625" PointY="22" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMCustomer" Width="1.5" PointX="9.625" PointY="36.25" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMCustomersEXT" Width="1.5" PointX="11.875" PointY="37.25" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMHeatChemAnalysi" Width="1.5" PointX="11.875" PointY="13.5" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMHeatsEXT" Width="1.5" PointX="11.875" PointY="30.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMHeatSupplier" Width="1.5" PointX="7.375" PointY="18" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMMaterialCatalogueEXT" Width="1.5" PointX="5.25" PointY="35.375" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMMaterialCatalogueType" Width="1.5" PointX="0.75" PointY="28.5" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMMaterialsEXT" Width="1.5" PointX="19.875" PointY="32" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMProductCatalogueEXT" Width="1.5" PointX="8.875" PointY="25.625" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMProductCatalogueType" Width="1.5" PointX="3.75" PointY="19.375" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMProductsEXT" Width="1.5" PointX="16.875" PointY="32.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMReheatingGroup" Width="1.5" PointX="9.625" PointY="28.625" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMShape" Width="1.5" PointX="0.75" PointY="25.25" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMSteelgradeChemicalComposition" Width="1.5" PointX="3" PointY="31.125" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMSteelgradesEXT" Width="1.5" PointX="3" PointY="10.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMSteelGroup" Width="1.5" PointX="1.5" PointY="13.375" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMWorkOrdersEXT" Width="1.5" PointX="14.625" PointY="29.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.ShiftCalendar" Width="1.5" PointX="8" PointY="1.125" />
+        <EntityTypeShape EntityType="PE_LiteModel.ShiftDefinition" Width="1.5" PointX="5.75" PointY="1.5" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMCustomersEXT_PRMCustomers" />
+        <AssociationConnector Association="PE_LiteModel.FK_SteelGroups_ParentSteelGroupId" />
+        <AssociationConnector Association="PE_LiteModel.FK_PEShiftCalendar_PEShiftDefinitions" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_NewestAlarmsList" Width="1.5" PointX="7.75" PointY="5.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_ShiftCalendar" Width="1.5" PointX="9.75" PointY="5.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.L2L3WorkOrderReport" Width="1.5" PointX="11.75" PointY="0.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.L3L2WorkOrderDefinition" Width="1.5" PointX="13.75" PointY="0.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHAssetsEXT" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHMeasurementsEXT" Width="1.5" PointX="27.375" PointY="25.5" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHRawMaterial" Width="1.5" PointX="19.875" PointY="25.125" FillColor="255, 128, 0" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHRawMaterialsEXT" Width="1.5" PointX="22.125" PointY="47.5" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHRawMaterialsStep" Width="1.5" PointX="22.125" PointY="18.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHRawMaterialsStepsEXT" Width="1.5" PointX="24.375" PointY="21.125" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHSample" Width="1.5" PointX="27.375" PointY="27.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHSamplesEXT" Width="1.5" PointX="29.625" PointY="28.25" />
+        <AssociationConnector Association="PE_LiteModel.FK_PERawMaterialsStep_PERawMaterialsIndex" />
+        <AssociationConnector Association="PE_LiteModel.FK_RawMaterialsIndex_RawMaterialsIndex" />
+        <AssociationConnector Association="PE_LiteModel.FK_RawMaterialsIndexEXT_RawMaterialsIndex" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHRawMaterialsStepsEXT_MVHRawMaterialsSteps" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHSamplesEXT_MVHSamples" />
+        <EntityTypeShape EntityType="PE_LiteModel.HMIRefreshKey" Width="1.5" PointX="9.75" PointY="9.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.DaysOfYear" Width="1.5" PointX="5.75" PointY="38.125" />
+        <AssociationConnector Association="PE_LiteModel.FK_ShiftCalendar_DaysOfYear" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMSteelgrade" Width="2.125" PointX="0.5" PointY="18.25" />
+        <AssociationConnector Association="PE_LiteModel.FK_SteelgradeChemicalCompositions_Steelgrades" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMSteelgradesEXT_PRMSteelgrades" />
+        <AssociationConnector Association="PE_LiteModel.FK_Steelgrades_SteelGroupId" />
+        <EntityTypeShape EntityType="PE_LiteModel.DataType" Width="1.5" PointX="17.625" PointY="19.625" />
+        <EntityTypeShape EntityType="PE_LiteModel.Property" Width="1.5" PointX="19.875" PointY="15" />
+        <AssociationConnector Association="PE_LiteModel.FK_Properties_DataTypes" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHAsset" Width="1.5" PointX="0.75" PointY="1.125" />
+        <AssociationConnector Association="PE_LiteModel.FK_Assets_ParentAsset" />
+        <AssociationConnector Association="PE_LiteModel.FK_AssetsEXT_Assets" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHEvent" Width="1.5" PointX="18" PointY="36.5" />
+        <AssociationConnector Association="PE_LiteModel.FK_HMIRefreshKeys_MVHEvents" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHRawMaterialsSteps_MVHEvents" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHEventsEXT" Width="1.5" PointX="20.25" PointY="37.5" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHEventsEXT_MVHEvents" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHFeature" Width="1.5" PointX="19.875" PointY="18.625" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHFeaturesEXT" Width="1.5" PointX="22.125" PointY="10.125" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHLocation" Width="1.5" PointX="18.5" PointY="43.125" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHMeasurement" Width="1.5" PointX="25.125" PointY="25.75" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHLocations_MVHAssets" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHEvents_MVHLocations" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVFeaturesEXT_MVFeatures" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHFeatures_MVHLocations" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHMeasurements_MVHFeatures" />
+        <AssociationConnector Association="PE_LiteModel.FK_MeasurementsEXT_Measurements" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHMeasurements_MVHRawMaterials" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVSamples_MVMeasurements" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHTrigger" Width="1.5" PointX="22.875" PointY="0.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHTriggersFeature" Width="1.5" PointX="25.125" PointY="17.625" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHTriggersFeatures_MVHFeatures" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHTriggersFeatures_MVHTriggers" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_L3L2TransferTablesSummary" Width="1.5" PointX="5.75" PointY="11.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_Events" Width="1.5" PointX="14.75" PointY="8.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.DLSDelayCatalogueCategory" Width="2.5" PointX="16.625" PointY="36.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHDefectCatalogueCategory" Width="3.125" PointX="15.25" PointY="41.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.STPTelegramElement" Width="1.5" PointX="19.875" PointY="4.5" />
+        <EntityTypeShape EntityType="PE_LiteModel.STPTelegram" Width="1.5" PointX="24.375" PointY="4.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.STPTelegramStructure" Width="1.5" PointX="22.125" PointY="4.125" />
+        <EntityTypeShape EntityType="PE_LiteModel.STPTelegramValue" Width="1.5" PointX="26.625" PointY="5.25" />
+        <AssociationConnector Association="PE_LiteModel.FK_TelegramStructures_DataTypes1" />
+        <AssociationConnector Association="PE_LiteModel.FK_Defects_MVHRawMaterials1" />
+        <AssociationConnector Association="PE_LiteModel.FK_TelegramLines_TelegramStructures1" />
+        <AssociationConnector Association="PE_LiteModel.FK_Telegrams_TelegramStructures1" />
+        <AssociationConnector Association="PE_LiteModel.FK_TelegramValues_Telegrams1" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMMaterialCatalogue" Width="2" PointX="3" PointY="23.25" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMProductCatalogue" Width="2.125" PointX="6" PointY="21.75" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMMaterialCatalogue_PRMMaterialCatalogueTypes" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMMaterialCatalogue_PRMShapes" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMMaterialCatalogueEXT_PRMMaterialCatalogue" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMProductCatalogue_PRMShapes" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMProductCatalogueEXT_PRMProductCatalogue" />
+        <AssociationConnector Association="PE_LiteModel.FK_ProductCatalogue_ProductTypeId" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_MaterialsInFurnace" Width="1.5" PointX="16.75" PointY="12.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.DLSDelayCatalogue" Width="1.5" PointX="19.875" PointY="36" />
+        <AssociationConnector Association="PE_LiteModel.FK_DelayCatalogue" />
+        <AssociationConnector Association="PE_LiteModel.FK_DelayCatalogue_DelayCatalogueCategory" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_L3L1MaterialAssignment" Width="1.5" PointX="3.75" PointY="15.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.EventType" Width="1.5" PointX="17.75" PointY="0.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.PropertyValue" Width="1.5" PointX="22.125" PointY="15.25" />
+        <AssociationConnector Association="PE_LiteModel.FK_PropertyValues_Properties" />
+        <EntityTypeShape EntityType="PE_LiteModel.DLSDelay" Width="1.5" PointX="22.125" PointY="26.25" />
+        <AssociationConnector Association="PE_LiteModel.FK_PEDelays_PEDelaysCatalogue" />
+        <AssociationConnector Association="PE_LiteModel.FK_PEDelays_PERawMaterials" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_Enums" Width="1.5" PointX="19.75" PointY="0.875" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHFeatures_DataTypes" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHRawMaterialsSteps_MVHFeatures" />
+        <AssociationConnector Association="PE_LiteModel.FK_STPTelegramStructures_STPTelegramElements" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_PlantTracking" Width="1.5" PointX="27.75" PointY="15.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_RawMaterialHistory" Width="1.5" PointX="27.375" PointY="15.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_RawMaterialList" Width="1.5" PointX="25.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_RawMaterialMeasurements" Width="1.75" PointX="29.125" PointY="13.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMProduct" Width="1.5" PointX="14.625" PointY="33" />
+        <AssociationConnector Association="PE_LiteModel.FK_RawMaterialsIndex_Products" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMProductsEXT_PRMProducts" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_L1L3MaterialAssignment" Width="2.125" PointX="28.75" PointY="30.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_MaterialOverview" Width="2.125" PointX="30.75" PointY="6.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_RawMaterialOverview" Width="1.5" PointX="31.375" PointY="11.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_ProductOverview" Width="1.5" PointX="28.375" PointY="8.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_Assets" Width="1.5" PointX="14.375" PointY="25.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_FeaturesMap" Width="1.5" PointX="26.375" PointY="31.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_Limits" Width="1.5" PointX="31.375" PointY="30.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_SimAssetSeq" Width="1.5" PointX="27.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_TelegramStructures" Width="1.5" PointX="32.375" PointY="24.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_TelegramValues" Width="1.5" PointX="33.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_TriggerOverview" Width="1.5" PointX="33.375" PointY="7.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_WorkOrderSummary" Width="1.5" PointX="24.375" PointY="8.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_DelayOverview" Width="1.5" PointX="33.375" PointY="11.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.RLSCassette" Width="1.5" PointX="37.875" PointY="46" />
+        <EntityTypeShape EntityType="PE_LiteModel.RLSCassetteType" Width="1.5" PointX="35.625" PointY="44.5" />
+        <EntityTypeShape EntityType="PE_LiteModel.RLSRollGroovesHistory" Width="1.5" PointX="37.875" PointY="33.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.RLSRoll" Width="1.5" PointX="35.625" PointY="33.25" />
+        <EntityTypeShape EntityType="PE_LiteModel.RLSRollSet" Width="1.5" PointX="37.875" PointY="38.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.RLSRollType" Width="1.5" PointX="33.375" PointY="33.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.RLSStand" Width="1.5" PointX="35.625" PointY="48" />
+        <AssociationConnector Association="PE_LiteModel.FK_Cassettes_CassetteTypes" />
+        <AssociationConnector Association="PE_LiteModel.FK_Cassettes_Stands" />
+        <AssociationConnector Association="PE_LiteModel.FK_RollGroovesHistory_Rolls" />
+        <AssociationConnector Association="PE_LiteModel.FK_Rolls_RollTypes" />
+        <AssociationConnector Association="PE_LiteModel.FK_RollSets_RollsBottom" />
+        <AssociationConnector Association="PE_LiteModel.FK_RollSets_RollsThird" />
+        <AssociationConnector Association="PE_LiteModel.FK_RollSets_RollsUpper" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_CassettesInStands" Width="1.5" PointX="34.375" PointY="18.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_CassettesOverview" Width="1.5" PointX="8.375" PointY="12.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_RollHistory" Width="1.5" PointX="19.375" PointY="9.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_RollHistoryPerGroove" Width="1.5" PointX="29.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_RollSetOverview" Width="1.5" PointX="22.375" PointY="34.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_RollsetOverviewNewest" Width="1.5" PointX="35.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_RollsWithTypes" Width="1.5" PointX="35.375" PointY="10.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.Crew" Width="1.5" PointX="28.375" PointY="36" />
+        <AssociationConnector Association="PE_LiteModel.FK_Crews_Crews" />
+        <AssociationConnector Association="PE_LiteModel.FK_PEShiftCalendar_PECrews" />
+        <EntityTypeShape EntityType="PE_LiteModel.RLSGrooveTemplate" Width="1.5" PointX="34.375" PointY="26.125" />
+        <AssociationConnector Association="PE_LiteModel.FK_RollGrooves_GrooveTemplates" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_RollsetInCassettes" Width="1.5" PointX="36.375" PointY="18.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_RSCassettesInStands" Width="1.5" PointX="36.375" PointY="23.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_ActualStandConfiguration" Width="1.5" PointX="36.375" PointY="28.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_GroovesView4Accumulation" Width="1.5" PointX="30.375" PointY="36.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_PassChangeDataActual" Width="1.5" PointX="37.375" PointY="0.875" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_Products" Width="1.5" PointX="16.375" PointY="4.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_Measurements" Width="1.5" PointX="37.375" PointY="7.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHQualityControl" Width="1.5" PointX="16.875" PointY="28.25" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHQualityControls_MVHRawMaterials" />
+        <EntityTypeShape EntityType="PE_LiteModel.RLSRollSetHistory" Width="1.5" PointX="40.125" PointY="42.25" />
+        <AssociationConnector Association="PE_LiteModel.FK_RollSetHistory_Cassettes" />
+        <AssociationConnector Association="PE_LiteModel.FK_RollGroovesHistory_RollSetHistory" />
+        <AssociationConnector Association="PE_LiteModel.FK_RollSetHistory_RollSets" />
+				<EntityTypeShape EntityType="PE_LiteModel.MNTEquipmentGroup" Width="2" PointX="4.75" PointY="8" />
+        <EntityTypeShape EntityType="PE_LiteModel.MNTEquipment" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHDefectCatalogue" Width="1.5" PointX="19.125" PointY="41.125" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHDefect" Width="1.5" PointX="25.125" PointY="40.25" />
+        <AssociationConnector Association="PE_LiteModel.FK_DefectCatalogue_DefectCatalogue" />
+        <AssociationConnector Association="PE_LiteModel.FK_DefectCatalogue_DefectCatalogueCategory" />
+        <AssociationConnector Association="PE_LiteModel.FK_Defects_DefectCatalogue" />
+        <AssociationConnector Association="PE_LiteModel.FK_Defects_MVHRawMaterials" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHDefects_PRMProducts" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMMaterial" Width="2.125" PointX="16.875" PointY="23.625" />
+        <AssociationConnector Association="PE_LiteModel.FK_RawMaterialsIndex_Materials" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMMaterialsEXT_PRMMaterials" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMWorkOrder" Width="2.625" PointX="12.125" PointY="40.375" />
+        <AssociationConnector Association="PE_LiteModel.FK_PPLSchedules_PRMWorkOrders1" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMWorkOrders_PRMCustomers" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMWorkOrders_PRMMaterialCatalogue" />
+        <AssociationConnector Association="PE_LiteModel.FK_WorkOrders_ProductCatalogue" />
+        <AssociationConnector Association="PE_LiteModel.FK_Products_WorkOrders" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMWorkOrders_PRMReheatingGroup" />
+        <AssociationConnector Association="PE_LiteModel.FK_WorkOrdersEXT_WorkOrders" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_ProductionHistory" Width="1.5" PointX="38.375" PointY="12.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_DefectsSummary" Width="1.5" PointX="38.375" PointY="19.75" />
+        <EntityTypeShape EntityType="PE_LiteModel.PRMHeat" Width="2" PointX="9.25" PointY="20.75" />
+        <AssociationConnector Association="PE_LiteModel.FK_PEHeatChemAnalysis_PEHeats" />
+        <AssociationConnector Association="PE_LiteModel.FK_HeatsEXT_Heats" />
+        <AssociationConnector Association="PE_LiteModel.FK_PEHeats_PEHeatSuppliers" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMHeats_PRMMaterialCatalogue" />
+        <EntityTypeShape EntityType="PE_LiteModel.V_Heats" Width="1.5" PointX="38.375" PointY="25.75" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHQualityControls_PRMProducts" />
+        <EntityTypeShape EntityType="PE_LiteModel.MVHQualityControlCatalogue" Width="1.5" PointX="39.375" PointY="1" />
+        <AssociationConnector Association="PE_LiteModel.FK_MVHQualityControls_MVHQualityControlCatalogue" />
+        <AssociationConnector Association="PE_LiteModel.FK_RawMaterialCatalogue_SteelgradeId" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMMaterials_PRMHeats" />
+        <AssociationConnector Association="PE_LiteModel.FK_PRMProductCatalogue_PRMSteelgrades" />
+        <AssociationConnector Association="PE_LiteModel.FK_Steelgrades_Steelgrades" />
+        <AssociationConnector Association="PE_LiteModel.FK_Materials_WorkOrders" />
+
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

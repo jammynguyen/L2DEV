@@ -1,0 +1,50 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.RollSetToCassette.VM_CassetteOverviewWithPositions
+<div id="cassetteDetails" style="display: none">
+    <div style="width:700px; height:@(210 + Model.NumberOfPositions * 40)px;">
+        <table cellspacing="2" cellpadding="2" border="0">
+            <tr>
+                <td width="690px" style="border-left: #FFFFFF !important;">
+                    <div class='table-details'>
+                        <ul>
+                            <li><label>@Html.LabelFor(m => m.FkCassetteType)</label>@Html.Raw(((SelectList)ViewBag.CassetteType).Where(p => p.Value == Model.FkCassetteType.ToString()).First().Text)</li>
+                            <li><label>@Html.LabelFor(m => m.Status)</label>@Html.Raw(((SelectList)ViewBag.CassetteStatus).Where(p => p.Value == Model.Status.ToString()).First().Text)</li>
+                            <li><label>@Html.LabelFor(m => m.NumberOfPositions)</label>@Html.DisplayFor(m => m.NumberOfPositions)</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="2" cellpadding="2" border="0">
+            <tr>
+                <td width="100px">
+                    <b>Position</b>
+                </td>
+                <td width="590px">
+                    <b>Rollset</b>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+
+            @for (int i = 0; i < Model.RollSetss.Count; i++)
+            {
+                <tr>
+                    <td width="100px">@(i + 1).</td>
+                    @if (Model.RollSetss[i].Id != null)
+                    {
+                        <td width="590px">@(Html.Kendo().DropDownList().Name("RollSetss[" + i + "].Id").OptionLabel(Model.RollSetss[i].RollSetName + " / " + Model.RollSetss[i].RollType).DataTextField("Text").DataValueField("Value").Value(Model.RollSetss[i].RollSetName).HtmlAttributes(new { style = "width: 590px" }).BindTo((SelectList)ViewBag.Rollsets).Enable(false))@Html.ValidationMessageFor(m => m.RollSetss[i].Id)</td>
+                    }
+                    else
+                    {
+                        <td width="590px">NoRollsetInstalled</td>
+                    }
+                </tr>
+            }
+
+        </table>
+        <br />
+        <input type="submit" class="btn btn-primary popup_button" value="@String.Format("{0}", "SwapCassette")" />
+        <br />
+    </div>
+</div>

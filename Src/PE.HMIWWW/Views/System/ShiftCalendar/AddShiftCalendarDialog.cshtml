@@ -1,0 +1,27 @@
+﻿@model PE.HMIWWW.Services.ViewModel.VM_ShiftCalendarElement
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@using (Ajax.BeginForm("InsertShiftCalendar", "ShiftCalendar", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "form-horizontal", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ShiftCalendarId)
+    @Html.HiddenFor(m => m.End)
+    @Html.HiddenFor(m => m.Start)
+    @Html.HiddenFor(m => m.ShiftDefinitionId)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CrewName, new { @class = "control-label" })
+        @Html.DropDownListFor(m => m.CrewId, new SelectList(PE.HMIWWW.Controllers.System.CrewController.GetCrewsList(), "CrewId", "CrewName"), new { @class = "control-label form-control" })
+        @Html.ValidationMessageFor(m => m.CrewId, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "control-label" })
+        @Html.DropDownListFor(m => m.ShiftTime, new SelectList(PE.HMIWWW.Controllers.System.ShiftCalendarController.GetShiftDefinitionsList(), "ShiftDefinitionId", "ShiftCode"), new { @class = "control-label form-control" })
+        @Html.ValidationMessageFor(m => m.ShiftTime, "", new { @class = "text-danger" })
+    </div>
+    <input type="submit" class="btn btn-default formButton formButtonSubmit" value="@PE.HMIWWW.Core.Resources.VM_Resources.BUTTON_SubmitForm" />
+    <div class="clearfix"></div>
+}

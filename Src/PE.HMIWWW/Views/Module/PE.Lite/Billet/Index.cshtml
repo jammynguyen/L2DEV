@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_BilletCatalogue_Index;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+@Styles.Render("~/Content/Module/MaterialCatalogue")
+
+@section module_menu
+{
+    @Html.ImageButton("new", "CreateMaterialCataloguePopup()", false)
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Material.VM_MaterialCatalogue>
+    ()
+    .Name("MaterialCatalogueList")
+    .HtmlAttributes(new { style = @String.Format(" height:{0}px;", ViewBag.FullGridHeight) })
+    .Scrollable()
+    .Pageable(p => p
+    .Messages(m => m
+    .Display(VM_Resources.GLOB_pagination)))
+    .Filterable()
+    .Columns(c =>
+    {
+    c.Bound(x => x.Id)
+    .Visible(false);
+    c.Bound(x => x.MaterialName)
+    .Filterable(true);
+    c.Bound(x => x.Type)
+    .Filterable(true);
+    c.Bound(x => x.SteelgradeCode)
+    .Filterable(false);
+    c.Bound(x => x.Shape)
+    .Filterable(false);
+    c.Bound(x => x.Length)
+    .Filterable(false);
+    c.Bound(x => x.Width)
+    .Filterable(false);
+    c.Bound(x => x.Thickness)
+    .Filterable(false);
+    c.Bound(x => x.Weight)
+    .Filterable(false);
+    c.Bound(x => x.Id)
+    .Filterable(false)
+    .ClientTemplate(Html.ImageButton("edit", "EditMaterialCataloguePopup(#:Id#)").ToString() + Html.ImageButton("details", "GoToDetails(#:Id#)").ToString()
+    + Html.ImageButton("delete", "Delete(#=Id#)",false).ToString())
+    .Width(100)
+    .Title(String.Empty);
+    })
+    .DataSource(ds => ds
+    .Ajax()
+    .ServerOperation(true)
+    .PageSize(27)
+    .Events(e => e.Error("TelerikErrorHandler"))
+    .Read(r => r.Action("GetMaterialCatalogueList", "BilletCatalogue")))
+    )
+
+    @Styles.Render("~/Content/Module/MaterialCatalogue")
+    @Scripts.Render("~/bundles/module/materialCatalogue")
+
+    <script id="MaterialCatalogueDetails" type="text/kendo-tmpl">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-3 p-0">
+                    <div class="container-fluid">
+                        <div class="row form-group">
+                            <div class="col text-right">
+                                <label>@VM_Resources.NAME_LengthMin [@VM_Resources.UNIT_Length]:</label>
+                            </div>
+                            <div class="col">
+                                #= LengthMin == null ? '' : LengthMin #
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 p-0">
+                    <div class="container-fluid">
+                        <div class="row form-group">
+                            <div class="col text-right">
+                                <label>@VM_Resources.NAME_LengthMax [@VM_Resources.UNIT_Length]:</label>
+                            </div>
+                            <div class="col">
+                                #= LengthMax == null ? '' : LengthMax #
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 p-0">
+                    <div class="container-fluid">
+                        <div class="row form-group">
+                            <div class="col text-right">
+                                <label>@VM_Resources.NAME_WidthMin [@VM_Resources.UNIT_Width]:</label>
+                            </div>
+                            <div class="col">
+                                #= WidthMin == null ? '' : WidthMin #
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 p-0">
+                    <div class="container-fluid">
+                        <div class="row form-group">
+                            <div class="col text-right">
+                                <label>@VM_Resources.NAME_WidthMax [@VM_Resources.UNIT_Width]:</label>
+                            </div>
+                            <div class="col">
+                                #= WidthMax == null ? '' : WidthMax #
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 p-0">
+                    <div class="container-fluid">
+                        <div class="row form-group">
+                            <div class="col text-right">
+                                <label>@VM_Resources.NAME_ThicknessMin [@VM_Resources.UNIT_Diameter]:</label>
+                            </div>
+                            <div class="col">
+                                #= ThicknessMin == null ? '' : ThicknessMin #
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 p-0">
+                    <div class="container-fluid">
+                        <div class="row form-group">
+                            <div class="col text-right">
+                                <label>@VM_Resources.NAME_ThicknessMax [@VM_Resources.UNIT_Diameter]:</label>
+                            </div>
+                            <div class="col">
+                                #= ThicknessMax == null ? '' : ThicknessMax #
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 p-0">
+                    <div class="container-fluid">
+                        <div class="row form-group">
+                            <div class="col text-right">
+                                <label>@VM_Resources.NAME_WeightMin [@VM_Resources.UNIT_Weight]:</label>
+                            </div>
+                            <div class="col">
+                                #= WeightMin == null ? '' : WeightMin #
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 p-0">
+                    <div class="container-fluid">
+                        <div class="row form-group">
+                            <div class="col text-right">
+                                <label>@VM_Resources.NAME_WeightMax [@VM_Resources.UNIT_Weight]:</label>
+                            </div>
+                            <div class="col">
+                                #= WeightMax == null ? '' : WeightMax #
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </script>
+
+<script>
+
+    function GoToDetails(Id) {
+
+    let popupTitle = '@VM_Resources.NAME_MaterialCatalogue';
+
+    let dataToSend = {
+        id: Id
+    };
+    openSlideScreen('BilletCatalogue', 'ElementDetails', dataToSend, popupTitle);
+}
+</script>

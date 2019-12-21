@@ -1,0 +1,215 @@
+﻿@*@model PE.HMIWWW.ViewModel.Module.Lite.Material.VM_RawMaterialOverview*@
+@{
+    ViewBag.Title = "TITLE";
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+<style>
+
+    .tracking{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .schema {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 1600px;
+        height: 150px;
+        padding: 60px 0;
+        margin: 0 auto;
+    }
+
+    .block {
+        display: flex;
+        align-items: center;
+        background-color: #f3f3f3;
+        border: 1px solid #959595;
+        margin: 9px 5px;
+        color: #000;
+        /*text-align: center;*/
+        font-size: 19px;
+        padding: 0 10px;
+    }
+
+    .block img{
+        margin-left: 30px;
+    }
+
+    .shear {
+        width: 310px;
+        height: 140px;
+        float: left;
+    }
+
+    .mill {
+        width: 310px;
+        height: 140px;
+    }
+
+    .discharge {
+        width: 310px;
+        height: 85px;
+        margin-top: 40px;
+    }
+
+    .entry {
+        width: 310px;
+        height: 85px;
+        margin-top: 40px;
+    }
+
+
+
+
+    .tracking-icon {
+        margin-right: 10px;
+    }
+
+    /*materals table*/
+    .materials-table{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 100px;
+    }
+
+    .column{
+        width: 320px;
+        text-align: center;
+        border-left: 2px solid #31588f;
+        border-top: 1px solid #f0f0f0;
+        border-bottom: 1px solid #f0f0f0;
+        background-color: #f0f0f0;
+    }
+
+    .column p{
+        margin-bottom: 0;
+    }
+
+    .column:last-child{
+        border-right: 2px solid #31588f;
+    }
+
+    .cell{
+        background-color: #fff;
+        padding: 5px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+
+
+
+</style>
+<div class="container-fluid tracking">
+    <div class="schema">
+        <div class="block entry" id="entry">
+            <img class="tracking-icon" src="../../../Content/tracking/tracking_4.png" />
+            Entry
+        </div>
+        <div class="block mill" id="mill">
+            <img class="tracking-icon" src="../../../Content/tracking/tracking_3.png" />
+            Mill
+        </div>
+        <div class="block shear" id="shear">
+            <img class="tracking-icon" src="../../../Content/tracking/tracking_2.png" />
+            Shear
+        </div>
+        <div class="block discharge" id="discharge">
+            <img class="tracking-icon" src="../../../Content/tracking/tracking_4.png" />
+            Exit
+        </div>
+    </div>
+    <div class="materials-table" id="materials-table">
+        <div class="column materials-entry" id="materials-entry"></div>
+        <div class="column materials-shear" id="materials-shear"></div>
+        <div class="column materials-mill" id="materials-mill"></div>
+        <div class="column materials-discharge" id="materials-discharge"></div>
+    </div>
+</div>
+
+@Styles.Render("~/Content/Module/Visualization")
+
+<script>
+    $(document).ready(function () {
+
+        const exampleMaterials = [
+            {
+                MaterialID: 1,
+                MaterialName: 'Material001',
+                Status: 1
+            },
+            {
+                MaterialID: 2,
+                MaterialName: 'Material002',
+                Status: 1
+            },
+            {
+                MaterialID: 3,
+                MaterialName: 'Material003',
+                Status: 2
+            },
+            {
+                MaterialID: 4,
+                MaterialName: 'Material004',
+                Status: 2
+            },
+            {
+                MaterialID: 5,
+                MaterialName: 'Material005',
+                Status: 2
+            },
+            {
+                MaterialID: 6,
+                MaterialName: 'Material006',
+                Status: 3
+            },
+            {
+                MaterialID: 7,
+                MaterialName: 'Material007',
+                Status: 4
+            },
+            {
+                MaterialID: 8,
+                MaterialName: 'Material008',
+                Status: 4
+            },
+            {
+                MaterialID: 9,
+                MaterialName: 'Material009',
+                Status: 4
+            },
+        ];
+        drawMaterialsTable(exampleMaterials);
+    });
+
+    function drawMaterialsTable(materials) {
+
+        const table = $('#materials-table');
+        let column;
+
+        for (let i in materials) {
+            switch (materials[i].Status) {
+                case 1:   
+                    column = $('#materials-entry');
+                    break;
+                case 2:
+                    column = $('#materials-shear');
+                    break;
+                case 3:
+                    column = $('#materials-mill');
+                    break;
+                case 4:
+                    column = $('#materials-discharge');
+                    break;
+                default:
+                    break;
+            }
+
+            const material = "<p class='cell'>" + materials[i].MaterialName + "</p>";
+
+            column.append(material);
+        }
+    }
+</script>

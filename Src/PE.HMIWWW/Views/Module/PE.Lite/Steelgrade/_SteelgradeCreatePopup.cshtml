@@ -1,0 +1,628 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Steelgrade.VM_Steelgrade
+@{
+    /**/
+
+    ViewBag.Title = "_SteelgradeCreatePopup";
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+<style>
+    .textboxWidth {
+        width: 100px;
+    }
+
+    .text-style{
+        color: #00587c;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .container{
+        padding: 0;
+    }
+
+    .form-group label {
+        color: #00587c;
+        font-size: 13px;
+        margin-top: 2px;
+    }
+
+</style>
+
+@using (Ajax.BeginForm("CreateSteelgrade", "Steelgrade", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    //@Html.AntiForgeryToken()
+    //@Html.HiddenFor(x => x.Id);
+    <div style="height:auto;overflow-x:hidden">
+        <div class="row form-group">
+
+            <div class="col text-right pr-0">
+                <label>@Html.LabelFor(x => x.SteelgradeCode)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.SteelgradeCode).HtmlAttributes(new { @class = "form-control form-control-sm"})
+                @Html.ValidationMessageFor(x => x.SteelgradeCode)
+            </div>
+
+            <div class="col text-right pr-0" >
+                <label>@Html.LabelFor(x => x.SteelgradeName)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.SteelgradeName).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            </div>
+
+            <div class="col text-right pr-0" >
+                <label>@Html.LabelFor(x => x.Description)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.Description).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            </div>
+
+        </div>
+        <div class="row form-group">
+
+            <div class="col text-right pr-0">
+                <label>@Html.LabelFor(x => x.QualitySpecification)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.QualitySpecification).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            </div>
+
+            <div class="col text-right pr-0">
+                <label>@Html.LabelFor(x => x.CommercialGroup)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.CommercialGroup).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            </div>
+
+            <div class="col text-right pr-0">
+                <label>@Html.LabelFor(x => x.Density)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.Density).HtmlAttributes(new { @class = "form-control form-control-sm" })
+                @Html.ValidationMessageFor(x => x.Density)
+            </div>
+
+        </div>
+        <div class="row form-group">
+
+            <div class="col text-right pr-0">
+                <label>@Html.LabelFor(x => x.CustomerUseCode)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.CustomerUseCode).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            </div>
+
+            <div class="col text-right pr-0">
+                <label>@Html.LabelFor(x => x.CustomerUseDescription)</label>
+            </div>
+            <div class="col" >
+                @Html.Kendo().TextBoxFor(x => x.CustomerUseDescription).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            </div>
+
+            <div class="col text-right pr-0">
+                <label>@Html.LabelFor(x => x.OvenRecipeTemperature)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.OvenRecipeTemperature).HtmlAttributes(new { @class = "form-control form-control-sm"})
+                @Html.ValidationMessageFor(x => x.OvenRecipeTemperature)
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col text-right pr-0">
+                <label>@Html.LabelFor(x => x.GroupCode)</label>
+            </div>
+            <div class="col">
+                @(Html.Kendo().DropDownListFor(x => x.FkGroupId)
+                                                 .Name("FkGroupId")
+                                                 .DataTextField("Text")
+                                                 .DataValueField("Value")
+                                                 .HtmlAttributes(new { @class = "form-control form-control-sm" })
+                                                 .BindTo(new SelectList(@ViewBag.GroupList, "Id", "Code"))
+                                                 .OptionLabel("-")
+                )
+            </div>
+            <div class="col text-right pr-0">
+                <label>@Html.LabelFor(x => x.GroupDescription)</label>
+            </div>
+            <div class="col">
+                @Html.Kendo().TextBoxFor(x => x.GroupDescription).HtmlAttributes(new { @class = "form-control form-control-sm" })
+                @Html.ValidationMessageFor(x => x.GroupDescription)
+            </div>
+
+            <div class="col"> </div>
+            <div class="col"> </div>
+        </div>
+
+
+        @*<hr>*@
+        @*<div class="row form-group">
+                <div class="col-6"></div>
+                <div class="col-3">Min</div>
+                <div class="col-3">Max</div>
+            </div>*@
+    @*<div class="row form-group">
+        <div class="col pr-1"></div>
+        <div class="col text-left pl-0">
+            @Html.Label("Min " + " [" + @VM_Resources.UNIT_Percent + "]")
+        </div>
+        <div class="col text-center pr-0 text-style">
+            @Html.Label("Max " + " [" + @VM_Resources.UNIT_Percent + "]")
+        </div>
+        <div class="col pr-1"></div>
+        <div class="col text-center text-style">
+            @Html.Label("Min " + " [" + @VM_Resources.UNIT_Percent + "]")
+        </div>
+        <div class="col text-right text-style">
+            @Html.Label("Max " + " [" + @VM_Resources.UNIT_Percent + "]")
+        </div>
+        <div class="col"></div>
+        <div class="col text-left text-style pl-0">
+            @Html.Label("Min " + " [" + @VM_Resources.UNIT_Percent + "]")
+        </div>
+        <div class="col text-left text-style ml-2">
+            @Html.Label("Max " + " [" + @VM_Resources.UNIT_Percent + "]")
+        </div>
+        <div class="col pr-1"></div>
+        <div class="col text-left text-style pl-0">
+            @Html.Label("Min " + " [" + @VM_Resources.UNIT_Percent + "]")
+        </div>
+        <div class="col text-left text-style ml-3">
+            @Html.Label("Max " + " [" + @VM_Resources.UNIT_Percent + "]")
+        </div>
+    </div>*@
+
+        @*<div class="row form-group">
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Fe</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.FeMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.FeMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.FeMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.FeMax)
+            </div>
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Si</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.SiMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.SiMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.SiMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.SiMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_S</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.SMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.SMin)
+            </div>
+
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.SMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.SMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Sn</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.SnMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.SnMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.SnMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.SnMax)
+            </div>
+
+        </div>*@
+        @*<div class="row form-group">
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_C</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.CMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.CMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_P</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.PMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.PMin)
+            </div>
+
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.PMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.PMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Cu</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.CuMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CuMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.CuMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CuMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_O</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.OMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.OMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.OMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.OMax)
+            </div>
+
+        </div>*@
+
+        @*<div class="row form-group">
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Mn</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.MnMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.MnMin)
+            </div>
+
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.MnMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.MnMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_H</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.HMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.HMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.HMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.HMax)
+            </div>
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Nb</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.NbMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.NbMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.NbMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.NbMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Te</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.TeMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.TeMin)
+            </div>
+
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.TeMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.TeMax)
+            </div>
+        </div>*@
+
+        @*<div class="row form-group">
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Cr</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.CrMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CrMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.CrMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CrMax)
+            </div>
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_W</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.WMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.WMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.WMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.WMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Al</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.AlMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.AlMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.AlMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.AlMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Mg</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.MgMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CaMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.MgMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.MgMax)
+            </div>
+        </div>
+        <div class="row form-group">
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Mo</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.MoMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.MoMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.MoMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.MoMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Pb</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.PbMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.PbMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.PbMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.PbMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_N</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.NMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.NMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.NMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.NMax)
+            </div>
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Sb</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.SbMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.SbMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.SbMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.SbMax)
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_V</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.VMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.VMin)
+            </div>
+
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.VMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.VMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Zn</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.ZnMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.ZnMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.ZnMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.ZnMax)
+            </div>
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Ca</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.CaMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CaMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.CaMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CaMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Ta</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.TaMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.TaMin)
+            </div>
+
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.TaMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.TaMax)
+            </div>
+        </div>
+        
+        <div class="row form-group">
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Ni</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.NiMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.NiMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.NiMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.NiMax)
+            </div>
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_As</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.AsMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.AsMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.AsMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.AsMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_B</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.BMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.BMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.BMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.BMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Zr</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.ZrMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.ZrMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.ZrMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.ZrMax)
+            </div>
+        </div>
+        
+        <div class="row form-group">
+           
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Co</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.CoMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CoMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.CoMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CoMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Bi</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.BiMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.BiMin)
+            </div>
+
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.BiMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.BiMax)
+            </div>
+
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Ti</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.TiMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.TiMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.TiMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.TiMax)
+            </div>
+            <div class="col text-right pr-1">
+                <label>@VM_Resources.NAME_SteelGradeCC_Ce</label>
+            </div>
+            <div class="col p-0">
+                @Html.Kendo().NumericTextBoxFor(x => x.CeMin).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CeMin)
+            </div>
+            <div class="col">
+                @Html.Kendo().NumericTextBoxFor(x => x.CeMax).Round(false).Decimals(6).Format("N6").HtmlAttributes(new { @class = "form-control form-control-sm textboxWidth" })
+                @Html.ValidationMessageFor(x => x.CeMax)
+            </div>
+            @*<div class="col text-right align-self-center">
+                <label></label>
+            </div>
+            @*<div class="col">
+                <label style="width:100px"></label>
+            </div>
+            <div class="col">
+                <label style="width:100px"></label>
+            </div>
+        </div>*@
+    </div>
+
+    <hr>
+
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button"  onclick="displayMessage()" type="submit">
+                @VM_Resources.GLOB_Form_Button_Save
+            </button>
+        </div>
+    </div>
+
+    <script>
+    
+    $(function () {
+
+        $('#error').css("display", "none");
+        $("#form").kendoValidator().data("kendoValidator");
+
+    });
+
+     function displayMessage() {
+        
+        var validator = $("#form").kendoValidator().data("kendoValidator");
+
+        if (validator.validate()) {
+                 $('#error').css("display", "none");
+            } else {
+                 $('#error').css("display", "block");
+                 $('#popup-footer')
+                        .css('display', 'block')
+                        .css('background-color', 'rgb(206, 0, 55)');
+            }
+    };
+
+    </script>
+}

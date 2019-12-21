@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[MVHSamplesEXT] (
+    [FKSampleId] BIGINT   NOT NULL,
+    [CreatedTs]  DATETIME CONSTRAINT [DF_MVHSamplesEXT_CreatedTs] DEFAULT (getdate()) NOT NULL,
+    CONSTRAINT [PK_MVHSamplesEXT] PRIMARY KEY CLUSTERED ([FKSampleId] ASC),
+    CONSTRAINT [FK_MVHSamplesEXT_MVHSamples] FOREIGN KEY ([FKSampleId]) REFERENCES [dbo].[MVHSamples] ([SampleId]) ON DELETE CASCADE
+);
+

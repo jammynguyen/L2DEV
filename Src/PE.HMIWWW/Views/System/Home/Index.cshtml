@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@Styles.Render("~/Content/Module/MainPage")
+
+<div class="schema-container">
+    <div class="stage-column schedule">
+        <div class="stage-line">
+            <div class="line"></div>
+        </div>
+        <div class="stage-point">
+            <div class="point"></div>
+        </div>
+        <div class="stage-icon">
+            <div class="stage-icon-content">
+                <a href="Schedule">
+                    <div class="icon">
+                        <div class="icon-light"></div>
+                        <img class="icon-img" src="../Content/Functions/Big/schedule_.png">
+                    </div>
+                    <p class="description">@PE.HMIWWW.Core.Resources.VM_Resources.HMI_MENU_ScheduleManager</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="stage-column furnace">
+        <div class="stage-line">
+            <div class="line"></div>
+        </div>
+        <div class="stage-point">
+            <div class="point"></div>
+        </div>
+        <div class="stage-icon">
+            <div class="stage-icon-content">
+                <a href="Furnace">
+                    <div class="icon">
+                        <div class="icon-light"></div>
+                        <img class="icon-img" src="../Content/Functions/Big/furnace_.png">
+                    </div>
+                    <p class="description">@PE.HMIWWW.Core.Resources.VM_Resources.HMI_MENU_Furnace</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="stage-column products">
+        <div class="stage-line">
+            <div class="line"></div>
+        </div>
+        <div class="stage-point">
+            <div class="point"></div>
+        </div>
+        <div class="stage-icon">
+            <div class="stage-icon-content">
+                <a href="Products">
+                    <div class="icon">
+                        <div class="icon-light"></div>
+                        <img class="icon-img" src="../Content/Functions/Big/products_.png">
+                    </div>
+                    <p class="description">@PE.HMIWWW.Core.Resources.VM_Resources.HMI_MENU_ProdManager</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="stage-column delays">
+        <div class="stage-line">
+            <div class="line"></div>
+        </div>
+        <div class="stage-point">
+            <div class="point"></div>
+        </div>
+        <div class="stage-icon">
+            <div class="stage-icon-content">
+                <a href="Delays">
+                    <div class="icon">
+                        <div class="icon-light"></div>
+                        <img class="icon-img" src="../Content/Functions/Big/delay_.png">
+                    </div>
+                    <p class="description">@PE.HMIWWW.Core.Resources.VM_Resources.HMI_MENU_Delays</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

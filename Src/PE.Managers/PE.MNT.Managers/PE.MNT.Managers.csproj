@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EAB0E535-E8B7-4EEA-810D-00D4008F43DF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PE.MNT.Managers</RootNamespace>
+    <AssemblyName>PE.MNT.Managers</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.Extended, Version=6.0.0.0, Culture=neutral, PublicKeyToken=05b7e29bdd433584, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.Extended.6.1.0.168\lib\net45\EntityFramework.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.1.16.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LinqKit.1.1.16\lib\net45\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NLog.4.6.3\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.Core, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SMF.Core.2.4.165\lib\net461\SMF.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.Module, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SMF.Module.2.4.165\lib\net461\SMF.Module.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.RepositoryPattern.Ef6, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SMF.RepositoryPattern.Ef6.2.4.165\lib\net461\SMF.RepositoryPattern.Ef6.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.RepositoryPatternExt, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SMF.RepositoryPatternExt.2.4.165\lib\net461\SMF.RepositoryPatternExt.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Defs.cs" />
+    <Compile Include="EquipmentManager.cs" />
+    <Compile Include="EquipmentAccuManager.cs" />
+    <Compile Include="EquipmentGroupManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PE.Common\PE.Common.csproj">
+      <Project>{d1f29abf-e455-47dc-9594-62c9dbbf2aa8}</Project>
+      <Name>PE.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PE.Core\PE.Core.csproj">
+      <Project>{cba3527c-7bdf-4f41-9133-255a6e491395}</Project>
+      <Name>PE.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PE.DbEntity\PE.DbEntity.csproj">
+      <Project>{0ca28630-444c-4678-a2dd-05111132c899}</Project>
+      <Name>PE.DbEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PE.DTO\PE.DTO.csproj">
+      <Project>{5a8b29e8-e78f-4a25-a509-cf6f5aba462e}</Project>
+      <Name>PE.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PE.Handlers\PE.MNT.Handlers\PE.MNT.Handlers.csproj">
+      <Project>{98738595-879b-48d8-8e43-37f3f3549a06}</Project>
+      <Name>PE.MNT.Handlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PE.Interfaces\PE.Interfaces.csproj">
+      <Project>{dfe01277-6cd1-4cbe-9fcf-3cad1f7b73d8}</Project>
+      <Name>PE.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

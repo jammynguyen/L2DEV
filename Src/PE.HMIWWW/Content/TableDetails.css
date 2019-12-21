@@ -1,0 +1,75 @@
+  .k-detail-cell .k-tabstrip .k-content {
+        padding: 0.2em;
+    }
+    .table-details ul
+    {
+        list-style:none;
+        font-style:normal;
+        margin: 15px;
+        padding: 0;
+    }
+    .table-details ul li
+    {
+        margin: 0;
+        line-height: 1.7em;
+        padding-bottom: 5px;
+    }
+
+    .table-details label
+    {
+        display:inline-block;
+        width:200px;
+        padding-right: 10px;
+        text-align: left;
+        font-style:normal;
+        font-weight:bold;
+        vertical-align: top;
+    }
+
+    .table-cc tr
+    {
+          border-left: #FFFFFF !important;
+          width: 6%;
+          padding: 4px;
+          font-weight:normal;
+          text-align: center;
+    }
+
+    .table-cc td 
+    {
+          border-left: #FFFFFF !important;
+          width: 6%;
+          padding: 4px;
+    }
+
+    /*chemical composition table*/
+     .table-chemicalData
+    {
+         border-collapse: collapse !important;
+    }
+    .table-chemicalData tr
+    {
+          width: 6%;
+          padding: 4px;
+          font-weight:normal;
+          text-align: center;
+    }
+    .table-chemicalData td 
+    {
+          width: 6%;
+          padding: 4px; 
+          border-left: 1px solid #dadada !important;
+          border-right: 1px solid #dadada !important;
+          border-top: 1px solid #dadada !important;
+          border-bottom: 1px solid #dadada !important;
+          
+    }
+
+    .table-chemicalData td:nth-child(2n),
+    .table-chemicalData tr:nth-of-type(odd)
+    {
+         background:rgba(218,218,218,0.5);
+    }
+
+
+

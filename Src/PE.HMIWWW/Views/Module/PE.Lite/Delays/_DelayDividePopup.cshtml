@@ -1,0 +1,31 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Delay.VM_Delay
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@using (Ajax.BeginForm("DivideDelayAsync", "Delays", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id);
+
+
+    <div class="row form-group">
+        <div class="col-5 text-right align-self-center">
+            <label>@Html.LabelFor(x => x.NewDelayLength)</label>
+        </div>
+        <div class="col-7">
+            @Html.Kendo().IntegerTextBoxFor(x => x.NewDelayLength).HtmlAttributes(new { @class = "form-control form-control-sm" }).Min(0)
+        </div>
+    </div>
+
+    <hr />
+
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" type="submit">
+                @VM_Resources.GLOB_Form_Button_Save
+            </button>
+        </div>
+    </div>
+}

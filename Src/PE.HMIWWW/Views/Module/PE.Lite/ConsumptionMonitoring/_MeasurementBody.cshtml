@@ -1,0 +1,143 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.ConsumptionMonitoring.VM_Feature
+
+<div class="row h-100">
+    <div class="col">
+        <div class="box">
+            <table>
+                <tr>
+                    <td valign="top">
+                        <h6>@VM_Resources.LABEL_ChooseDateTimeFrom</h6>
+                        <input id="datetimepickerFrom" title="datetimepickerFrom" style="width: 100%;" />
+                    </td>
+                    <td valign="top">
+                        <h6>@VM_Resources.LABEL_ChooseDateTimeTo</h6>
+                        <input id="datetimepickerTo" title="datetimepickerTo" style="width: 100%;" />
+                    </td>
+                </tr>
+            </table>
+                        
+        </div>
+        
+        @(Html.Kendo().Chart<PE.HMIWWW.ViewModel.Module.Lite.ConsumptionMonitoring.VM_Measurement>()
+            .Name("chart")
+            //.Title(@Model.FeatureName)
+            .Legend(legend => legend
+                .Position(ChartLegendPosition.Bottom)
+            )
+            .ChartArea(chartArea => chartArea
+                .Background("transparent")
+            )
+            .DataSource(ds => ds
+                .Read(read => read.Action("GetMeasurementData", "ConsumptionMonitoring", new { featureId = Model.FeatureId, dateFrom = DateTime.Now.AddMonths(-1), dateTo = DateTime.Now }))
+            )
+            .Series(series => {
+                series
+                    .ScatterLine(model => model.MeasurementTime, model => model.MeasurementValueAvg)
+                    .Style(ChartScatterLineStyle.Smooth)
+                    .Markers(m => m.Size(3))
+                    .Color("#f2a900");
+            })
+            .XAxis(x => x
+                .Date()
+                .Title(title => title.Text(VM_Resources.NAME_Time))
+                //.BaseUnit(ChartAxisBaseUnit.Fit)
+                .MajorUnit(1)
+                //.MinorUnit(0.2)
+                .MajorGridLines(lines => lines.Visible(true))
+                //.MinorGridLines(lines => lines.Visible(true))
+                .Crosshair(crosshair => crosshair
+                    .Visible(true)
+                    .Tooltip(tooltip => tooltip
+                        .Visible(true)
+                        .Format(PE.HMIWWW.Core.Resources.VM_Resources.GLOB_LongDateTime_FORMAT)
+                        .Background("#006487")
+                        .Color("#ffffff")
+                        .Border(1, "#006487")
+                    )
+                )
+
+            )
+            .YAxis(y => y
+                .Numeric()
+                .Title(title => title.Text(Model.FeatureName + " [" + Model.FeatureUnitSymbol + "]"))
+                .Labels(labels => labels.Format("{0} " + Model.FeatureUnitSymbol))
+            )
+
+            .Tooltip(tooltip => tooltip
+                .Visible(true)
+                .Background("#006487")
+                .Border(1, "#006487")
+                .Format("{1} " + Model.FeatureUnitSymbol)
+            )
+            .Zoomable(zoom => zoom
+                .Selection(select => select
+                    .Lock(ChartAxisLock.Y)
+                    .Key(ChartActivationKey.Ctrl)
+                )
+                .Mousewheel(mouse => mouse
+                    .Lock(ChartAxisLock.Y)
+                )
+            )
+            .Pannable(pan => pan
+                .Lock(ChartAxisLock.Y)
+            )
+        )
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        //kendo.culture("en-US")
+        //kendo.culture("@System.Globalization.CultureInfo.CurrentCulture.Name");
+         var d = new Date();
+        d.setMonth(d.getMonth() - 1);
+
+        $("#datetimepickerFrom").kendoDateTimePicker({
+            dateInput: true,
+            change: onChangeFrom,
+            value: d
+        });
+         $("#datetimepickerTo").kendoDateTimePicker({
+            dateInput: true,
+             change: onChangeTo,
+             value: new Date()
+         });
+
+        function onChangeFrom() {
+
+            var datepickerTo = $("#datetimepickerTo").data("kendoDateTimePicker");
+            //calculateAxis();
+
+            $.post('/ConsumptionMonitoring/GetMeasurementData', { featureId: @Model.FeatureId, dateFrom: kendo.toString(this.value(), 'F'), dateTo: kendo.toString(datepickerTo.value(), 'F') },
+                function (data) {
+                    console.log("Get data from /ConsumptionMonitoring/GetMeasurementData");
+                    var chart = $("#chart").data("kendoChart");
+                    chart.setDataSource(data);
+                    chart.redraw();
+                    chart.resize();
+                    chart.refresh();
+
+                    //chart.tooltip.refresh();
+                    //var tooltip = $("#container").kendoTooltip({
+
+                    //tooltip.refresh();
+                }, 'json');
+        }
+
+        function onChangeTo() {
+
+            var datepickerFrom = $("#datetimepickerFrom").data("kendoDateTimePicker");
+
+            $.post('/ConsumptionMonitoring/GetMeasurementData', { featureId: @Model.FeatureId, dateFrom: kendo.toString(datepickerFrom.value(), 'F'), dateTo: kendo.toString(this.value(), 'F') },
+                function (data) {
+                    console.log("Get data from /ConsumptionMonitoring/GetMeasurementData");
+                    var chart = $("#chart").data("kendoChart");
+                    chart.setDataSource(data);
+                    chart.redraw();
+                    chart.resize();
+                    chart.refresh();
+                }, 'json');
+        }
+    });
+
+</script>

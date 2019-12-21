@@ -1,0 +1,56 @@
+﻿@model PE.HMIWWW.ViewModel.System.RegisterViewModel
+@{
+  Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<style>
+    .validation-summary-errors{
+        position:absolute;
+        margin-top:-12px;
+    }
+</style>
+<div class="center">
+
+  @using (Ajax.BeginForm("Register", "Account", new AjaxOptions { UpdateTargetId = "formContainer", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "form-horizontal", role = "form", autocomplete = "off",id="form" }))
+  {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div style="text-align:center">
+      <p style="font-size:35px">@Html.Raw(PE.HMIWWW.Core.Resources.VM_Resources.NAME_Register)</p>
+    </div>
+    <div style="text-align:center">
+      <div class="form-group">
+        @Html.TextBoxFor(m => m.Email, new { placeholder = PE.HMIWWW.Core.Resources.VM_Resources.NAME_Email, @class = "form-control inputFont" })
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+      </div>
+
+      <div class="form-group">
+        @Html.PasswordFor(m => m.Password, new { placeholder = PE.HMIWWW.Core.Resources.VM_Resources.NAME_Password, @class = "form-control inputFont" })
+        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+      </div>
+      <div class="form-group">
+        @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = PE.HMIWWW.Core.Resources.VM_Resources.NAME_PasswordConfirm, @class = "form-control inputFont" })
+        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+      </div>
+      <div class="form-group">
+        @Html.LabelFor(m => m.Language, new { @class = "col-md-2 control-label" }) 
+        @Html.DropDownListFor(m => m.Language, new SelectList(SMF.HMI.Core.CultureHelper.GetLanguagesList(), "LanguageId", "LanguageCode"), new { @class = "col-md-3 control-label" })        
+      </div>
+    </div>
+    <div style="text-align:center">
+      <button type="submit" class="btn-login">@Html.Raw(PE.HMIWWW.Core.Resources.VM_Resources.NAME_Register)</button>
+    </div>
+  }
+</div>
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    $(document).ready(function () {
+        $('#form').submit(function () {
+            if ($(this).find('.input-validation-error').length == 0) {
+                $(this).find(':submit').attr('disabled', 'disabled');
+            }
+        });;
+    })
+</script>

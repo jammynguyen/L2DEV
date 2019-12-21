@@ -1,0 +1,128 @@
+﻿.element-details {
+    position: relative;
+    width: 100%;
+}
+
+.loading-overlay::before {
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+    background-image: url(/Content/System/Img/loading_2x.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(255,255,255,.6);
+}
+
+
+#SearchGrid table tr {
+    cursor: pointer;
+}
+
+#WorkOrderBody-1,
+#WorkOrderBody-2 {
+    overflow: hidden;
+}
+
+.fh-ts {
+    min-height: 668px;
+}
+
+div.k-tabstrip {
+    border: none;
+}
+
+    div.k-tabstrip:focus {
+        box-shadow: none;
+    }
+
+.k-tabstrip-items
+.k-state-active
+.k-link {
+    font-weight: 500;
+    color: #425563;
+}
+
+path {
+    color: red;
+    background-color: blue;
+}
+
+/*heat autocomplete*/
+.dropdown-header {
+    border-width: 0 0 1px 0;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+}
+
+.dropdown-header:hover {
+    background-color: #879baa;
+    color: white;
+}
+
+.dropdown-header > span {
+    display: inline-block;
+    text-align: center;
+}
+
+.disabled-input:hover {
+    border: 1px solid #dbdbdb;
+}
+
+.heat {
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    /*width: 400px;*/
+}
+
+#FKHeatIdRef_listbox .k-state-hover {
+    background-image: none;
+    background-color: #f2f2f2;
+}
+
+.details-row {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+}
+
+.heat-data {
+    font-weight: 500;
+}
+
+.heat-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: #006487;
+}
+
+.heat-details {
+    font-size: 13px;
+    line-height: 18px;
+    color: #666;
+}
+
+.k-i-close {
+    color: #666;
+}
+
+.k-autocomplete {
+    z-index: 1;
+}
+
+.refreshBtnContainer{
+    float: right;
+}
+
+/*fix {} items of {} not visible in telerik 2019.3.1024*/
+.k-pager-wrap.k-pager-md .k-pager-info,
+.k-pager-wrap.k-pager-sm .k-pager-info {
+    display: flex;
+}
+/*end*/

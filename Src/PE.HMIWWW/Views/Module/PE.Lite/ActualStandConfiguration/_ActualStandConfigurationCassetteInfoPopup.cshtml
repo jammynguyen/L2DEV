@@ -1,0 +1,120 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Cassette.VM_CassetteOverview
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+
+<div style="width: 1300px; height: @(200 + Model.NumberOfPositions * 30)px;">
+    @*<table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td width="50%" style="border-left: #FFFFFF !important;">
+                    <div class='table-details'>
+                        <ul>
+                            <li><label>@Html.LabelFor(m => m.CassetteName): &nbsp;&nbsp; </label>@Html.DisplayFor(m => m.CassetteName)</li>
+                            <li><label>@Html.LabelFor(m => m.FkCassetteType): &nbsp;&nbsp; </label>@Html.Raw(((SelectList)ViewBag.CassetteType).Where(p => p.Value == Model.FkCassetteType.ToString()).First().Text)</li>
+                            <li><label>@Html.LabelFor(m => m.Status): &nbsp;&nbsp; </label>@Html.Raw(((SelectList)ViewBag.CassetteStatus).Where(p => p.Text == Model.Status.ToString()).FirstOrDefault().Text)</li>
+                        </ul>
+                    </div>
+                </td>
+                <td width="50%" style="border-left: #FFFFFF !important;">
+                    <div class='table-details'>
+                        <ul>
+                            <li><label>@Html.LabelFor(m => m.NumberOfPositions): &nbsp;&nbsp; </label>@Html.DisplayFor(m => m.NumberOfPositions)</li>
+                            <li><label>@Html.LabelFor(m => m.StandNo): &nbsp;&nbsp; </label>@Html.DisplayFor(m => m.StandNo)</li>
+                            <li><label>@Html.LabelFor(m => m.Arrangement): &nbsp;&nbsp; </label>@Html.Raw(((SelectList)ViewBag.Arrang).Where(p => p.Value == Model.Arrangement.ToString()).First().Text)</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>*@
+    <div class="row p-0 pt-3">
+        <div class="col-4 p-0">
+            <div class="container-fluid">
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(x => x.CassetteName)
+                    </div>
+                    <div class="col-3 text-left">
+                        @Html.DisplayFor(m => m.CassetteName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(x => x.FkCassetteType)
+                    </div>
+                    <div class="col-3 text-left">
+                        @Html.DisplayFor(m => m.FkCassetteType)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(x => x.Status)
+                    </div>
+                    <div class="col-3 text-left">
+                        @Html.DisplayFor(m => m.Status)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4 p-0">
+            <div class="container-fluid">
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(x => x.NumberOfPositions)
+                    </div>
+                    <div class="col-3 text-left">
+                        @Html.DisplayFor(m => m.NumberOfPositions)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(x => x.StandNo)
+                    </div>
+                    <div class="col-3 text-left">
+                        @Html.DisplayFor(m => m.StandNo)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(x => x.Arrangement)
+                    </div>
+                    <div class="col-3 text-left">
+                        @Html.DisplayFor(m => m.Arrangement)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.RollsetManagement.VM_RollSetOverview>()
+.Name("RollSetsInCassette" + Model.Id)
+.Columns(columns =>
+        {
+            columns.Bound(p => p.Id).Visible(false);
+            columns.Bound(p => p.PositionInCassette).Width(60);
+            columns.Bound(p => p.RollSetName).Width(80);
+            columns.Bound(p => p.RollNameUpper).Width(80);
+            columns.Bound(p => p.RollTypeUpper).Width(80);
+            columns.Bound(p => p.RollNameBottom).Width(80);
+            columns.Bound(p => p.RollTypeBottom).Width(80);
+            columns.ForeignKey(o => o.RollSetStatus, (SelectList)ViewBag.RSetStatus).Width(80);
+            columns.Bound(p => p.Mounted).Format(VM_Resources.ResourceManager.GetString("GLOB_LongDateTime_FORMAT"));
+        })
+//.Scrollable()
+        .HtmlAttributes(new { style = "width: 1150px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .ServerOperation(true)
+            .Model(model =>
+            {
+                model.Id(p => p.Id);
+             })
+            .Read(read => read.Action("GetRollSetInCassetteList", "ActualStandConfiguration", new { cassetteId = Model.Id }))
+    .Sort(sort => sort.Add(p => p.PositionInCassette).Ascending())
+     )
+    )
+
+</div>

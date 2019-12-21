@@ -1,0 +1,23 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Material.VM_RawMaterialOverview
+
+<div class="row h-100">
+    <div class="col">
+        @(Html.Kendo().TabStrip()
+            .Name("MaterialBody")
+            .Animation(false)
+            .HtmlAttributes(new { style = "width: 100%;" })
+            .Scrollable(false)
+            .Items(tabstrip =>
+            {
+                tabstrip.Add().Text(VM_Resources.NAME_MaterialDetails)
+                    .Selected(!Model.AfterL3Assign).Content(@Html.Partial("~/Views/Module/PE.Lite/RawMaterial/_RawMaterialDetails.cshtml", Model).ToHtmlString());
+                tabstrip.Add().Text(VM_Resources.NAME_L3MaterialAssignment)
+                    .Selected(Model.AfterL3Assign).LoadContentFrom("L3MaterialAssignment", "RawMaterial", new { rawMaterialId = Model.RawMaterialId });
+                tabstrip.Add().Text(VM_Resources.NAME_Measurements)
+                    .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/RawMaterial/_RawMaterialMeasurmentsList.cshtml", Model.RawMaterialId).ToHtmlString());
+                tabstrip.Add().Text(VM_Resources.NAME_MaterialHistory)
+                    .Selected(false).Content(@Html.Partial("~/Views/Module/PE.Lite/RawMaterial/_RawMaterialHistoryList.cshtml", Model.RawMaterialId).ToHtmlString());
+            })
+        )
+    </div>
+</div>

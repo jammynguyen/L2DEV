@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_DefectCatalogue_Index;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+@Scripts.Render("~/bundles/module/defectCatalogue")
+
+@section module_menu
+{
+    @Html.ImageButton("new", "AddDefectCataloguePopup()", false)
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Defect.VM_DefectCatalogue>()
+								.Name("DefectCatalogueList")
+								.HtmlAttributes(new { style = @String.Format(" height:{0}px;", ViewBag.FullGridHeight) })
+								.Scrollable()
+								.Sortable()
+								.Pageable(p => p
+										.Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+								.Filterable()
+								.Columns(c =>
+								{
+									c.Bound(x => x.DefectCatalogueId)
+									.Visible(false);
+									c.Bound(x => x.DefectCatalogueCode).Width(100).Sortable(true);
+									c.Bound(x => x.DefectCatalogueName).Width(200).Sortable(true);
+									c.Bound(x => x.DefectCatalogueDescription).Width(600).Sortable(true)
+									 .Filterable(false);
+									c.ForeignKey(o => o.DefectCatalogueCategoryId, (SelectList)ViewBag.DefectCategories)
+								.Filterable(true).Width(120).Sortable(true);
+
+
+
+									c.Bound(x => x.DefectCatalogueId)
+										 .Filterable(false)
+										 //.ClientTemplate(Html.ImageButton("edit", "OpenUrlInPopupWindow('/DefectCatalogue/DefectCatalogueEditPopup', 600, null, { id: #= DefectCatalogueId # }, function(){ refreshKendoGrid('DefectCatalogueList') });").ToString())
+										 .ClientTemplate(Html.ImageButton("edit", "EditDefectCataloguePopup(#:DefectCatalogueId#)").ToString()
+											+ Html.ImageButton("delete", "Delete(#=DefectCatalogueId#)",false).ToString())
+										 .Width(65)
+										 .Title(String.Empty);
+								})
+								.DataSource(ds => ds
+																		.Ajax()
+																		.ServerOperation(true)
+																		.PageSize(27)
+																		.Events(e => e.Error("TelerikErrorHandler"))
+																		.Read(r => r.Action("GetDefectCatalogueList", "DefectCatalogue"))
+													 )
+)
+

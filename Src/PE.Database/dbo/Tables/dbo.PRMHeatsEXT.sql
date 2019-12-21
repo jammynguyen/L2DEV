@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[PRMHeatsEXT] (
+    [FKHeatId]  BIGINT   NOT NULL,
+    [CreatedTs] DATETIME CONSTRAINT [DF_PRMHeatsEXT_CreatedTs] DEFAULT (getdate()) NOT NULL,
+    CONSTRAINT [PK_HeatsEXT] PRIMARY KEY CLUSTERED ([FKHeatId] ASC),
+    CONSTRAINT [FK_HeatsEXT_Heats] FOREIGN KEY ([FKHeatId]) REFERENCES [dbo].[PRMHeats] ([HeatId]) ON DELETE CASCADE
+);
+

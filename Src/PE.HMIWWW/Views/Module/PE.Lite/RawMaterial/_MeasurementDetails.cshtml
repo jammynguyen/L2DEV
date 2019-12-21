@@ -1,0 +1,106 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Material.VM_RawMaterialMeasurements
+
+    <div class="row">
+        <div class="col-4 p-0 pt-3">
+            <div class="container-fluid">
+                <div class="form-group row">
+                    <div class="col-4 text-right">
+                        @Html.LabelFor(m => m.AssetName)
+                    </div>
+                    <div class="col">
+                        @Html.DisplayFor(m => m.AssetName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 text-right">
+                        @Html.LabelFor(m => m.ParentAssetName)
+                    </div>
+                    <div class="col">
+                        @Html.DisplayFor(m => m.ParentAssetName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 text-right">
+                        @Html.LabelFor(m => m.FeatureName)
+                    </div>
+                    <div class="col">
+                        @Html.DisplayFor(m => m.FeatureName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 text-right">
+                        @Html.LabelFor(m => m.MeasurementTime)
+                    </div>
+                    <div class="col">
+                        @Html.DisplayFor(m => m.MeasurementTime)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 p-0 pt-3">
+            <div class="container-fluid">
+                <div class="container-fluid">
+                    <div class="form-group row">
+                        <div class="col-4 text-right">
+                            @Html.LabelFor(m => m.UnitSymbol)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.UnitSymbol)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 text-right">
+                            @Html.LabelFor(m => m.MeasurementValueMin)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.MeasurementValueMin)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 text-right">
+                            @Html.LabelFor(m => m.MeasurementValueAvg)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.MeasurementValueAvg)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 text-right">
+                            @Html.LabelFor(m => m.MeasurementValueMax)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.MeasurementValueMax)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 p-0 pt-3">
+            <div class="container-fluid">
+                <div class="form-group row">
+                    <div class="col-4 text-right">
+                        @Html.LabelFor(m => m.PassNo)
+                    </div>
+                    <div class="col">
+                        @Html.DisplayFor(m => m.PassNo)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 text-right">
+                        @Html.LabelFor(m => m.IsLastPass)
+                    </div>
+                    <div class="col">
+                        @Html.CheckBoxFor(m => m.IsLastPass, new { @disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 text-right">
+                        @Html.LabelFor(m => m.IsValid)
+                    </div>
+                    <div class="col">
+                        @Html.CheckBoxFor(m => m.IsValid, new { @disabled = "disabled" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

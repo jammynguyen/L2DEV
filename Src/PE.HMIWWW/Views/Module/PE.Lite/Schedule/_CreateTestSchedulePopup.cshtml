@@ -1,0 +1,62 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Schedule.VM_Schedule
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+
+@if (Model != null && !@ViewData.ModelState.IsValid)
+{
+    <script>
+        $(document).ready(function () {
+            $("#popup-footer").css('background', '#ce0037').css('color', '#fff');
+        })
+    </script>
+}
+
+
+@using (Ajax.BeginForm("CreateTestSchedule", "Schedule", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ScheduleId)
+
+    @*<div class="row form-group">
+        <div class="col-5 text-right">
+            @Html.LabelFor(m => m.ScheduleId, new { @class = "control-label" })
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.ScheduleId).HtmlAttributes(new { @class = "w-100" })
+            @Html.ValidationMessageFor(m => m.ScheduleId, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+
+    <div class="row form-group">
+        <div class="col-5 text-right">
+            @Html.LabelFor(m => m.PlannedWeight, new { @class = "control-label" })
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.PlannedWeight).HtmlAttributes(new { @class = "w-100", type = "number" })
+            @Html.ValidationMessageFor(m => m.PlannedWeight, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-5 text-right">
+            @Html.LabelFor(m => m.NoOfmaterials, new { @class = "control-label" })
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.NoOfmaterials).HtmlAttributes(new { @class = "w-100", type = "number" })
+            @Html.ValidationMessageFor(m => m.NoOfmaterials, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <input type="submit" class="btn btn-primary popup_button" value="@PE.HMIWWW.Core.Resources.VM_Resources.BUTTON_SubmitForm" />
+        </div>
+    </div>
+}
+

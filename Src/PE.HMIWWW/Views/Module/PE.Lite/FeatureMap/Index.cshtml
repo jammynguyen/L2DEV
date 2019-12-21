@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.FeatureMap.VM_FeatureMap>
+    ()
+    .Name("FeatureMapGrid")
+    .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+    .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+    .Sortable()
+    .Filterable()
+    .Selectable()
+    .HtmlAttributes(new { style = @String.Format("height:{0}px;", ViewBag.FullGridHeight) })
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.SeqNo).Width(20).Visible(false);
+        columns.Bound(c => c.AssetCode).Width(20).Visible(true);
+        columns.Bound(c => c.AssetName).Width(120).Visible(true).HtmlAttributes(new { @class = "nowrap" });
+        columns.Bound(c => c.IsCheckpoint).Width(20).Visible(true);
+        columns.Bound(c => c.FeatureCode).Width(20).Visible(true);
+        columns.Bound(c => c.FeatureName).Width(180).Visible(true);
+        columns.Bound(c => c.UnitSymbol).Width(20).Visible(true);
+        columns.Bound(c => c.DataTypeName).Width(20).Visible(true);
+        columns.Bound(c => c.IsNewProcessingStep).Width(10).Visible(true);
+        columns.Bound(c => c.IsMaterialRelated).Width(10).Visible(true);
+        columns.Bound(c => c.IsLengthRelated).Width(10).Visible(true);
+        columns.Bound(c => c.IsActive).Width(10).Visible(true);
+        columns.Bound(c => c.IsTrigger).Width(10).Visible(true);
+    })
+    .DataSource(d => d
+    .Ajax()
+    .PageSize(28)
+    .ServerOperation(true)
+    .Sort(sort =>
+    {
+        sort.Add(s => s.SeqNo).Ascending();
+    })
+    .Read(r => r.Action("GetFeatureMapOverList", "FeatureMap"))
+    )
+)
+

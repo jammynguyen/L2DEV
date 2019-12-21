@@ -1,0 +1,85 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Material.VM_MaterialOverview
+
+    <div class="row h-100 p-0 pt-3">
+        <div class="col-4 p-0">
+            <div class="container-fluid">
+                <div class="form-group row">
+                    <div class="col-4 text-right">
+                        @Html.LabelFor(m => m.MaterialName)
+                    </div>
+                    <div class="col">
+                        @Html.DisplayFor(m => m.MaterialName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 text-right">
+                        @Html.LabelFor(m => m.CreatedTs)
+                    </div>
+                    <div class="col">
+                        @Html.DisplayFor(m => m.CreatedTs)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4 p-0">
+            <div class="container-fluid">
+                <div class="form-group row">
+                    <div class="col-4 text-right">
+                        @Html.LabelFor(m => m.IsDummy)
+                    </div>
+                    <div class="col check-box">
+                        @Html.CheckBoxFor(m => m.IsDummy.Value, new { @disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 text-right">
+                        @Html.LabelFor(m => m.WorkOrderName)
+                    </div>
+                    <div class="col">
+                        @Html.DisplayFor(m => m.WorkOrderName)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 p-0">
+                <div class="container-fluid">
+                    <div class="form-group row">
+                        <div class="col-4 text-right">
+                            @Html.LabelFor(m => m.IsAssigned)
+                        </div>
+                        <div class="col check-box">
+                            @Html.CheckBoxFor(m => m.IsAssigned, new { @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 text-right">
+                            @Html.LabelFor(m => m.LastUpdateTs)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.LastUpdateTs)
+                        </div>
+                    </div>
+                    @*<div class="form-group row emptyInfoRow">
+
+                    </div>*@
+
+                    @*<div class="form-group row">
+                        <div class="col text-right">
+                            @Html.LabelFor(m => m.MaterialCatalogueName)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.MaterialCatalogueName)
+                        </div>
+                    </div>*@
+                    @*<div class="form-group row">
+                        <div class="col text-right">
+                            @Html.LabelFor(m => m.TargetOrderWeightMax)
+                        </div>
+                        <div class="col">
+                            @Html.DisplayFor(m => m.TargetOrderWeightMax)
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </div>

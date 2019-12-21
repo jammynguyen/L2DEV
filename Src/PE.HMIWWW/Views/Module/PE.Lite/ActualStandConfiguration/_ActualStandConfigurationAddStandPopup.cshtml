@@ -1,0 +1,58 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.ActualStandConfiguration.VM_StandConfiguration
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@if (Model != null && !@ViewData.ModelState.IsValid)
+{
+    <script>
+        $(document).ready(function () {
+            $("#header").css('background', '#ce0037').css('color', '#fff');
+        })
+    </script>
+}
+
+
+@using (Ajax.BeginForm("InsertStandConfiguration", "ActualStandConfiguration", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "form-horizontal", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+
+    <div class="row" style=" width:300px;">
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.StandNo, new { @class = "col-md-11 control-label" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.StandNo).HtmlAttributes(new { style = "width:260px", @maxlength = 30 })@Html.ValidationMessageFor(m => m.StandNo)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.StandBlockName, new { @class = "col-md-10 control-label" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.StandBlockName).HtmlAttributes(new { style = "width:260px", @maxlength = 30 })@Html.ValidationMessageFor(m => m.StandBlockName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.NumberOfRolls, new { @class = "col-md-10 control-label" })
+            <div class="col-md-10">
+                @(Html.Kendo().DropDownList().Name("NumberOfRolls").DataTextField("Text").DataValueField("Value").HtmlAttributes(new { style = "width:260px" }).BindTo((SelectList)ViewBag.NumberOfRolls))@Html.ValidationMessageFor(m => m.NumberOfRolls)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.StandActivity, new { @class = "col-md-10 control-label" })
+            <div class="col-md-10">
+                @(Html.Kendo().DropDownList().Name("StandActivity").DataTextField("Text").DataValueField("Value").HtmlAttributes(new { style = "width:260px" }).BindTo((SelectList)ViewBag.StandActivity))@Html.ValidationMessageFor(m => m.StandActivity)
+            </div>
+        </div>
+        <br />
+        <div class="col-md-offset-3 " style="text-align:right; padding-top:12px;">
+            <input type="submit" class="btn btn-primary popup_button" value="@PE.HMIWWW.Core.Resources.VM_Resources.BUTTON_SubmitForm" />
+        </div>
+    </div>
+
+
+
+
+
+}

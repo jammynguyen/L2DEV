@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="148.56.68.208.LR_Standard.sa"
+  DTS:DTSID="{3ACCF8DD-D8BD-4349-8934-9A157B24AA8F}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=148.56.68.208;User ID=sa;Initial Catalog=LR_Standard;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFg6KBhcq4U2KqQn1yuJCvgAAAAACAAAAAAAQZgAAAAEAACAAAAAAl86TaxgiFiG6NftUQA2hndzyybYLOE5xUDK/S3ZmLQAAAAAOgAAAAAIAACAAAAASKeXe2yi6EjCYyDRW4xgHhOcEhy5rMpPf7xLHlw6Le4AAAADW9cWxgwwL+LBvZV5QQ+uVwsaCo4yoxQDtUjGKoorn7+c0EMRiWI9J0OKucA/eDU9jRa2H91Es6GRctX0IOJAXF1LLyaJGOwDqe0nywd9i3ofhNt/Gake3FCEriuIzjGYXKg2dUBomidmrpvAR7EWAHnYPecm/MQvJbdo6vxInD0AAAADHjNnWymUD4jmwRHZNMPRmkqluZ65pQHQdQUlto9pjqiujpNInYV98hE9T6XbeBKyeOJDPIo79H+XcW9xloE2V</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

@@ -1,0 +1,299 @@
+﻿@model PE.HMIWWW.ViewModel.System.VM_DB2DBCommunicationSummary
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style scoped>
+	td.attempsExceed {
+		background-color: #CE0037;
+		color: #ffffff;
+	}
+
+	td.processed {
+				background-color: #7A9A01;
+				color: #ffffff;
+		}
+	td.dataBaseError {
+		background-color: #CE0037;
+		color: #ffffff;
+	}
+
+	td.processingError {
+		background-color: #CE0037;
+		color: #ffffff;
+	}
+
+	td.canceled {
+		background-color: #F2A900;
+		color: #ffffff;
+	}
+
+	/*.k-grid tbody tr {
+		height: 31px;
+	}*/
+</style>
+
+
+
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+        RegisterMethod(HmiRefreshKeys.SysDb2DbRefresh, RefreshData);
+	});
+		
+
+		function RefreshData() {
+			$("#Db2DbCommunicationGrid").data("kendoGrid").dataSource.read();
+			$("#Db2DbCommunicationGrid").data("kendoGrid").refresh();
+
+			$("#OverviewChart").data("kendoChart").dataSource.read();
+			$("#OverviewChart").data("kendoChart").refresh();
+
+			$("#DetailsChart").data("kendoChart").dataSource.read();
+			$("#DetailsChart").data("kendoChart").refresh();
+
+			GetActualRecords();
+		}
+</script>
+
+@section module_menu
+{
+	@Html.ImageButton("new", "RefreshAllRecords()", false)
+	@Html.ImageButton("cancel", "CancelAllRecords()", false)
+	@{ Html.RenderPartial("~/Views/Shared/Parts/_Db2DbCommunicationTables.cshtml"); }
+}
+
+<br /><br />
+	<div class="row" style="height:145px;">
+		<div class="col-md-8" id="TextSummary" style="vertical-align: middle;">
+			<div class="form-group">
+				@Html.LabelFor(m => m.Db2DbStatusOK, new { @class = "col-md-3 control-label" })
+				@Html.DisplayFor(m => m.Db2DbStatusOK, new { @class = "form-control" })
+			</div>
+			<div class="form-group">
+				@Html.LabelFor(m => m.Db2DbStatusError, new { @class = "col-md-3 control-label" })
+				@Html.DisplayFor(m => m.Db2DbStatusError, new { @class = "form-control" })
+			</div>
+			<div class="form-group">
+				@Html.LabelFor(m => m.Db2DbAllRows, new { @class = "col-md-3 control-label" })
+				@Html.DisplayFor(m => m.Db2DbAllRows, new { @class = "form-control" })
+			</div>
+		</div>
+
+
+		@(Html.Kendo().Chart<PE.HMIWWW.ViewModel.System.VM_DB2DBCommunicationSummaryPie>()
+            .Name("OverviewChart")
+            .Title(title => title
+            .Text(@PE.HMIWWW.Core.Resources.VM_Resources.NAME_Db2DbOverviewChart).Font("14px")
+            .Position(ChartTitlePosition.Top))
+            .Legend(legend => legend.Offset(0, 0))
+            .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
+            .Legend(legend => legend.Font("9px Arial"))
+            .HtmlAttributes(new { style = "position:absolute; left: 700px !important;  width:260px !important; height: 180px !important; top:-142px !important;" })
+            .DataSource(ds => ds.ServerOperation(true).Custom().Schema(a => a.Data("Data").Total("Total").Errors("Errors")).Events(events => events.Error("TelerikErrorHandler")).Transport(z => z.Read(read => read.Action("DB2DBCommunicationSummaryDataPie", "DB2DBCommunication").Type(HttpVerbs.Post).DataType("json").ContentType("application/json; charset=utf-8"))))
+            .ChartArea(chart => chart
+                .Background("transparent")
+             )
+            .Series(series =>
+            {
+              series.Pie(
+                model => model.Value, null
+            ).CategoryField("Name").ColorField("Color")
+              .Labels(labels => labels
+                .Visible(false)
+                )
+              .StartAngle(260);
+            })
+          .Tooltip(tooltip => tooltip
+                .Visible(true)
+                .Format("{0:P}")
+            )
+
+		)
+
+		@(Html.Kendo().Chart<PE.HMIWWW.ViewModel.System.VM_DB2DBCommunicationSummaryPie>()
+				.Name("DetailsChart")
+				.Title(title => title
+				.Text(@PE.HMIWWW.Core.Resources.VM_Resources.NAME_Db2DbDetailsChart).Font("14px")
+				.Position(ChartTitlePosition.Top))
+				.Legend(legend => legend.Offset(0, 0))
+				.Legend(legend => legend.Position(ChartLegendPosition.Bottom))
+				.Legend(legend => legend.Font("9px Arial"))
+				.Events(events => events.LegendItemClick("onLegendItemClick"))
+				.HtmlAttributes(new { style = "position:absolute; left: 1100px !important;  width:460px !important; height: 200px !important; top:-222px !important;" })
+				.DataSource(ds => ds.ServerOperation(true).Custom().Schema(a => a.Data("Data").Total("Total").Errors("Errors")).Events(events => events.Error("TelerikErrorHandler")).Transport(z => z.Read(read => read.Action("DB2DBCommunicationSummaryDataStatusesPie", "DB2DBCommunication").Type(HttpVerbs.Post).DataType("json").ContentType("application/json; charset=utf-8"))))
+				.ChartArea(chart => chart
+						.Background("transparent")
+				 )
+				.Series(series =>
+				{
+					series.Pie(
+					model => model.Value, null
+				).CategoryField("Name").ColorField("Color")
+				.Labels(labels => labels
+					.Visible(false)
+					)
+				.StartAngle(200);
+				})
+				.Tooltip(tooltip => tooltip
+						.Visible(true)
+						.Format("{0:P}")
+				)
+		)
+	</div>
+
+
+	<div id="db2dbCommunicationGrid">
+	@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.System.VM_DB2DBCommunication>()
+	.Name("Db2DbCommunicationGrid")
+	.Events(events => events.DataBound("OnScheduleRowDataBound"))
+	.HtmlAttributes(new { style = @String.Format("border:none !important; height:{0}px;", ViewBag.FullGridHeight -180) })
+	.Scrollable()
+	.Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+	.Sortable()
+	.Filterable(filtering => filtering.Enabled(true))
+	.Groupable()
+.Columns(columns =>
+{
+	columns.Bound(p => p.Id).Visible(false).Filterable(false);
+	columns.Bound(p => p.TableName).Width(50).Filterable(true);
+	columns.Bound(p => p.RecordId).Width(28).Visible(false).Filterable(true);
+	columns.Bound(p => p.Created).Sortable(true).Width(40).Filterable(true).Format(VM_Resources.ResourceManager.GetString("GLOB_LongDateTime_FORMAT"));
+	columns.ForeignKey(p => p.Status, (SelectList)ViewBag.WorkOrderList).Filterable(true).Width(60);
+	columns.Bound(p => p.ProcessingDate).Width(40).Filterable(true).Format(VM_Resources.ResourceManager.GetString("GLOB_LongDateTime_FORMAT"));
+	columns.ForeignKey(p => p.ProcessingMessage, (SelectList)ViewBag.ProcessingMessageList).Filterable(true).Width(60);
+	columns.Bound(p => p.ForceProcessing).Width(28).Visible(false).Filterable(true);
+	columns.Bound(p => p.ProcessingValues).Width(110).Filterable(true);
+	columns.Bound(p => p.Id).Width(30).Sortable(false).Groupable(false).Filterable(false).Title("").ClientTemplate("<div align=center># if ((Status == 3 || Status ==5)) {#" + @Html.ImageButton("reset", "RefreshRecord(#= Id #)", false).ToString() + "#}#" + "# if ((Status == 3 || Status ==5) && (ForceProcessing == 1)) {#" + @Html.ImageButton("forceProcessing", "RefreshRecordWithForceProcessing(#= Id #)", false).ToString() + "#}#" + "# if ((Status == 3 || Status ==5)) {#" + @Html.ImageButton("cancel", "Cancel(#= Id #)", false).ToString() + "#}# </div>");
+})
+		.DataSource(dataSource => dataSource
+		.Ajax()
+		.ServerOperation(true)
+		.Model(model =>
+		{
+			model.Id(p => p.Id);
+		})
+		.ServerOperation(true)
+		.PageSize((int)ViewBag.NoRecordsInGrid-4)
+		.Sort(sort => sort.Add(x => x.Created).Descending())
+		.Events(events => events.Error("TelerikErrorHandler"))
+		.Read(read => read.Action("DB2DBCommunicationData", "DB2DBCommunication"))
+	))
+	</div>
+
+	<script>
+		function onLegendItemClick(e) {
+			e.preventDefault();
+		}
+
+		function CancelRecordConfirm(itemId, action) {
+			var url = serverAddress + "/Db2DbCommunication/" + action;
+			var data = { Id: itemId };
+			AjaxReqestHelper(url, data, RefreshData);
+		}
+
+		function Cancel(itemId) {
+			var functionName = CancelRecordConfirm;
+			var action = 'CancelRecord';
+			PromptMessage("@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmChangeStatusToCancelled", "@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmChangeStatusToCancelInfo", function () { return functionName(itemId, action) });
+		}
+
+		function RefreshRecord(itemId) {
+			var url = serverAddress + "/Db2DbCommunication/RefreshRecord";
+			var data = { Id: itemId };
+			AjaxReqestHelper(url, data, RefreshData);
+		}
+
+		function RefreshRecordWithForceProcessing(itemId) {
+			var url = serverAddress + "/Db2DbCommunication/RefreshRecordWithForceProcessing";
+			var data = { Id: itemId };
+			AjaxReqestHelper(url, data, RefreshData);
+		}
+
+		function OnScheduleRowDataBound(e) {
+			var grid = $("#Db2DbCommunicationGrid").data("kendoGrid");
+			var gridData = grid.dataSource.view();
+
+			for (var i = 0; i < gridData.length; i++) {
+				var currentUid = gridData[i].uid;
+				var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+
+				if (gridData[i].Status == 3) {
+					currenRow[0].cells[2].className = "attempsExceed";
+					currenRow[0].cells[4].className = "attempsExceed";
+				}
+				if (gridData[i].Status == 4) {
+					currenRow[0].cells[2].className = "dataBaseError";
+					currenRow[0].cells[4].className = "dataBaseError";
+				}
+				if (gridData[i].Status == 5) {
+					currenRow[0].cells[2].className = "processingError";
+					currenRow[0].cells[4].className = "processingError";
+				}
+				if (gridData[i].Status == 7) {
+					currenRow[0].cells[2].className = "canceled";
+					currenRow[0].cells[4].className = "canceled";
+				}
+
+				if (gridData[i].Status == 6) {
+					currenRow[0].cells[2].className = "processed";
+					currenRow[0].cells[4].className = "processed";
+				}
+			}
+		}
+
+		function DontShowEmptyValues(e) {
+			e.sender.options.series[0].labels.visible = function (point) {
+				if (point.value < 0) {
+					return false
+				}
+				else { return point.value }
+			}
+		}
+
+		function CancelAllRecordsConfirm(itemId, action) {
+			var url = serverAddress + + "/Db2DbCommunication/" + action;
+			var data = { Id: itemId };
+			AjaxReqestHelper(url, data, RefreshData);
+		}
+
+		function CancelAllRecords() {
+			var functionName = CancelAllRecordsConfirm;
+			var itemId = $("#db2dbCommunicationExternalTable").data("kendoDropDownList").text();
+			var action = 'CancelAllRecords';
+			PromptMessage("@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmChangeStatusToCancelled", "@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmChangeStatusToCancelInfo", function () { return functionName(itemId, action) });
+		}
+
+		function RefreshAllRecordsConfirm(itemId, action) {
+			var url = serverAddress + + "/Db2DbCommunication/" + action;
+			var data = { Id: itemId };
+			AjaxReqestHelper(url, data, RefreshData);
+		}
+
+		function RefreshAllRecords() {
+			var functionName = RefreshAllRecordsConfirm;
+			var itemId = $("#db2dbCommunicationExternalTable").data("kendoDropDownList").text();
+			var action = 'RefreshAllRecords';
+			PromptMessage("@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmChangeStatusToNew", "@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmChangeStatusToNewInfo", function () { return functionName(itemId, action) });
+		}
+
+		function alertErrors() {
+			alert('errorAlert');
+		}
+
+		function GetActualRecords() {
+			var url = serverAddress +  "/Db2DbCommunication/" + "GetActualRecords";
+			AjaxReqestHelperSilent(url, null, OnGetActualRecordsSuccess);
+
+
+		}
+		function OnGetActualRecordsSuccess(response)
+		{
+			$("#TextSummary").children().find('.col-md-12')[0].innerText = response.Db2DbStatusOK;
+			$("#TextSummary").children().find('.col-md-12')[1].innerText = response.Db2DbStatusError;
+			$("#TextSummary").children().find('.col-md-12')[2].innerText = response.Db2DbAllRows;
+		}
+	</script>

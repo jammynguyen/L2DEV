@@ -1,0 +1,95 @@
+﻿@model PE.HMIWWW.ViewModel.System.VM_Role
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    //THIS METHOD WILL BE CALLED BY SYSTEM (SERVER) IN CASE DATA CHANGE, NAME IS IMPORTANT !!!
+    function RefreshData() {
+    		$("#RolesGrid").data("kendoGrid").dataSource.read();
+    		$("#RolesGrid").data("kendoGrid").refresh();
+    }
+
+</script>
+@section module_menu
+{
+		@Html.ImageButton("new", "AddNew()", false)
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.System.VM_Role>()
+    .Name("RolesGrid")
+    .HtmlAttributes(new { style = @String.Format("border:none !important; height:{0}px;", ViewBag.FullGridHeight) })
+    .Pageable(p => p
+                .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+    .Filterable(filtering => filtering.Enabled(true))
+    .Sortable()
+    .Scrollable()
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Name).Width(150);
+        columns.Bound(p => p.Description).Width(250);
+        columns.Bound(p => p.NumberOfUsers).Sortable(false).Filterable(false).Width(50);
+        columns.Bound(p => p.NumberOfPermissions).Sortable(false).Filterable(false).Width(50);
+        columns.Bound(p => p.Id).Width(50).Sortable(false).Groupable(false).Filterable(false).Title("").ClientTemplate(@Html.ImageButton("edit", "EditData('#= Id #')", false).ToString() + @Html.ImageButton("delete", "Delete('#= Id #')", false).ToString() + @Html.ImageButton("role", "EditAccessUnits('#= Id #')", false).ToString());
+
+    })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .Model(model =>
+        {
+            model.Id(p => p.Id);
+            model.Field(p => p.Name);
+            model.Field(p => p.Description);
+            model.Field(p => p.NumberOfUsers);
+            model.Field(p => p.NumberOfPermissions);
+        })
+        .PageSize((int)ViewBag.NoRecordsInGrid)
+        .Events(events => events.Error("TelerikErrorHandler"))
+        .Read(read => read.Action("GetRoleData", "Role"))
+    ))
+
+<script>
+    function AddNew() {
+        OpenInPopupWindow({
+            controller: 'Role',
+            method: 'AddRoleDialog',
+            afterClose: RefreshData,
+            icon:'new'
+        });
+	}
+
+    function EditData(itemId) {
+        OpenInPopupWindow({
+            controller: 'Role',
+            method: 'EditRoleDialog',
+            data: { id: itemId },
+            afterClose: RefreshData
+        });
+	}
+
+    function EditAccessUnits(itemId) {
+        OpenInPopupWindow({
+            controller: 'Role',
+            method: 'EditAccessUnitsDialog',
+            width: 1000,
+            height: 600,
+            data: { id: itemId },
+            afterClose: RefreshData
+        });
+	}
+
+	function Delete(itemId) {
+		PromptMessage("@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmDelete", "@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmDeleteInfo", function () { return Delete2Confirm(itemId, 'Delete') });
+	}
+
+    function Delete2Confirm(itemId, action) {
+
+        var url = serverAddress + "/Role/" + action;
+        var data = { Id: itemId };
+    
+        AjaxReqestHelper(url, data, RefreshData);
+	}
+
+</script>

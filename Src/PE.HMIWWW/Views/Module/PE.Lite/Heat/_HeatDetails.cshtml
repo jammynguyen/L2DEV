@@ -1,0 +1,88 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Heat.VM_HeatOverview
+
+<div class="row h-100 p-0 pt-3">
+    <div class="col-4 p-0">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.HeatName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.HeatName)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.MaterialCatalogueName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.MaterialCatalogueName)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.SupplierName)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.SupplierName)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-0">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.CreatedTs)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.CreatedTs)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.SteelgradeCode)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.SteelgradeCode)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.SupplierDescription)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.SupplierDescription)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-0">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.HeatWeightRef)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.HeatWeightRef)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.SteelGradeDensity)
+                </div>
+                <div class="col">
+                    @Html.DisplayFor(m => m.SteelGradeDensity)
+                </div>
+            </div>
+            @*<div class="form-group row">
+                <div class="col-4 text-right">
+                    @Html.LabelFor(m => m.IsDummy)
+                </div>
+                <div class="col check-box">
+                    @Html.CheckBoxFor(m => m.IsDummy.Value, new { @disabled = "disabled" })
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>

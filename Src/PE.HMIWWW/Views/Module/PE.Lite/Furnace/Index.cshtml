@@ -1,0 +1,100 @@
+﻿@{
+  Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+@Styles.Render("~/Content/Module/Furnace")
+@Scripts.Render("~/Scripts/Module/Furnace")
+
+<div id="furnace" class="furnace">
+  <div class="furnace-label">
+    <div class="label">
+      @PE.HMIWWW.Core.Resources.VM_Resources.NAME_HeatName
+    </div>
+    <div class="label">
+      @PE.HMIWWW.Core.Resources.VM_Resources.NAME_WorkOrderNameShort
+    </div>
+    <div class="label">
+      @PE.HMIWWW.Core.Resources.VM_Resources.NAME_Length [@PE.HMIWWW.Core.Resources.VM_Resources.UNIT_Length]
+    </div>
+    <div class="label">
+      @PE.HMIWWW.Core.Resources.VM_Resources.NAME_Weight [@PE.HMIWWW.Core.Resources.VM_Resources.UNIT_BilletWeight]
+    </div>
+  </div>
+  <div class="furnace-body">
+    <div class="furnace-entry">
+      <div class="furnace-header">
+        @PE.HMIWWW.Core.Resources.VM_Resources.NAME_Entry
+      </div>
+      <div class="zone-body"></div>
+    </div>
+    <div class="furnace-middle">
+      <div class="furnace-header">
+        @PE.HMIWWW.Core.Resources.VM_Resources.NAME_Furnace
+      </div>
+      <div class="zone-body"></div>
+    </div>
+    <div class="furnace-exit">
+      <div class="furnace-header f-sm">
+        @PE.HMIWWW.Core.Resources.VM_Resources.NAME_Exit
+      </div>
+      <div class="zone-body"></div>
+    </div>
+  </div>
+</div>
+
+
+<!--INFO PANEL BEGIN-->
+  <div class="info-pane">
+      <div class="popupContainer" style="margin:0px; height:100%;  font-family: Segoe UI, Arial, sans-serif;">
+          <div id="header" class="popup-header">
+              
+              <div class="popup-header-title">
+                  @PE.HMIWWW.Core.Resources.VM_Resources.NAME_Info
+              </div>             
+          </div>
+          <div class="container mb-4">
+              <div class="row form-group">
+                  <div class="col text-right align-self-center">
+                      <label>@PE.HMIWWW.Core.Resources.VM_Resources.NAME_RawMaterialName</label>
+                  </div>
+                  <div class="col">
+                      <span id="lbl_rawname"></span>
+                  </div>
+              </div>
+
+              <div class="row form-group">
+                  <div class="col text-right align-self-center">
+                      <label>@PE.HMIWWW.Core.Resources.VM_Resources.NAME_WorkOrderName</label>
+                  </div>
+                  <div class="col">
+                      <span id="lbl_woname"></span>
+                  </div>
+              </div>
+              <div class="row form-group">
+                  <div class="col text-right align-self-center">
+                      <label>@PE.HMIWWW.Core.Resources.VM_Resources.NAME_HeatName</label>
+                  </div>
+                  <div class="col">
+                      <span id="lbl_heat"></span>
+                  </div>
+              </div>
+              <div class="row form-group">
+                  <div class="col text-right align-self-center">
+                      <label>@PE.HMIWWW.Core.Resources.VM_Resources.NAME_Steelgrade</label>
+                  </div>
+                  <div class="col">
+                      <span id="lbl_steelgrade"></span>
+                  </div>
+              </div>
+              <div class="row form-group">
+                  <div class="col text-right align-self-center">
+                      <label>@PE.HMIWWW.Core.Resources.VM_Resources.NAME_NumberOfBilletsInWorkOrder</label>
+                  </div>
+                  <div class="col">
+                      <span id="lbl_heat"></span>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+  <!--INFO PANEL END-->

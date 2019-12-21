@@ -1,0 +1,11 @@
+﻿@model List<PE.HMIWWW.ViewModel.System.VM_WidgetConfigurations>
+
+@{ 
+	foreach(PE.HMIWWW.ViewModel.System.VM_WidgetConfigurations element in Model)
+	{
+		if (element.Active == true)
+		{
+			Html.RenderPartial("~/Views/Shared/Widget/" + element.WidgetFileName +".cshtml");
+		}
+	}
+}

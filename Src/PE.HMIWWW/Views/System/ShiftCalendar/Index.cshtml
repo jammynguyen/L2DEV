@@ -1,0 +1,164 @@
+﻿
+@model PE.HMIWWW.Services.ViewModel.VM_ShiftCalendar
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+	function RefreshData() {
+    	$("#scheduler").data("kendoScheduler").dataSource.read();
+    	$("#scheduler").data("kendoScheduler").refresh();
+	}
+
+</script>
+<script src="@Url.Content("~/Scripts/shiftcalendar.js")" type="text/javascript"></script>
+
+@section module_menu
+{
+	@*@Html.ImageButton("generateForWeek", "GenerateForNextWeek()", false)*@
+}
+
+
+@(Html.Kendo().Scheduler<PE.HMIWWW.Services.ViewModel.VM_ShiftCalendarElement>()
+        .Name("scheduler")
+        .Date(DateTime.Today)
+        .StartTime(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-1))
+        .Height((int)ViewBag.FullGridHeight)
+        .Views(views =>
+        {
+            views.DayView();
+            views.WeekView(workWeekView => workWeekView.Selected(true)).ShowWorkHours().Footer(false);
+            //views.MonthView();
+            //views.AgendaView();
+        })
+        .ShowWorkHours(false)
+        .WorkDayStart(0, 0, 0)
+        .WorkDayEnd(0, 0, 0)
+        .Selectable(true)
+        .EventTemplate(
+           "<div class='event-template #if(IsActualShift == true){ #actual-shift#}#' >" +
+                   "<p align='center'>" +
+                           "#= kendo.toString(start, 'HH:mm') # - #= kendo.toString(end, 'HH:mm') #" +
+                   "</p>" +
+                   "<h3 align='center' style='color: white;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; font-size:40px; font-weight:300;'>#= title #</h3>" +
+           "</div>")
+        .Events(e =>
+        {
+            e.Edit("Edit");
+            e.Add("Add");
+            e.Remove("Delete");
+            e.DataBound("onBound");
+
+        })
+         .Editable(editable =>
+         {
+             editable.Confirmation(false);
+             editable.Create(true);
+             editable.Destroy(true);
+             editable.Resize(false);
+             editable.Update(true);
+             editable.Move(false);
+         })
+        .Resources(resource =>
+        {
+            resource.Add(m => m.CrewId)
+              .DataSource(ds => ds.Custom().Schema(a => a.Data("Data").Total("Total").Errors("Errors")).Events(events => events.Error("TelerikErrorHandler")).Transport(z => z.Read(read => read.Action("PrepareCrewData", "ShiftCalendar").Type(HttpVerbs.Post).DataType("json").ContentType("application/json; charset=utf-8"))))
+              .Title(@PE.HMIWWW.Core.Resources.VM_Resources.NAME_Crew)
+                    .DataTextField("Name")
+                    .DataValueField("Id")
+                    .DataColorField("Color");
+
+
+            resource.Add(m => m.IsActualWorkingShift)
+
+                    .Title(@PE.HMIWWW.Core.Resources.VM_Resources.NAME_ActualWorkingShift)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .BindTo(new[] {
+                                new { Text = @PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Name_No, Value = 0 } ,
+                                new { Text = @PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Name_Yes, Value = 1 } ,
+                    });
+            resource.Add(m => m.IsActualShift)
+
+                .Title(@PE.HMIWWW.Core.Resources.VM_Resources.NAME_ActualShift)
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .BindTo(new[] {
+                                new { Text = @PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Name_No, Value = 0 } ,
+                                new { Text = @PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Name_Yes, Value = 1 } ,
+                });
+            resource.Add(m => m.ShiftDefinitionId)
+
+                .Title(@PE.HMIWWW.Core.Resources.VM_Resources.NAME_ShiftDefinition)
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .BindTo(new[] {
+                                new { Text = @PE.HMIWWW.Core.Resources.VM_Resources.NAME_Day, Value = 2 } ,
+                                new { Text = @PE.HMIWWW.Core.Resources.VM_Resources.NAME_Afternoon , Value = 3 } ,
+                                new { Text = @PE.HMIWWW.Core.Resources.VM_Resources.NAME_Night, Value = 5 } ,
+                });
+        })
+        .DataSource(d => d
+                .Model(m =>
+                {
+                    m.Id(f => f.ShiftCalendarId);
+                    m.Field(f => f.ShiftCode);
+                    m.Field(f => f.Title).DefaultValue(@PE.HMIWWW.Core.Resources.VM_Resources.NAME_NoTitle);
+                    m.Field(f => f.CrewName);
+                    m.Field(f => f.Start);
+                    m.Field(f => f.IsActualWorkingShift).Editable(true);
+                    m.Field(f => f.IsActualShift);
+                    m.Field(f => f.ShiftDefinitionId);
+
+                })
+                .Read("ShiftCalendarData", "ShiftCalendar").Events(events => events.Error("TelerikErrorHandler"))
+
+
+        )
+)
+
+<script>
+	function GenerateForNextWeek() {
+		var url = serverAddress + "/ShiftCalendar/" + "GenerateShiftCalendarsForNextWeek" ;
+		AjaxReqestHelper(url, null, RefreshData, RefreshData);
+	}
+
+	function Edit(e) {
+        e.preventDefault();
+
+        OpenInPopupWindow({
+            controller: 'ShiftCalendar',
+            method: 'EditShiftCalendarDialog',
+            data: { id: e.event.ShiftCalendarId },
+            afterClose: RefreshDataShiftCal
+        });
+	}
+	function Add(e) {
+		e.preventDefault();
+		var date = $("#scheduler").data("kendoScheduler")._selection.end.toISOString().substring(0, 10).replace('T', ' ');
+
+        OpenInPopupWindow({
+            controller: 'ShiftCalendar',
+            method: 'AddShiftCalendarDialog',
+            data: { id: date },
+            afterClose: RefreshDataShiftCal
+        });
+	}
+
+	function Delete(e) {
+		e.preventDefault();
+		var functionName = Delete2Confirm;
+		var action = 'DeleteShiftCalendarElement';
+		PromptMessage("@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmDelete", "@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ConfirmDeleteInfo", function () { return functionName(e.event.ShiftCalendarId, action) });
+	}
+
+	function Delete2Confirm(itemId, action) {
+		var url = serverAddress + "/ShiftCalendar/" + action;
+		var data = { Id: itemId };
+        AjaxReqestHelper(url, data, RefreshDataShiftCal);
+    }
+    function onBound() {
+        $('.actual-shift').parent().css({ 'border': '1.6px solid red' });
+    }
+</script>

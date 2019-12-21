@@ -1,0 +1,43 @@
+﻿.edit-button,
+.edit-button:hover {
+	border: none;
+	background-color: transparent !important;
+}
+
+	.edit-button > span {
+		background-image: url('/Content/functions/small/edit.png');
+	}
+
+	.edit-button:hover > span {
+		background-image: url('/Content/functions/small/edit_hover.png');
+	}
+
+.k-grid-cancel:hover > span {
+	content: url('/Content/functions/small/cancel_hover.png');
+}
+
+.k-grid-update > span {
+	content: url('/Content/functions/small/confirm.png');
+}
+
+.k-grid-cancel > span {
+	content: url('/Content/functions/small/cancel.png');
+}
+
+.k-grid-update:hover > span {
+	content: url('/Content/functions/small/confirm_hover.png');
+}
+
+.k-grid-cancel:hover > span {
+	content: url('/Content/functions/small/cancel_hover.png');
+}
+
+.k-button-icontext.k-grid-cancel:hover,
+.k-button-icontext.k-grid-update:hover {
+	border: none;
+	background-color: transparent !important;
+}
+
+.k-grid tbody button.k-button {
+	min-width: 13px;
+}

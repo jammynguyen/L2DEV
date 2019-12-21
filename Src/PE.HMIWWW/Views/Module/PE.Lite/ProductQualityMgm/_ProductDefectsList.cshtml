@@ -1,0 +1,70 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Products.VM_ProductsOverview
+
+
+<style>
+    .productQualityText{
+        padding: 5px;
+        font-size: 18px;
+        color: #006487;
+        font-weight: 500;
+    }
+</style>
+
+    <div class="productQualityText" id="productQualityText">
+    </div>
+
+
+@(
+    Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Quality.VM_ProductDefect>
+    ()
+    .Name("DefectsList")
+    .HtmlAttributes(new { @style = "height: 616px;" })
+    .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+    .Sortable()
+    .Filterable()
+    .Selectable()
+    .Scrollable()
+    .Pageable(p => p
+    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+    .Columns(c =>
+    {
+    c.Bound(x => x.ProductId).Visible(false);
+    c.Bound(x => x.DefectId).Visible(false);
+    c.Bound(x => x.DefectCatalogueCode);
+    c.Bound(x => x.DefectCatalogueName);
+    c.Bound(x => x.DefectCreated).Format(PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ShortDateTime_FORMAT).Sortable(true);
+    })
+    .DataSource(d => d
+    .Ajax()
+    .ServerOperation(true)
+    .PageSize(20)
+    .Read(r => r.Action("GetDefectsByProductId", "ProductQualityMgm", new { productId = Model.ProductId }))
+    )
+)
+
+<script>
+
+    $(document).ready(function () {
+
+        let qualityKey = '@Model.QualityEnumKey';
+        let quality = '@VM_Resources.NAME_Quality';
+
+        let qualitiesEnum = GetQualityList();
+        let qualityName = qualitiesEnum[qualityKey];
+
+        let qualityNameText = document.createElement('div');
+        qualityNameText.innerHTML = quality + ': ' + qualityName;
+        $('#productQualityText').append(qualityNameText);
+
+
+    });
+
+    function GetQualityList(options) {
+
+        let data = AjaxGetDataHelper(URL("ProductQualityMgm", "GetProductQualities"));
+
+        return data;
+    }
+
+
+</script>

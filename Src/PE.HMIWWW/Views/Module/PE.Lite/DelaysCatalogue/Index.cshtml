@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_DelaysCatalogue_Index;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+@Scripts.Render("~/bundles/module/delayCatalogue")
+
+@section module_menu
+{
+    @Html.ImageButton("new", "AddDelayCataloguePopup()", false)
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Delay.VM_DelayCatalogue>()
+                .Name("DelayCatalogueList")
+                .HtmlAttributes(new { style = @String.Format(" height:{0}px;", ViewBag.FullGridHeight) })
+                .Scrollable()
+                .Pageable(p => p
+                    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                .Filterable()
+                .Columns(c =>
+                {
+                    c.Bound(x => x.Id)
+                    .Visible(false);
+                    c.Bound(x => x.DelayCode).Width(200);
+                    c.Bound(x => x.DelayName).Width(200);
+                    c.Bound(x => x.DelayDescription);
+                    c.Bound(x => x.DelayCategory).Width(200);
+                    c.Bound(x => x.StdDelayTime).Width(200);
+                    c.Bound(x => x.Id)
+                     .Filterable(false)
+                        //.ClientTemplate(Html.ImageButton("edit", "OpenUrlInPopupWindow('/DelaysCatalogue/DelayCatalogueEditPopup', 600, null, { delayCatalogueId: #= Id # }, function(){ refreshKendoGrid('DelayCatalogueList') });").ToString())
+                     .ClientTemplate(Html.ImageButton("edit", "EditDelayCataloguePopup(#:Id#)").ToString()
+                     + Html.ImageButton("delete", "Delete(#=Id#)",false).ToString())
+                     .Width(65)
+                     .Title(String.Empty);
+                })
+                .DataSource(ds => ds
+                                    .Ajax()
+                                    .ServerOperation(true)
+                                    .PageSize(30)
+                                    .Events(e => e.Error("TelerikErrorHandler"))
+                                    .Read(r => r.Action("GetDelayCatalogueList", "DelaysCatalogue"))
+                           )
+)
+

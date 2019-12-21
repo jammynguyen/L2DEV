@@ -1,0 +1,79 @@
+﻿p.wdog-param-list {
+padding:0px;
+line-height:6px;
+font-size:14px;
+}
+
+
+
+#wdog-table {
+	font-size:14px;
+	border-width: 1px;
+	border-color: #b2b2b2;
+	border-collapse: collapse;
+}
+    #wdog-table th {
+        border-width: 1px;
+        padding: 6px;
+        border-style: solid;
+        border-color: #b2b2b2;
+        margin: 0px;
+        color: #ffffff;
+        background-color: #006487;
+        font-weight: normal;
+    }
+#wdog-table td {
+	border-width: 1px;
+	padding: 4px;
+	border-style: solid;
+	border-color: #b2b2b2;
+    margin:0px;
+}
+.wdog-alive {
+    background-image:url('../img/process-alive.png');
+    background-repeat:no-repeat;
+    background-position-y:9px;
+    background-position-x:3px;
+}
+.wdog-not-alive {
+    background-image:url('../img/prcoess-dead.png');
+    background-repeat:no-repeat;
+    background-position-y:9px;
+    background-position-x:3px;
+}
+.wdog-wd {
+    background-image:url('../img/process-ok.png');
+    background-repeat:no-repeat;
+    background-position-y:9px;
+    background-position-x:3px;
+}
+.wdog-not-wd
+{
+    background-image:url('../img/process-no-ok.png');
+    background-repeat:no-repeat;
+    background-position-y:9px;
+    background-position-x:3px;
+}
+
+a.wdog-control {
+    padding:1px;
+    padding-right:6px;
+    padding-left:6px;
+    color:#fff;
+    background-color:#889baa;
+    border:1px solid #62798b;
+}
+a.wdog-control:hover {
+    background-color:#e5eaf0;
+    color:#3d3d3d;
+}
+
+.hover { background-color: #889baa; }
+
+
+.wdog-col-2 {
+    text-align:center;
+}
+.wdog-col-3 {
+    text-align:center;
+}

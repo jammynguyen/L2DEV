@@ -1,0 +1,97 @@
+﻿
+/*defects table*/
+.checkboxList {
+    /*margin: 20px;*/
+    height: auto;
+    width: 100%;
+    overflow: auto;
+}
+
+.defect {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 50%;
+    background-color: #fafafa;
+}
+
+.code {
+    border-right: 1px solid #e3e3e3;
+}
+
+.title {
+    font-weight: 500;
+    background-color: #006487;
+    color: #fff;
+    height: 35px;
+}
+
+.description {
+    text-align: center;
+}
+
+
+.qualitySettingsPanel {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #dfdfdf;
+}
+
+.settingsPanelTitle{
+    text-align: center;
+    color: #006487;
+    font-size: 20px;
+    padding: 15px 0;
+    font-weight: 500;
+}
+
+.productQuality {
+    border: 1px solid #dfdfdf;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+}
+
+.productDefects {
+    border: 1px solid #dfdfdf;
+    padding-top: 20px;
+    background-color: #fafafa;
+}
+
+.qualitiesList {
+    /*margin-left: 20px;*/
+}
+
+.frameTitle {
+    font-size: 18px;
+    color: #006487;
+    text-align: center;
+    font-weight: 500;
+}
+
+.quality-label {
+    font-size: 18px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.checkbox{
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.checkbox:hover {
+    background-color: #fff;
+}
+
+.checkbox input {
+    cursor: pointer;
+}
+

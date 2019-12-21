@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_SteelgradeCatalogue_Index;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+@section module_menu
+{
+    @Html.ImageButton("new", "CreateSteelgradePopup()", false)
+}
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Steelgrade.VM_Steelgrade>()
+    .Name("SteelgradeList")
+    .HtmlAttributes(new { style = @String.Format(" height:{0}px;", ViewBag.FullGridHeight) })
+    .Pageable()
+    .Filterable()
+    .Pageable(p => p
+              .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+    .Columns(c =>
+    {
+        c.Bound(x => x.Id)
+            .Visible(false);
+        c.Bound(x => x.SteelgradeCode).Width(180);
+        c.Bound(x => x.SteelgradeName);
+        c.Bound(x => x.Description).Filterable(false);
+        c.Bound(x => x.GroupCode)
+            .Visible(true)
+            .Filterable(false);
+        c.Bound(x => x.GroupDescription)
+            .Visible(true)
+            .Filterable(false);
+        c.Bound(x => x.Density)
+            .Filterable(false);
+        c.Bound(x => x.QualitySpecification)
+            .Filterable(false);
+        c.Bound(x => x.CommercialGroup)
+            .Filterable(false);
+        c.Bound(x => x.CustomerUseCode)
+            .Filterable(false);
+        c.Bound(x => x.Id)
+            .Filterable(false)
+            .ClientTemplate(Html.ImageButton("edit", "EditSteelgradePopup(#:Id#)").ToString() + Html.ImageButton("details", "GoToDetails(#:Id#)").ToString()
+            + Html.ImageButton("delete", "Delete(#=Id#)",false).ToString())
+            .Width(100)
+            .Title(String.Empty);
+    })
+    .DataSource(ds => ds
+        .Ajax()
+        .ServerOperation(true)
+        .PageSize(30)
+        .Events(e => e.Error("TelerikErrorHandler"))
+        .Read(r => r.Action("GetSteelgradeList", "Steelgrade")))
+)
+
+@Scripts.Render("~/Scripts/Module/steelgrade")
+

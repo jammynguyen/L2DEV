@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5A8B29E8-E78F-4A25-A509-CF6F5ABA462E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PE.DTO</RootNamespace>
+    <AssemblyName>PE.DTO</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="External\Adapter\DCHeaderExt.cs" />
+    <Compile Include="External\DBAdapter\DCL3L2WorkOrderDefinitionExt.cs" />
+    <Compile Include="External\DBAdapter\DCWorkOrderStatusExt.cs" />
+    <Compile Include="External\DBAdapter\L2L3WorkOrderReportExt.cs" />
+    <Compile Include="External\MVHistory\DCDefaultExt.cs" />
+    <Compile Include="External\MVHistory\DCL1BasIdRequestExt.cs" />
+    <Compile Include="External\MVHistory\DCL1CutDataExt.cs" />
+    <Compile Include="External\MVHistory\DCL1EventExt.cs" />
+    <Compile Include="External\MVHistory\DCL1MaterialDivisionExt.cs" />
+    <Compile Include="External\MVHistory\DCL1MaterialFinishedExt.cs" />
+    <Compile Include="External\MVHistory\DCL1ScrapDataExt.cs" />
+    <Compile Include="External\MVHistory\DCMeasDataExt.cs" />
+    <Compile Include="External\MVHistory\DCMeasDataSampleExt.cs" />
+    <Compile Include="External\MVHistory\DCPEBasIdExt.cs" />
+    <Compile Include="External\MVHistory\DCSampleExt.cs" />
+    <Compile Include="External\Setup\DCCommonSetupStructureExt.cs" />
+    <Compile Include="External\Setup\DCL1TelegramSetupExt.cs" />
+    <Compile Include="External\Setup\DCTCPSetpointTelegramEnvelopeExt.cs" />
+    <Compile Include="Internal\Adapter\DCL3L2WorkOrderDefinition.cs" />
+    <Compile Include="Internal\Adapter\DCWorkOrderStatus.cs" />
+    <Compile Include="Internal\Adapter\L2L3WorkOrderReport.cs" />
+    <Compile Include="Internal\Delay\DCDelay.cs" />
+    <Compile Include="Internal\Delay\DCDelayCatalogue.cs" />
+    <Compile Include="Internal\Delay\DCDelayEvent.cs" />
+    <Compile Include="Internal\Delay\DCDelaysToMerge.cs" />
+    <Compile Include="Internal\Delay\DCDelayToDivide.cs" />
+    <Compile Include="Internal\Maintenance\DCEquipment.cs" />
+    <Compile Include="Internal\Maintenance\DCEquipmentAccu.cs" />
+    <Compile Include="Internal\Maintenance\DCEquipmentGroup.cs" />
+    <Compile Include="Internal\ProdManager\DCMaterial.cs" />
+    <Compile Include="Internal\Quality\DCDefectCatalogue.cs" />
+    <Compile Include="Internal\MVHistory\DCL1BasIdRequest.cs" />
+    <Compile Include="Internal\MVHistory\DCL1CutData.cs" />
+    <Compile Include="Internal\MVHistory\DCL1L3MaterialConnector.cs" />
+    <Compile Include="Internal\MVHistory\DCL1MaterialDivision.cs" />
+    <Compile Include="Internal\MVHistory\DCL1MaterialFinished.cs" />
+    <Compile Include="Internal\MVHistory\DCL1ScrapData.cs" />
+    <Compile Include="Internal\MVHistory\DCMaterialAssign.cs" />
+    <Compile Include="Internal\MVHistory\DCMaterialMarkedAsScrap.cs" />
+    <Compile Include="Internal\MVHistory\DCAssetEventData.cs" />
+    <Compile Include="Internal\MVHistory\DCMeasData.cs" />
+    <Compile Include="Internal\MVHistory\DCMeasDataParcel.cs" />
+    <Compile Include="Internal\MVHistory\DCMeasDataSample.cs" />
+    <Compile Include="Internal\MVHistory\DCNewMaterialStatus.cs" />
+    <Compile Include="Internal\MVHistory\DCPEBasId.cs" />
+    <Compile Include="Internal\MVHistory\DCSample.cs" />
+    <Compile Include="Internal\MVHistory\DCFeatureRelatedOperationData.cs" />
+    <Compile Include="Internal\MVHistory\DCTriggerData.cs" />
+    <Compile Include="Internal\ProdManager\DCHeat.cs" />
+    <Compile Include="Internal\ProdManager\DCMaterialCatalogue.cs" />
+    <Compile Include="Internal\MVHistory\DCMaterialProductionEnd.cs" />
+    <Compile Include="Internal\ProdManager\DCProductCatalogue.cs" />
+    <Compile Include="Internal\ProdManager\DCProductData.cs" />
+    <Compile Include="Internal\ProdManager\DCSteelgrade.cs" />
+    <Compile Include="Internal\ProdManager\DCWorkOrder.cs" />
+    <Compile Include="Internal\ProdManager\DCWorkOrdersList.cs" />
+    <Compile Include="Internal\ProdManager\DCRawMaterialData.cs" />
+    <Compile Include="Internal\Quality\DCQualityAssignment.cs" />
+    <Compile Include="Internal\RollShop\DCCassetteData.cs" />
+    <Compile Include="Internal\RollShop\DCCassetteTypeData.cs" />
+    <Compile Include="Internal\RollShop\DCGrooveTemplateData.cs" />
+    <Compile Include="Internal\RollShop\DCRollChangeOperationData.cs" />
+    <Compile Include="Internal\RollShop\DCRollData.cs" />
+    <Compile Include="Internal\RollShop\DCRollGroovesHistoryData.cs" />
+    <Compile Include="Internal\RollShop\DCRollGroovesHistoryStatus.cs" />
+    <Compile Include="Internal\RollShop\DCRollsAcc.cs" />
+    <Compile Include="Internal\RollShop\DCRollSetAccumulationData.cs" />
+    <Compile Include="Internal\RollShop\DCRollSetData.cs" />
+    <Compile Include="Internal\RollShop\DCRollSetGrooveSetup.cs" />
+    <Compile Include="Internal\RollShop\DCRollSetHistoryData.cs" />
+    <Compile Include="Internal\RollShop\DCRollSetToCassetteAction.cs" />
+    <Compile Include="Internal\RollShop\DCRollTypeData.cs" />
+    <Compile Include="Internal\RollShop\DCStandConfiguration.cs" />
+    <Compile Include="Internal\RollShop\Structure\SingleGrooveSetup.cs" />
+    <Compile Include="Internal\RollShop\Structure\SingleRollDataInfo.cs" />
+    <Compile Include="Internal\Schedule\DCL3MaterialForRawMaterial.cs" />
+    <Compile Include="Internal\Schedule\DCTestSchedule.cs" />
+    <Compile Include="Internal\Schedule\DCWorkOrderToSchedule.cs" />
+    <Compile Include="Internal\Setup\DCCommonSetupStructure.cs" />
+    <Compile Include="Internal\Setup\DCTelegramSetup.cs" />
+    <Compile Include="Internal\Setup\DCTelegramSetupId.cs" />
+    <Compile Include="Internal\Setup\DCTelegramSetupValue.cs" />
+    <Compile Include="Internal\System\DCTestData.cs" />
+    <Compile Include="Internal\TcpProxy\Configuration\ListenerCollection.cs" />
+    <Compile Include="Internal\TcpProxy\Configuration\ListenerElement.cs" />
+    <Compile Include="Internal\TcpProxy\Configuration\ListenerSection.cs" />
+    <Compile Include="Internal\TcpProxy\Configuration\SenderCollection.cs" />
+    <Compile Include="Internal\TcpProxy\Configuration\SenderElement.cs" />
+    <Compile Include="Internal\TcpProxy\Configuration\SenderSection.cs" />
+    <Compile Include="Internal\ZebraPrinter\DCZebraRequest.cs" />
+    <Compile Include="Internal\ZebraPrinter\DCZebraResponse.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.Core, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.Core.2.4.165\lib\net461\SMF.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SMF.Module, Version=2.4.165.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SMF.Module.2.4.165\lib\net461\SMF.Module.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PE.DbEntity\PE.DbEntity.csproj">
+      <Project>{0ca28630-444c-4678-a2dd-05111132c899}</Project>
+      <Name>PE.DbEntity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+</Project>

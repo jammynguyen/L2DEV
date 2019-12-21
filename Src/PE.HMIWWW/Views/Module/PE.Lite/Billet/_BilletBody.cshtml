@@ -1,0 +1,20 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Material.VM_MaterialCatalogue
+
+<div class="row h-100">
+    <div class="col">
+        @(Html.Kendo().TabStrip()
+            .Name("BilletBody")
+            .Animation(false)
+            .Scrollable(false)
+            .Items(tabstrip =>
+            {
+            tabstrip.Add().Text(VM_Resources.NAME_MaterialDetails)
+                .Selected(true).Content(@Html.Partial("~/Views/Module/PE.Lite/Billet/_BilletDetails.cshtml", Model).ToHtmlString()).ContentHtmlAttributes(new { @class = "partialHeight" });
+            })
+            .Events(e =>
+            {
+                e.Select("saveTabStripState");
+            })
+        )
+    </div>
+</div>

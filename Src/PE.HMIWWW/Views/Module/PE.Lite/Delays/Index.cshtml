@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_Delays_Index;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+@Scripts.Render("~/bundles/module/delay")
+
+@(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.Delay.VM_Delay>()
+                .Name("DelayList")
+                .HtmlAttributes(new { style = @String.Format(" height:{0}px;", ViewBag.FullGridHeight) })
+                .Pageable(p => p
+                    .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                .Filterable()
+                .Scrollable()
+                .Sortable()
+                .Columns(c =>
+                {
+                    c.Bound(x => x.Id)
+                    .Visible(false);
+                    c.Bound(x => x.DelayStart).Width(200).Format(PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ShortDateTime_FORMAT);
+                    c.Bound(x => x.DelayEnd).Width(200).Format(PE.HMIWWW.Core.Resources.VM_Resources.GLOB_ShortDateTime_FORMAT);
+                    //c.Bound(x => x.Duration.Value.TotalSeconds).Width(100);
+                    c.Bound(x => x.DurationInSeconds).Width(100).Sortable(false).Filterable(false);;
+                    c.Bound(x => x.DelayCatalogue).Width(100).Sortable(false).Filterable(false);
+                    c.Bound(x => x.IsPlanned).Width(80);
+                    c.Bound(x => x.UserComment).Width(180);
+                    c.Bound(x => x.Id)
+                     .Filterable(false)
+                     //.ClientTemplate(Html.ImageButton("edit", "OpenUrlInPopupWindow('/DelaysCatalogue/DelayCatalogueEditPopup', 600, null, { delayCatalogueId: #= Id # }, function(){ refreshKendoGrid('DelayCatalogueList') });").ToString())
+                     .ClientTemplate(Html.ImageButton("edit", "DelayEditPopup(#:Id#)").ToString() + Html.ImageButton("delay_split", "DelayDividePopup(#:Id#)").ToString())
+                     .Width(30)
+                     .Title(String.Empty);
+                })
+                .DataSource(ds => ds
+                                    .Ajax()
+                                    .Sort(sort => sort.Add(x=>x.DelayStart).Ascending())
+                                    .ServerOperation(true)
+                                    .PageSize(27)
+                                    .Events(e => e.Error("TelerikErrorHandler"))
+                                    .Read(r => r.Action("GetDelayList", "Delays"))
+                           )
+)

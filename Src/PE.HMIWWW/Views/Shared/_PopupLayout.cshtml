@@ -1,0 +1,72 @@
+﻿
+
+<script>
+
+    $(document).ajaxComplete(function (event, request, settings) {
+        //re-parse the DOM after Ajax to enable client validation for any new form fields that have it enabled
+        $.validator.unobtrusive.parse(document);
+    });
+    function TelerikErrorHandler(e) {
+        window.parent.TelerikErrorHandler(e);
+    }
+
+    jQuery.extend(jQuery.validator.methods, {
+        date: function (value, element) {
+            return this.optional(element) || kendo.parseDate(value) != null;
+        },
+        number: function (value, element) {
+            return this.optional(element) || kendo.parseFloat(value) != null;
+        }
+    });
+
+    $(document).ready(function () {
+        //FORM VALIDATION AND BUTTON DISABLE
+        $('#form').on('submit', function () {
+            if ($('#form').valid()) {
+                console.log('Validation PASSED');
+                $('.formButtonSubmit').attr("disabled", true);
+            }
+        });
+
+        var $dragging = null;
+        var $top_offset = 0;
+        $(document.body).on("mousemove", function (e) {
+            if ($dragging) {
+                $dragging.offset({
+                    top: e.pageY,
+                    left: e.pageX - $top_offset
+                });
+            }
+        });
+
+
+        $(document.body).on("mousedown", ".popup-header", function (e) {
+            $dragging = $('.popup_cont');
+            //$top_offset = e.pageX - this.offsetLeft;
+            var offset = $(this).offset();
+            $top_offset = e.pageX - offset.left;
+        });
+
+        $(document.body).on("mouseup", function (e) {
+            $dragging = null;
+        });
+    });
+
+</script>
+
+
+<div class="popupContainer" id="formContainer" style="margin:0px; height:100%;  font-family: Segoe UI, Arial, sans-serif;">
+    <div id="header" class="popup-header">
+        <div id="popup-footer" class="popup-footer">
+        </div>
+        <div class="popup-header-img">
+        </div>
+        <div class="popup-header-title">
+            @ViewBag.Page_Title
+        </div>
+    </div>
+    <div class="container pb-2">
+        @RenderBody()
+    </div>
+</div>
+

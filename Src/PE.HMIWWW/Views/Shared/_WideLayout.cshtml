@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Page_Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @{Html.RenderPartial("~/Views/Shared/_LayoutIncludes.cshtml"); }
+    @RenderSection("scripts", required: false)
+    @RenderSection("ModuleIncludes", required: false)
+</head>
+<body>
+	@{ Html.RenderPartial("~/Views/Shared/Notification/_Notification.cshtml"); }
+
+
+	@(Html.Kendo().Splitter()
+.Name("vertical")
+.Orientation(SplitterOrientation.Vertical)
+.HtmlAttributes(new { style = "height: 1062px; border:0px;" })
+.Panes(verticalPanes =>
+{
+verticalPanes.Add()
+		.Size("68px")
+		.HtmlAttributes(new { id = "top-pane" })
+		.Resizable(false)
+		.Collapsible(false)
+		.Content(@Html.Partial("~/Views/Shared/parts/_TopPane.cshtml").ToHtmlString());
+
+verticalPanes.Add()
+					.HtmlAttributes(new { id = "main-pane" })
+					.Scrollable(false)
+					.Collapsible(false)
+					.Content(
+						Html.Kendo().Splitter()
+								.Name("horizontal")
+								.HtmlAttributes(new { style = "height: 100%;" })
+								.Panes(horizontalPanes =>
+								{
+									
+
+							 horizontalPanes.Add()
+							.HtmlAttributes(new { id = "center-pane" })
+							.MaxSize("550px")
+							.MinSize("550px")
+							.Scrollable(false)
+							.Resizable(false)
+							.Content(@<div><div class="module-header" style="@ViewBag.Page_Icon">@ViewBag.Page_Title<div style="clear: both;"></div></div> <div class="pane-content"> @RenderBody()</div></div>);
+
+								}).ToHtmlString()
+								);
+
+	verticalPanes.Add()
+	.Size("130px")
+	.MaxSize("225px")
+	.MinSize("130px")
+	.Collapsible(true)
+	.HtmlAttributes(new { id = "bottom-pane" })
+	.Collapsible(false)
+	.Content(Html.Partial("~/Views/Shared/Alarm/_LastAlarms.cshtml").ToHtmlString());
+
+
+})
+	)
+</body>
+
+</html>

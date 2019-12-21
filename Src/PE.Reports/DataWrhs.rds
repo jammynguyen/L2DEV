@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="DataWrhs">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=148.56.68.169;Initial Catalog=PE_Lite_DW</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>c3fa8386-7d75-4906-97e6-379b31bb6f0c</DataSourceID>
+</RptDataSource>

@@ -1,0 +1,66 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.RollsetManagement.VM_RollSetOverviewFull
+@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_RollsManagement_EditRollDialog;
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@using (Ajax.BeginForm("DisassembleRollSet", "RollSetManagement", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.UpperRollId)
+    @Html.HiddenFor(model => model.BottomRollId)
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.RollSetName)</label>
+        </div>
+        <div class="col">
+            <label>@Html.DisplayFor(x => x.RollSetName)</label>
+            @*@Html.Kendo().TextBoxFor(x => x.RollSetName).HtmlAttributes(new { @class = "form-control form-control-sm" })
+        @Html.ValidationMessageFor(x => x.RollSetName)*@
+        </div>
+    </div>
+
+
+    <hr />
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.GLOB_Form_Button_Save
+            </button>
+        </div>
+    </div>
+}
+
+<script>
+    //$.validator.unobtrusive.parse("#form");
+
+    $(function () {
+
+        $('#error').css("display", "none");
+        $("#form").kendoValidator().data("kendoValidator");
+
+    });
+
+    function displayMessage() {
+
+        var validator = $("#form").kendoValidator().data("kendoValidator");
+
+        if (validator.validate()) {
+            $('#error').css("display", "none");
+        } else {
+            $('#error').css("display", "block");
+            $('#popup-footer')
+                .css('display', 'block')
+                .css('background-color', 'rgb(206, 0, 55)');
+        }
+    };
+
+</script>

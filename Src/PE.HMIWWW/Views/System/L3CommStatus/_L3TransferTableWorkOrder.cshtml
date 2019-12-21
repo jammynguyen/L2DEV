@@ -1,0 +1,50 @@
+﻿
+@(
+                    Html.Kendo().Grid<PE.HMIWWW.ViewModel.System.VM_L3L2WorkOrderDefinition>()
+                    .Name("L3TransferTableWorkOrder")
+                    .NoRecords(VM_Resources.GLOB_GRID_NO_DATA)
+                    .Scrollable()
+                    .Sortable()
+                    .Filterable()
+                    .Pageable(p => p
+                        .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+                    .HtmlAttributes(new { style = @String.Format("height:{0}px;", ((int)ViewBag.FullGridHeight)-50) })
+                    .Columns(c =>
+                    {
+                        c.Bound(x => x.CounterId).Width(20).Visible(false);
+                        c.Bound(x => x.WorkOrderNameStatus).Width(50).Visible(true);
+                        c.Bound(x => x.CreatedTs).Width(25).Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+                        c.Bound(x => x.CommStatus).Width(15);
+                        c.Bound(x => x.WorkOrderName).Width(30);
+                        c.Bound(x => x.HeatName).Width(25);
+                        c.Bound(x => x.ProductName).Width(30);
+                        c.Bound(x => x.CreatedInL3).Width(25).Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+                        c.Bound(x => x.ToBeCompletedBefore).Width(27).Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+                        c.Bound(x => x.TargetOrderWeight).Width(20);
+                        c.Bound(x => x.TargetOrderWeightMin).Width(20);
+                        c.Bound(x => x.TargetOrderWeightMax).Width(20);
+                        c.Bound(x => x.RawMaterialNumber).Width(20).Visible(false);
+                        c.Bound(x => x.RawMaterialShapeType).Width(20).Visible(false);
+                        c.Bound(x => x.RawMaterialThickness).Width(20).Visible(false);
+                        c.Bound(x => x.RawMaterialWidth).Width(20).Visible(false);
+                        c.Bound(x => x.RawMaterialLength).Width(20).Visible(false);
+                        c.Bound(x => x.RawMaterialWeight).Width(20).Visible(false);
+                        c.Bound(x => x.SteelgradeCode).Width(20).Visible(false);
+                        c.Bound(x => x.ExternalSteelgradeCode).Width(20).Visible(false);
+                        c.Bound(x => x.RawMaterialType).Width(20).Visible(false);
+                        c.Bound(x => x.NextAggregate).Width(20).Visible(false);
+                        c.Bound(x => x.OperationCode).Width(20).Visible(false);
+                        c.Bound(x => x.ReheatingGroupName).Width(20).Visible(false);
+                        c.Bound(x => x.QualityPolicy).Width(20).Visible(false);
+                        c.Bound(x => x.ExtraLabelInformation).Width(20).Visible(false);
+                        c.Bound(x => x.ValidationCheck).Width(60).Visible(false);
+
+                    })
+                    .DataSource(d => d
+                        .Ajax()
+                        .ServerOperation(true)
+                        .PageSize(((int)ViewBag.NoRecordsInGrid))
+                        .PageSize(26)
+                        .Read(r => r.Action("GetL3TransferTableWorkOrderList", "L3CommStatus"))
+                        )
+  )

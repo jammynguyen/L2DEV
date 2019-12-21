@@ -1,0 +1,213 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.RollsetDisplay.VM_RollsetDisplay
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+<style>
+    .h_dotted_ln {
+        border-bottom: 1px dashed black;
+        width: 100%;
+    }
+
+    .h_dotted_right_ln {
+        border-right: 1px dashed black;
+    }
+
+    .h_blank_ln {
+        width: 100%;
+        height: 20px;
+    }
+
+    .v_blank_ln {
+        width: 20px;
+    }
+
+    /*.table-roll-details tr td {
+                border: 1px solid black;
+        }*/
+
+    .table-roll-details label {
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    .table-roll-details td {
+        font-weight: normal;
+        font-style: italic;
+    }
+</style>
+
+
+@if (Model != null && @ViewData.ModelState.IsValid)
+{
+    <script>
+		$(document).ready(function () {
+			var rollCnt = @Model.GrooveActualRollUpper.Count() + 3;
+			var rowCnt = 15;
+			var mainWidth = 350 + (rollCnt - 3) * 140;
+			var mainHeight = 730;
+			ChangePopupSize(mainWidth);
+		})
+    </script>
+}
+@{ int rollCnt = Model.GrooveActualRollUpper.Count() + 3;
+    int rowCnt = 15;
+    int mainWidth = 350 + (rollCnt - 3) * 140;
+    int mainHeight = 730;
+}
+
+
+@using (Ajax.BeginForm("ConfirmRollSetSubmit", "GrindingTurning", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "form-horizontal", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.RollSetId)
+    @Html.HiddenFor(m => m.RollSetName)
+    @Html.HiddenFor(m => m.ActualBottomDiameter)
+    @Html.HiddenFor(m => m.ActualUpperDiameter)
+    @Html.HiddenFor(m => m.ActualUpperRollName)
+    @Html.HiddenFor(m => m.ActualBottomRollName)
+    @Html.HiddenFor(m => m.ActualUpperRollId)
+    @Html.HiddenFor(m => m.ActualBottomRollId)
+    @Html.HiddenFor(m => m.RollSetType)
+    int j;
+    for (j = 0; j < Model.GrooveActualRollBottom.Count(); j++)
+    {
+        @Html.HiddenFor(m => m.GrooveActualRollBottom[j].AccBilletCnt);
+        @Html.HiddenFor(m => m.GrooveActualRollBottom[j].GrooveTemplateName);
+        @Html.HiddenFor(m => m.GrooveActualRollBottom[j].GrooveTemplateId);
+        @Html.HiddenFor(m => m.GrooveActualRollBottom[j].GrooveConfirmed);
+        @Html.HiddenFor(m => m.GrooveActualRollBottom[j].GrooveShortName);
+    }
+    for (j = 0; j < Model.GrooveActualRollUpper.Count(); j++)
+    {
+        @Html.HiddenFor(m => m.GrooveActualRollUpper[j].AccBilletCnt);
+        @Html.HiddenFor(m => m.GrooveActualRollUpper[j].GrooveTemplateName);
+        @Html.HiddenFor(m => m.GrooveActualRollUpper[j].GrooveTemplateId);
+        @Html.HiddenFor(m => m.GrooveActualRollUpper[j].GrooveConfirmed);
+        @Html.HiddenFor(m => m.GrooveActualRollUpper[j].GrooveShortName);
+    }
+
+    <div style="width:@(mainWidth);height:@(mainHeight);">
+        @* Upper Roll*@
+        <table cellspacing="0" cellpadding="0" border="0" class="table-roll-details">
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.RollSetName))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">@Html.DisplayFor(m => m.RollSetName)</td>
+                <td rowspan="@(rowCnt)"><div class="v_blank_ln"></div></td>
+            </tr>
+            @*<tr>
+                    <td align="left"><label>@PE.HMIWWW.Core.Resources.VM_Resources.NAME_GrooveConfirmed</label></td>
+                    <td><div class="v_blank_ln"></div></td>
+                    <td class="h_dotted_right_ln"></td>
+                    @{int i;
+                        for (i = 0; i < Model.GrooveActualRollUpper.Count; i++)
+                        {
+                            <td align="center" class="h_dotted_right_ln">
+                                @Html.CheckBoxFor(m => m.GrooveActualRollUpper[i].GrooveConfirmed)@Html.ValidationMessageFor(m => m.GrooveActualRollUpper[i].GrooveConfirmed)
+                            </td>
+                        }
+                    }
+                    <td></td>
+                </tr>*@
+
+            <tr>
+                <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+            </tr>
+            <tr>
+                <td align="left"></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td align="center"><img src="~/Content/System/img/roll-profille-left.png"></td>
+                @{foreach (PE.HMIWWW.ViewModel.Module.VM_GroovesRoll rollUpper in Model.GrooveActualRollUpper.OrderBy(z => z.GrooveNumber))
+                    {
+                        if (rollUpper.GrooveShortName == "Flat")
+                        {
+                            <td align="center"><img src="~/Content/System/img/roll-profille-full.png"></td>
+                        }
+                        else
+                        {
+                            <td align="center"><img src="~/Content/System/img/roll-profille-rd60.png"></td>
+                        }
+
+                    }
+                }
+                <td align="center"><img src="~/Content/System/img/roll-profille-right.png"></td>
+            </tr>
+            <tr>
+                <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+            </tr>
+
+
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.GrooveTemplateName))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td class="h_dotted_right_ln"></td>
+                @{foreach (PE.HMIWWW.ViewModel.Module.VM_GroovesRoll rollUpper in Model.GrooveActualRollUpper)
+                    {
+                        <td align="center" class="h_dotted_right_ln">@Html.DisplayFor(m => rollUpper.GrooveTemplateName)</td>
+                    }
+                }
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+            </tr>
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.ActualUpperRollName))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">@Html.DisplayFor(m => m.ActualUpperRollName)</td>
+            </tr>
+
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.ActualUpperDiameter))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">@Html.DisplayFor(m => m.ActualUpperDiameter)</td>
+            </tr>
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.NewUpperDiameter))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">
+                    @Html.Kendo().NumericTextBoxFor(m => m.NewUpperDiameter).Spinners(false).Decimals(10).HtmlAttributes(new { style = "width:120px", @maxlength = 10 })@Html.ValidationMessageFor(m => m.NewUpperDiameter)
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td colspan="@(rollCnt + 1)"><div class="h_blank_ln"></div></td>
+            </tr>
+
+            <tr>
+                @* Bottom Roll*@
+                <td align="left"><label>@(Html.LabelFor(m => m.ActualBottomRollName))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">@Html.DisplayFor(m => m.ActualBottomRollName)</td>
+            </tr>
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.ActualBottomDiameter))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">@Html.DisplayFor(m => m.ActualBottomDiameter)</td>
+            </tr>
+            <tr>
+                <td align="left"><label>@(Html.LabelFor(m => m.NewBottomDiameter))</label></td>
+                <td><div class="v_blank_ln"></div></td>
+                <td colspan="@(rollCnt)" align="center">
+                    @Html.Kendo().NumericTextBoxFor(m => m.NewBottomDiameter).Spinners(false).Decimals(10).HtmlAttributes(new { style = "width:120px", @maxlength = 10 })@Html.ValidationMessageFor(m => m.NewBottomDiameter)
+                </td>
+            </tr>
+
+
+        </table>
+    </div>
+    <hr />
+
+
+    <input type="submit" name="submit" class="btn btn-primary popup_button" value="@PE.HMIWWW.Core.Resources.VM_Resources.GLOB_Form_Button_Save" />
+}
+
+
+<script>
+    function ChangePopupSize(mainWidth) {
+        $(".popup_content").width(mainWidth);
+    }
+</script>

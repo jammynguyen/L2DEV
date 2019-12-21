@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_Schedule_Index;
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+@section module_menu
+{<div class="row float-left" style="margin-right: 5px;">
+    <div class="square-blue"></div>
+    <div class="legend">@VM_Resources.NAME_Planned</div>
+    <div class="square-green"></div>
+    <div class="legend">@VM_Resources.NAME_InProduction</div>
+    @Html.ImageButton("add", "GoToUnasignedWorkOrder()", false)
+</div>
+}
+
+<div>
+    @(Html.Kendo().Grid<PE.HMIWWW.ViewModel.Module.Lite.WorkOrder.VM_WorkOrderSummary>()
+        .Name("ScheduleList")
+        .Events(e => e.DataBound("ColorRowInTable"))
+        .HtmlAttributes(new { style = @String.Format(" height:{0}px;", ViewBag.FullGridHeight) })
+        .Filterable()
+        .Pageable(p => p
+            .Messages(m => m.Display(VM_Resources.GLOB_pagination)))
+        .Scrollable()
+        .Columns(c =>
+        {
+           c.Bound(x => x.WorkOrderId)
+            .Visible(false);
+           c.Bound(x => x.ScheduleId)
+            .Visible(false);
+           c.Bound(x => x.WorkOrderName)
+            .Width(180);
+           c.Bound(x => x.ProductCatalogueName)
+            .Width(160);
+           c.Bound(x => x.MaterialCatalogueName)
+            .Width(160);
+           c.Bound(x => x.ScheduleOrderSeq)
+            .Width(170);
+           c.Bound(x => x.SteelgradeCode)
+           .Width(170);
+           c.Bound(x => x.PlannedStartTime)
+            .Width(190)
+            .Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+           c.Bound(x => x.PlannedEndTime)
+            .Width(190)
+            .Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+           c.Bound(x => x.CreatedInL3)
+            .Width(160)
+            .Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+           c.Bound(x => x.ToBeCompletedBefore)
+            .Width(160)
+            .Format(VM_Resources.GLOB_LongDateTime_FORMAT);
+           c.Bound(x => x.Progress)
+            .Width(170);
+           c.Bound(p => p.ScheduleId).Width(140).Sortable(false).Groupable(false).Filterable(false).Title("")
+                       .ClientTemplate(@Html.ImageButton("new", "createTestSchedule(#=ScheduleId#)", false).ToString()
+                       + @Html.ImageButton("up", "moveItemInSchedule(#=ScheduleId#, #=WorkOrderId#," + (short)PE.DbEntity.Enums.ScheduleMoveOperator.Up + " )", false).ToString()
+                       + @Html.ImageButton("down", "moveItemInSchedule(#=ScheduleId#, #=WorkOrderId#," + (short)PE.DbEntity.Enums.ScheduleMoveOperator.Down + ")", false).ToString()
+                       + @Html.ImageButton("delete", "removeItemFromSchedule(#=ScheduleId#,#=WorkOrderId#, #=ProductCatalogueName#)", false).ToString()
+                       + @Html.ImageButton("details", "GoToWorkOrderDetails(#=WorkOrderId#)", false).ToString());
+        })
+        .DataSource(ds => ds
+           .Ajax()
+           .ServerOperation(true)
+           .Events(e => e.Error("TelerikErrorHandler"))
+           .Read(r => r.Action("GetSchedule", "Schedule"))
+           .PageSize(28)
+           .Sort(sort =>
+           {
+               sort.Add(s => s.ScheduleOrderSeq).Ascending();
+           }))
+    )
+</div>
+
+@Styles.Render("~/Content/Module/Schedule")
+@Scripts.Render("~/Scripts/Module/Schedule")

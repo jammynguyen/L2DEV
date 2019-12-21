@@ -1,0 +1,122 @@
+﻿@model PE.HMIWWW.ViewModel.Module.Lite.Delay.VM_DelayCatalogue
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+
+@using (Ajax.BeginForm("AddDelayCatalogueAsync", "DelaysCatalogue", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    //@Html.AntiForgeryToken()
+    //@Html.HiddenFor(x => x.Id);
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.DelayName)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.DelayName).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.DelayName)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.DelayCode)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.DelayCode).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.DelayCode)
+        </div>
+    </div>
+
+    <div class="row form-group">
+
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.DelayCategory)</label>
+        </div>
+        <div class="col">
+            @(Html.Kendo().DropDownListFor(x => x.FkDelayCatalogueCategoryId)
+                                             .Name("FkDelayCatalogueCategoryId")
+                                             .DataTextField("Text")
+                                             .DataValueField("Value")
+                                             .HtmlAttributes(new { @class = "form-control form-control-sm" })
+                                             .BindTo(new SelectList(@ViewBag.CatalogueCategory, "Id", "DelayCategoryCode"))
+                                             .OptionLabel("-")
+            )
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.StdDelayTime)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().NumericTextBoxFor(x => x.StdDelayTime).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.StdDelayTime)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.DelayDescription)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.DelayDescription).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.DelayDescription)
+        </div>
+    </div>
+
+    <div class="row form-group">
+
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.ParentDelayName)</label>
+        </div>
+        <div class="col">
+            @(Html.Kendo().DropDownListFor(x => x.ParentDelayCatalogueId)
+                                             .Name("ParentDelayCatalogueId")
+                                             .DataTextField("Text")
+                                             .DataValueField("Value")
+                                             .HtmlAttributes(new { @class = "form-control form-control-sm" })
+                                             .BindTo(new SelectList(@ViewBag.ParentDelay, "Id", "DelayName"))
+                                             .OptionLabel("-")
+            )
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" type="submit" onclick="displayMessage()">
+                @VM_Resources.GLOB_Form_Button_Save
+            </button>
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+
+        $("#form").kendoValidator().data("kendoValidator");
+
+    });
+
+    function displayMessage() {
+
+        var validator = $("#form").kendoValidator().data("kendoValidator");
+
+        if (validator.validate()) {
+            $('#error').css("display", "none");
+        } else {
+            $('#error').css("display", "block");
+            $('#popup-footer')
+                .css('display', 'block')
+                .css('background-color', 'rgb(206, 0, 55)');
+        }
+    };
+</script>

@@ -1,0 +1,228 @@
+﻿
+
+@model PE.HMIWWW.ViewModel.Module.VM_GrooveTemplate
+@{
+    ViewBag.Title = VM_Resources.PAGE_TITLE_GrooveTemplates_AddGrooveTemplateDialog;
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@using (Ajax.BeginForm("InsertGrooveTemplate", "GrooveTemplates", new AjaxOptions { UpdateTargetId = "formContainer", OnBegin = "OnFormBegin", OnSuccess = "OnFormSuccess", OnFailure = "OnFormError" }, new { @class = "container-fluid", id = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id);
+
+    <div class="row form-group">
+        <div class="col text-right align-self-center">
+            <label>@Html.LabelFor(x => x.GrooveTemplateName)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.GrooveTemplateName).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.GrooveTemplateName)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.Shape)</label>
+        </div>
+        <div class="col">
+            @*@(Html.Kendo().DropDownListFor(x => x.Shape)
+                                     .Name("Shape")
+                                     .DataTextField("Text")
+                                     .DataValueField("Value")
+                                     .HtmlAttributes(new { @class = "form-control form-control-sm" })
+                                     .BindTo(new SelectList(@ViewBag.ShapeList.Items, "Key", "Value"))
+                                     .OptionLabel("-")
+                )*@
+            @Html.Kendo().TextBoxFor(x => x.Shape).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.Shape)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.GrooveTemplateCode)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.GrooveTemplateCode).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.GrooveTemplateCode)
+        </div>
+        @*@Html.Kendo().TextBoxFor(x => x.DefectCatalogueCategory).HtmlAttributes( new { @class = "form-control form-control-sm" })*@
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.R1)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.R1).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.R1)
+        </div>
+        @*@Html.Kendo().TextBoxFor(x => x.DefectCatalogueCategory).HtmlAttributes( new { @class = "form-control form-control-sm" })*@
+    </div>
+
+
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.R2)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.R2).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.R2)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.R3)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.R3).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.R3)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.GrindingProgramName)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.GrindingProgramName).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.GrindingProgramName)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.W1)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.W1).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.W1)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.W2)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.W2).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.W2)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.D1)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.D1).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.D1)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.D2)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.D2).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.D2)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.SpreadFactor)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.SpreadFactor).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.SpreadFactor)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.Angle1)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.Angle1).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.Angle1)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.Angle2)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.Angle2).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.Angle2)
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.Ds)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.Ds).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.Ds)
+        </div>
+    </div>
+
+    @*<div class="row form-group">
+        <div class="col text-right">
+            <label>@Html.LabelFor(x => x.Dw)</label>
+        </div>
+        <div class="col">
+            @Html.Kendo().TextBoxFor(x => x.Dw).HtmlAttributes(new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(x => x.Dw)
+        </div>
+    </div>*@
+
+
+
+    <hr />
+
+    <div class="row form-group">
+        <div class="col invalid">
+            <p id="error">
+                <span class="k-icon k-i-close-circle error-icon"></span> @VM_Resources.GLOB_Error
+            </p>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-primary popup_button" onclick="displayMessage()" type="submit">
+                @VM_Resources.GLOB_Form_Button_Add
+            </button>
+        </div>
+    </div>
+}
+
+<script>
+    //$.validator.unobtrusive.parse("#form");
+
+    $(function () {
+
+        $('#error').css("display", "none");
+        $("#form").kendoValidator().data("kendoValidator");
+
+    });
+
+    function displayMessage() {
+
+        var validator = $("#form").kendoValidator().data("kendoValidator");
+
+        if (validator.validate()) {
+            $('#error').css("display", "none");
+        } else {
+            $('#error').css("display", "block");
+            $('#popup-footer')
+                .css('display', 'block')
+                .css('background-color', 'rgb(206, 0, 55)');
+        }
+    };
+
+</script>

@@ -1,0 +1,421 @@
+<#
+// Copyright (C) Simon Hughes 2012
+// v2.21.1
+#>
+<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ include file="EF6.Utility.CS.ttinclude" once="true" #>
+<#@ assembly name="System.Configuration" #>
+<#@ assembly name="System.Windows.Forms" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data.Common" #>
+<#@ import namespace="System.Data.Entity.Infrastructure.Pluralization" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Configuration" #>
+<#@ import namespace="System.Windows.Forms" #>
+<#@ import namespace="EnvDTE" #>
+//<#@ output extension=".cs"#>
+
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="EnvDTE80" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Configuration" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Configuration" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="EnvDTE80" #>
+
+<#
+        var fileManager = EntityFrameworkTemplateFileManager.Create(this);
+
+		
+#>
+<#+
+
+        [Flags]
+        public enum CommentsStyle
+        {
+            None,
+            InSummaryBlock,
+            AtEndOfField
+        };
+
+        // Settings - edit these in the main <name>.tt file *******************************************************************************
+        string OutputProjectName = "";
+		string OutputProjectFolder_Enum = "";
+		///will be generate in script on runtime
+			string path_targetProject ="";
+			string path_model ="";
+			string path_view ="";
+			string path_partial ="";
+			string path_model_map = "";
+			string path_view_map = "";
+			string path_enums = "";
+		string ConnectionStringName = "";
+		string EnvironmentVariableName = "SMF_CONNECTION_STRING"; ///variable name witch connection string
+        string DbContextName = "MyDbContext";
+        private string _connectionString = "";
+        private string _providerName = "";
+        private string _configFilePath = "";
+
+        string CodeGeneratedAttribute = "[System.CodeDom.Compiler.GeneratedCode(\"EF.Reverse.POCO.Generator\", \"2.21.1.0\")]";
+
+
+		public static void ArgumentNotNull<T>(T arg, string name) where T : class
+        {
+            if (arg == null)
+            {
+                throw new ArgumentNullException(name);
+            }
+        }
+
+#>
+<#+
+public void GenerateEnums()
+{
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // instantiate CoreAutomation
+    var coreAutomation = new CoreAutomation((IServiceProvider)this.Host);
+	string connectionString ="";
+
+	ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap(this.Host.ResolvePath(@"..\App.config"));
+	configFileMap.ExeConfigFilename = this.Host.ResolvePath(@"..\App.config");
+	System.Configuration.Configuration config = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
+	connectionString = config.ConnectionStrings.ConnectionStrings["PEContext"].ConnectionString;
+
+	if (connectionString.ToLower().StartsWith("metadata="))
+	{
+		System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder efBuilder = new System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder(connectionString);
+		connectionString = efBuilder.ProviderConnectionString;
+	}
+	
+    // get startup project for our solution
+	var startupProject = coreAutomation.StartUpProject;
+	var proj = coreAutomation.Solution;
+	var path = Directory.GetParent(proj.FullName);
+    //string connectionString = Environment.GetEnvironmentVariable(EnvironmentVariableName, EnvironmentVariableTarget.Machine);
+	//string connectionString = PeContextconnectionString;
+
+	//moving generated file between POCO project and target project
+    string destinationDir = @"" + path.FullName + "\\" + OutputProjectName + "\\" + OutputProjectFolder_Enum;
+
+    // enum value column name:
+    const string enumDescriptionColumnName = "Keyword";
+	const string enumDescriptionColumnValue = "Value";
+
+	 
+    var fileManager = EntityFrameworkTemplateFileManager.Create(this);
+    var codeGenerationTools = new CodeGenerationTools(this);
+
+
+	//delete prev version of file,
+	try
+	{
+		if(System.IO.Directory.Exists(destinationDir))
+		{
+			if(System.IO.File.Exists(destinationDir + "\\Enums.cs"))
+				System.IO.File.Delete(destinationDir + "\\Enums.cs");
+		}
+		else 
+			 System.IO.Directory.CreateDirectory(destinationDir);
+	}
+	catch(System.IO.IOException e){}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//header of new file
+	fileManager.StartNewFile(@"Enums.cs");
+	WriteLine("namespace " + OutputProjectName+ "." + OutputProjectFolder_Enum);
+	WriteLine("//[SF] Connection string: " + connectionString);
+	WriteLine("");
+    ClearIndent();
+    WriteLine("{");
+    PushIndent("    ");
+    
+	if (connectionString != null)
+	{
+
+		//connecting with db and query
+		var connection = new SqlConnection(connectionString);
+        var command = connection.CreateCommand();
+        connection.Open();
+
+		command.CommandText = string.Format(@"SELECT EnumNameId, EnumName, EnumType, IsSMF FROM smf.EnumNames");
+
+        var tableReader = command.ExecuteReader();
+		var enumList = new List<EnumsNames>();
+		while (tableReader.Read())
+        {
+			bool isSmfEnum = (bool)tableReader["IsSMF"];
+			if(!isSmfEnum)
+			{
+				enumList.Add(new EnumsNames() { Id = tableReader["EnumNameId"].ToString(), Name = tableReader["EnumName"].ToString(), Type = tableReader["EnumType"].ToString() });
+			}
+		}
+        connection.Close();
+
+        foreach (var row in enumList)
+        {
+			connection.Open();
+
+            // get the enum name
+			WriteLine("public enum " + row.Name + " : " + row.Type);
+			WriteLine("{");
+
+			ClearIndent();
+
+			command.CommandText = string.Format("SELECT * FROM smf.EnumValues WHERE FkEnumNameId = {0}", row.Id);
+            var columnReader = command.ExecuteReader();
+            var values = new Dictionary<string, string>();
+            while (columnReader.Read())
+            {
+                // Fill only the values that the field "Keyword" have value
+                if (!string.IsNullOrEmpty(columnReader[enumDescriptionColumnName].ToString().Trim()))
+                {
+                    values.Add(columnReader[enumDescriptionColumnName].ToString().Trim().Replace(" ",""),
+                               columnReader[enumDescriptionColumnValue].ToString().Trim().Replace(" ",""));
+
+                }
+            }
+            
+            foreach (var entry in values)
+            {
+                PushIndent("    ");
+                PushIndent("    ");
+                WriteLine(entry.Key + " = " + entry.Value + ",");
+				ClearIndent();
+                
+            }
+			PushIndent("    ");
+			WriteLine("}");
+			WriteLine("");
+			connection.Close();
+		}
+		
+	}
+
+	ClearIndent();
+	WriteLine("}");
+	ClearIndent();
+
+	//finish of generating and saving file
+	try
+	{
+	fileManager.Process();
+	}
+	catch(Exception e){}
+
+	//move file to specified project, exclude it form POCO, and then include into new project
+	//System.IO.File.Move(sourceDir + "\\Enums.cs", destinationDir + "\\Enums.cs");
+	//ExcludeFileFromProject(GetOutputProject(PEPOCOGeneratorProjectName), sourceDir);
+	IncludeEnumFileToProject(GetOutputProject(OutputProjectName), destinationDir);
+
+
+}
+#>
+<#+
+	  private void IncludeEnumFileToProject(EnvDTE.Project project, string path)
+	  {
+		var directory = new  System.IO.DirectoryInfo(path);
+		//project.ProjectItems.AddFolder(directory);
+	    foreach (System.IO.FileInfo file in directory.GetFiles()) 
+		{
+			if(file.Name == "Enums.cs")
+			{
+				string filename = path + "\\" + file.Name;
+				project.ProjectItems.AddFromFile(filename);
+			}
+		}
+	  }
+
+	  private void ExcludeFileFromProject(EnvDTE.Project project, string path)
+		{
+
+			foreach(ProjectItem subItem in project.ProjectItems)
+				{
+					if(subItem.Name == "ModelGenerate.tt")
+					{
+						foreach(ProjectItem s in subItem.ProjectItems)
+						{
+							if ( s.Name == "Enums.cs")
+							{
+								s.Delete();
+								return;
+							}
+						
+						}
+					}
+
+				}
+		}
+
+	  private EnvDTE.Project GetOutputProject(string projectName)
+		{
+				var coreAutomation = new CoreAutomation((IServiceProvider)this.Host);
+				var projects = coreAutomation.Projects();
+				EnvDTE.Project _projectOutput = null;
+
+					foreach (EnvDTE.Project dteProject in projects)
+						{
+							if (projectName == dteProject.Name)
+								{
+									_projectOutput=dteProject;
+									break;
+								}
+						}
+				return _projectOutput;
+		}
+		private void SetConnectionStringToWarehouseDB()
+		{
+			_connectionString =  Environment.GetEnvironmentVariable("DW_CONNECTION_STRING", EnvironmentVariableTarget.Machine);
+		}
+#>
+<#+
+    public class EnumsNames
+    {
+        public string Id {get; set;}
+        public string Name {get; set;}
+        public string Type {get; set;}
+    }
+#>
+
+
+<#+
+
+public class CoreAutomation
+{
+    private readonly DTE _dte;
+  
+    public CoreAutomation(IServiceProvider host)
+    {
+        _dte = (DTE)host.GetService(typeof(DTE));
+    }
+
+    /// <summary>
+    /// Provides access to the host project.
+    /// </summary>
+    /// <remarks>
+    /// http://msdn.microsoft.com/en-us/library/envdte.project.aspx
+    /// </remarks>
+    public Project CurrentProject
+    {
+        get
+        {
+            return (Project)((Array)_dte.ActiveSolutionProjects).GetValue(0);
+        }
+    }
+
+    /// <summary>
+    /// Provides access to the host solution.
+    /// </summary>
+    public Solution Solution 
+    { 
+        get { return _dte.Solution; }
+    }
+
+
+
+    /// <summary>
+    /// Provides access to the hosts solution startup project.
+    /// </summary>
+    public Project StartUpProject 
+    {
+        get
+        {
+            var startupProjectName = ((Array)_dte.Solution.SolutionBuild.StartupProjects).GetValue(0).ToString();
+			
+            var projects = Projects();
+
+            foreach (var project in projects)
+            {
+                // returns object typeof(Project), not just project name
+                if (project.UniqueName == startupProjectName)
+                return project;
+            }
+            return null;
+        }
+    }
+	
+    /// <summary>
+    /// Provides access to the application/web configuration file.
+    /// </summary>
+    /// <remarks>
+    /// http://msdn.microsoft.com/en-us/library/system.configuration.configuration.aspx
+    /// </remarks>
+    public System.Configuration.Configuration Configuration(Project project)
+    {
+        string configurationFilename = null;
+        foreach (ProjectItem item in project.ProjectItems)
+        {
+            if (!Regex.IsMatch(item.Name, "(app|web).config", RegexOptions.IgnoreCase)) 
+                continue;
+            configurationFilename = item.FileNames[0];
+            break;
+        }
+
+        if(!string.IsNullOrEmpty(configurationFilename))
+        {
+            var configFile = new ExeConfigurationFileMap {ExeConfigFilename = configurationFilename};
+            return System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(configFile, ConfigurationUserLevel.None);
+        }
+    	return null;
+    }
+
+    /// <summary>
+    /// Returns all Projects in Solution
+    /// </summary> 
+    public IList<Project> Projects()
+    {
+        var projects = _dte.Solution.Projects;
+        var list = new List<Project>();
+        var item = projects.GetEnumerator();
+        while (item.MoveNext())
+        {
+            var project = item.Current as Project;
+            if (project == null)
+            {
+                continue;
+            }
+
+            if (project.Kind == ProjectKinds.vsProjectKindSolutionFolder)
+            {
+                list.AddRange(GetSolutionFolderProjects(project));
+            }
+            else
+            {
+            list.Add(project);
+            }
+        }
+        return list;
+    }
+
+    private IEnumerable<Project> GetSolutionFolderProjects(Project solutionFolder)
+    {
+        var list = new List<Project>();
+        for (var i = 1; i <= solutionFolder.ProjectItems.Count; i++)
+        {
+            var subProject = solutionFolder.ProjectItems.Item(i).SubProject;
+            if (subProject == null)
+            {
+                continue;
+            }
+
+            // If this is another solution folder, do a recursive call, otherwise add
+            if (subProject.Kind == ProjectKinds.vsProjectKindSolutionFolder)
+            {
+                list.AddRange(GetSolutionFolderProjects(subProject));
+            }
+            else
+            {
+                list.Add(subProject);
+            }
+        }
+        return list;
+    }
+}
+#>
